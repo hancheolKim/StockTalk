@@ -87,16 +87,15 @@ const App = () => {
               max="9"
               min="0"
               value={userId}
-              onChange={(e) => setUserId(e.target.value)}
               placeholder="아이디 입력 (한자리 숫자)"
             />
+            <input type="button" onClick={()=>setUserId({userId})}>로그인</input>
           </div>
         )}
 
         {/* 로그인/회원가입 버튼 */}
         {!user && !inputError && (
           <div className="actions">
-            <a href="/login">로그인</a>
             <a href="/signup">회원가입</a>
           </div>
         )}
@@ -104,13 +103,13 @@ const App = () => {
         {/* 로그아웃 버튼 */}
         {user && (
           <div className="actions">
-            <a href="/logout" onClick={() => {
+            <button onClick={() => {
               // 로그아웃 시 로컬 스토리지에서 사용자 정보 삭제
               localStorage.removeItem("user");
               setUser(null); // 사용자 정보 상태 초기화
             }}>
               로그아웃
-            </a>
+            </button>
           </div>
         )}
       </div>
