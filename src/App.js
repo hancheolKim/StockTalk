@@ -133,10 +133,6 @@ const App = () => {
           {message && <p>{message}</p>}
         </div>
       </div>
-
-      <footer className="footer">
-        &copy; 2024 Our Website. All Rights Reserved.
-      </footer>
     </div>
   );
 };
