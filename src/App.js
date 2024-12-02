@@ -26,17 +26,22 @@ const App = () => {
     fetchUsers();
   }, []);
 
-  // 방명록에 사용자 추가
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      // 사용자 추가 요청
+      // 사용자 추가 요청 (params 방식)
       const response = await axios.post(
         "https://w5d72d166d2ed4d422a9bb5407dfb7fd8.apppaas.app/addUser",
+        null, // body를 빈 값으로 설정
         {
-          name: name,
-          email: email
+          params: {
+            name: name,
+            email: email
+          },
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
         }
       );
 
@@ -48,7 +53,7 @@ const App = () => {
       setMessage("데이터를 추가하는 데 문제가 발생했습니다.");
       console.error("방명록에 사용자 추가 중 오류 발생:", error);
     }
-  };
+};
 
   return (
     <div>
