@@ -44,6 +44,17 @@ const App = () => {
     }
   }, [userId]);
 
+  // 로그인 처리 함수
+  const handleLogin = () => {
+    // 입력된 사용자 ID가 한자리 숫자인지 확인
+    if (userId < 0 || userId > 9) {
+      setInputError('id는 한자리 숫자여야 합니다.');
+      return;
+    }
+    setInputError('');
+    setUserId(userId);
+  };
+
   return (
     <div>
       <header className="header">
@@ -87,9 +98,10 @@ const App = () => {
               max="9"
               min="0"
               value={userId}
+              onChange={(e) => setUserId(e.target.value)}  // onChange로 상태 업데이트
               placeholder="아이디 입력 (한자리 숫자)"
             />
-            <input type="button" onClick={()=>setUserId({userId})}>로그인</input>
+            <button onClick={handleLogin}>로그인</button> {/* 로그인 버튼 */}
           </div>
         )}
 
