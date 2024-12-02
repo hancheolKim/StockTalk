@@ -31,6 +31,7 @@ const App = () => {
       <div className="container">
         <h2>
           안녕, <span>{user ? user.name : "방문자"}</span>님!
+          이건 React로 배포한 프론트엔드 서버!
         </h2>
 
         {/* 에러 메시지 표시 */}
