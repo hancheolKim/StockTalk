@@ -3,127 +3,105 @@ import axios from "axios";
 import "./App.css"; // 스타일은 별도 CSS 파일로 분리
 
 const App = () => {
-  const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);  // 에러 상태 추가
-  const [userId, setUserId] = useState(''); // 사용자 id 상태 추가
-  const [inputError, setInputError] = useState(''); // 입력 오류 상태 추가
+  const [users, setUsers] = useState([]); // 방명록 사용자 목록 상태
+  const [name, setName] = useState(""); // 사용자 이름 상태
+  const [email, setEmail] = useState(""); // 사용자 이메일 상태
+  const [message, setMessage] = useState(""); // 사용자 추가 성공/실패 메시지 상태
+  const [error, setError] = useState(""); // 에러 메시지 상태
 
-  // 앱이 로드될 때 로컬 스토리지에서 사용자 정보 불러오기
+  // 방명록 데이터 조회
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      setUser(JSON.parse(savedUser)); // 로컬 스토리지에서 가져온 사용자 정보를 상태에 저장
-    }
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(
+          "https://w5d72d166d2ed4d422a9bb5407dfb7fd8.apppaas.app/home"
+        ); // 방명록 데이터 가져오기
+        setUsers(response.data); // 방명록 사용자 목록 업데이트
+      } catch (error) {
+        console.error("방명록 데이터를 불러오는 데 문제가 발생했습니다.", error);
+        setError("방명록 데이터를 불러오는 데 문제가 발생했습니다.");
+      }
+    };
+
+    fetchUsers();
   }, []);
 
-  // 사용자 데이터를 가져오기 위한 useEffect
-  useEffect(() => {
-    if (userId !== '') {
-      const fetchUser = async () => {
-        try {
-          // id가 한자리 숫자인지 확인
-          if (userId < 0 || userId > 9) {
-            setInputError('id는 한자리 숫자여야 합니다.');
-            return;
-          }
+  // 방명록에 사용자 추가
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-          const response = await axios.get(`https://w5d72d166d2ed4d422a9bb5407dfb7fd8.apppaas.app/home?id=${userId}`); // id를 쿼리 파라미터로 전달
-          console.log('API 응답 데이터:', response.data);  // 응답 데이터 로그 출력
-          setUser(response.data); // 사용자 정보 설정
-
-          // 사용자 정보를 로컬 스토리지에 저장
-          localStorage.setItem("user", JSON.stringify(response.data));
-
-        } catch (error) {
-          console.error("Failed to fetch user data:", error);
-          setError("데이터를 불러오는 데 문제가 발생했습니다. 나중에 다시 시도해주세요.");  // 에러 메시지 설정
+    try {
+      // 사용자 추가 요청
+      const response = await axios.post(
+        "https://w5d72d166d2ed4d422a9bb5407dfb7fd8.apppaas.app/addUser",
+        {
+          name: name,
+          email: email
         }
-      };
+      );
 
-      fetchUser();
+      setMessage(response.data); // 성공 메시지 또는 실패 메시지 출력
+      setName(""); // 입력란 초기화
+      setEmail(""); // 입력란 초기화
+      setUsers([...users, { name, email }]); // 새로운 사용자 방명록에 추가
+    } catch (error) {
+      setMessage("데이터를 추가하는 데 문제가 발생했습니다.");
+      console.error("방명록에 사용자 추가 중 오류 발생:", error);
     }
-  }, [userId]);
-
-  // 로그인 처리 함수
-  const handleLogin = () => {
-    // 입력된 사용자 ID가 한자리 숫자인지 확인
-    if (userId < 0 || userId > 9) {
-      setInputError('id는 한자리 숫자여야 합니다.');
-      return;
-    }
-    setInputError('');
-    setUserId(userId);
   };
 
   return (
     <div>
       <header className="header">
-        <h1>Welcome to Our Website</h1>
+        <h1>Welcome to Our Guestbook</h1>
       </header>
 
       <div className="container">
-        <h2>
-          안녕, <span>{user ? user.name : "방문자"}</span>님!
-          이건 React로 배포한 프론트엔드 서버!
-        </h2>
+        {/* 방명록 조회 */}
+        <h2>방명록</h2>
+        {error && <div className="error-message">{error}</div>}
+        
+        <div className="guestbook">
+          {users.length > 0 ? (
+            <ul>
+              {users.map((user, index) => (
+                <li key={index}>
+                  <p>이름: {user.name}</p>
+                  <p>이메일: {user.email}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>방명록에 아무것도 없습니다.</p>
+          )}
+        </div>
 
-        {/* 에러 메시지 표시 */}
-        {error && (
-          <div className="error-message">
-            <p>{error}</p>
-          </div>
-        )}
-
-        {/* 입력 오류 메시지 표시 */}
-        {inputError && (
-          <div className="error-message">
-            <p>{inputError}</p>
-          </div>
-        )}
-
-        {/* 사용자 정보 출력 */}
-        {user && (
-          <div className="user-info">
-            <p>아이디: {user.id}</p>
-            <p>이메일: {user.email}</p>
-            <p>가입일: {user.createdAt}</p>
-          </div>
-        )}
-
-        {/* 사용자 ID 입력란 */}
-        {!user && (
-          <div className="actions">
-            <input
-              type="number"
-              max="9"
-              min="0"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}  // onChange로 상태 업데이트
-              placeholder="아이디 입력 (한자리 숫자)"
-            />
-            <button onClick={handleLogin}>로그인</button> {/* 로그인 버튼 */}
-          </div>
-        )}
-
-        {/* 로그인/회원가입 버튼 */}
-        {!user && !inputError && (
-          <div className="actions">
-            <a href="/signup">회원가입</a>
-          </div>
-        )}
-
-        {/* 로그아웃 버튼 */}
-        {user && (
-          <div className="actions">
-            <button onClick={() => {
-              // 로그아웃 시 로컬 스토리지에서 사용자 정보 삭제
-              localStorage.removeItem("user");
-              setUser(null); // 사용자 정보 상태 초기화
-            }}>
-              로그아웃
-            </button>
-          </div>
-        )}
+        {/* 방명록 추가 폼 */}
+        <div className="actions">
+          <h3>방명록에 추가</h3>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>이름: </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label>이메일: </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit">방명록에 추가</button>
+          </form>
+          {message && <p>{message}</p>}
+        </div>
       </div>
 
       <footer className="footer">
