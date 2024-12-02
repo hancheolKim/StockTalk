@@ -58,7 +58,7 @@ const App = () => {
 
       <div className="container">
         {/* 방명록 조회 */}
-        <h2>방명록</h2>
+        <h2>한철 사이트 방명록</h2>
         {error && <div className="error-message">{error}</div>}
         
         <div className="guestbook">
