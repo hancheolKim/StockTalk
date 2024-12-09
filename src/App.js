@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import NewPage from "./components/NewPage";
+import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import "./App.css"; // 스타일은 별도 CSS 파일로 분리
+import LoginModal from "./components/LoginModal";
+import "./App.css";
 
 const App = () => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
   return (
     <div>
+      {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
+      <div className="actions">
+        <button onClick={() => setShowLoginModal(true)}>로그인</button>
+      </div>
       <Routes>
-        <Route path="/" element={
-            <div className="actions">
-              <Link to="/NewPage">
-                <button>NewPage로 이동1</button>
-              </Link>
-            </div>
-        } />
-        
-        {/* NewPage 컴포넌트에 대한 경로 */}
-        <Route path="/NewPage" element={<NewPage/>} />
+        <Route path="/" element={<div>메인 페이지</div>} />
       </Routes>
     </div>
   );
