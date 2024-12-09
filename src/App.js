@@ -11,7 +11,7 @@ const App = () => {
         <Route path="/" element={
             <div className="actions">
               <Link to="/NewPage">
-                <button>NewPage로 이동</button>
+                <button>NewPage로 이동1</button>
               </Link>
             </div>
         } />
