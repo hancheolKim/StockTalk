@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import NewPage from "./components/NewPage";
+import { Routes, Route, Link } from "react-router-dom";
 import "./App.css"; // 스타일은 별도 CSS 파일로 분리
 
 const App = () => {
@@ -81,58 +83,74 @@ const App = () => {
 
   return (
     <div>
-      <header className="header">
-        <h1>Welcome to Our Guestbook</h1>
-      </header>
+      <Routes>
+        <Route path="/" element={
+          <div>
+            <header className="header">
+              <h1>Welcome to Our Guestbook</h1>
+            </header>
 
-      <div className="container">
-        {/* 방명록 조회 */}
-        <h2>한철 방명록</h2>
-        {error && <div className="error-message">{error}</div>}
+            <div className="container">
+              {/* 방명록 조회 */}
+              <h2>한철 방명록</h2>
+              {error && <div className="error-message">{error}</div>}
 
-        <div className="guestbook">
-          {users.length > 0 ? (
-            <ul>
-              {users.map((user, index) => (
-                <li key={index}>
-                  <p>이름: {user.name}</p>
-                  <p>이메일: {user.email}</p>
-                  <button onClick={() => handleDelete(user.id)}>X</button> {/* 삭제 버튼 */}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>방명록에 아무것도 없습니다.</p>
-          )}
-        </div>
+              <div className="guestbook">
+                {users.length > 0 ? (
+                  <ul>
+                    {users.map((user, index) => (
+                      <li key={index}>
+                        <p>이름: {user.name}</p>
+                        <p>이메일: {user.email}</p>
+                        <button onClick={() => handleDelete(user.id)}>X</button> {/* 삭제 버튼 */}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>방명록에 아무것도 없습니다.</p>
+                )}
+              </div>
 
-        {/* 방명록 추가 폼 */}
-        <div className="actions">
-          <h3>방명록에 추가</h3>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>이름: </label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
+              {/* 방명록 추가 폼 */}
+              <div className="actions">
+                <h3>방명록에 추가</h3>
+                <form onSubmit={handleSubmit}>
+                  <div>
+                    <label>이름: </label>
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label>이메일: </label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <button type="submit">방명록에 추가</button>
+                </form>
+                {message && <p>{message}</p>}
+              </div>
+
+              {/* NewPage로 이동하는 버튼 */}
+              <div className="actions">
+                <Link to="/NewPage">
+                  <button>NewPage로 이동</button>
+                </Link>
+              </div>
             </div>
-            <div>
-              <label>이메일: </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit">방명록에 추가</button>
-          </form>
-          {message && <p>{message}</p>}
-        </div>
-      </div>
+          </div>
+        } />
+        
+        {/* NewPage 컴포넌트에 대한 경로 */}
+        <Route path="/NewPage" element={<NewPage />} />
+      </Routes>
     </div>
   );
 };
