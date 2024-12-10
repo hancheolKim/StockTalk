@@ -1,126 +1,130 @@
-/* 전체 페이지 기본 스타일 */
+/* 기본 레이아웃 스타일 */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f7fa;
-  color: #333;
+  background-color: #f4f4f4;
 }
 
-h1, h2, h3 {
-  text-align: center;
-  color: #444;
-}
-
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.header {
-  background-color: #4CAF50;
-  color: white;
-  padding: 15px;
-  text-align: center;
-  font-size: 24px;
-}
-
-.footer {
-  text-align: center;
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-}
-
-h2 {
-  margin-top: 20px;
-  font-size: 28px;
-  color: #4CAF50;
-}
-
-.guestbook {
-  margin-top: 20px;
-}
-
-.guestbook ul {
-  list-style-type: none;
+div {
+  margin: 0;
   padding: 0;
 }
 
-.guestbook li {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.guestbook p {
-  margin: 5px 0;
-  color: #555;
-}
-
+/* 로그인 버튼과 로그아웃 버튼 스타일 */
 .actions {
-  margin-top: 30px;
-}
-
-form {
+  margin-top: 20px;
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  justify-content: flex-start; /* 버튼과 사용자 정보를 왼쪽 정렬 */
+  align-items: center; /* 세로 정렬 */
+  padding: 0 20px;
 }
 
-form div {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  font-size: 16px;
-  margin-bottom: 5px;
-}
-
-input {
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-button {
-  padding: 10px;
+.actions button {
   background-color: #4CAF50;
   color: white;
-  font-size: 16px;
   border: none;
-  border-radius: 5px;
+  padding: 8px 16px; /* 높이는 그대로 두고 좌우만 적절히 조정 */
+  margin-left: 10px;
   cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  width: auto; /* 버튼 크기를 자동으로 조정 */
+  min-width: 80px; /* 최소 너비 설정 */
+  text-align: center;
 }
 
-button:hover {
+.actions button:hover {
   background-color: #45a049;
 }
 
-.error-message {
-  color: red;
-  font-size: 16px;
-  text-align: center;
-}
-
-.success-message {
-  color: green;
-  font-size: 16px;
-  text-align: center;
-}
-
-form input:focus {
+.actions button:focus {
   outline: none;
-  border-color: #4CAF50;
 }
+
+/* 로그인된 사용자 정보 스타일 */
+.user-info {
+  font-size: 1rem;
+  color: #333;
+  margin-right: 20px; /* 버튼과의 간격을 조정 */
+  font-size: 1.1rem;
+}
+
+/* 로그인된 사용자 이름 스타일 */
+.user-info p {
+  font-size: 1.2rem;
+  color: #4CAF50; /* 로그인된 사용자 이름을 강조하는 색상 */
+}
+
+
+/* 메인 페이지 스타일 */
+h2 {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* 메인 컨텐츠 박스 */
+.main-container {
+  min-height: 100vh; /* 화면 높이에 맞게 확장되도록 설정 */
+  margin: 0 auto; /* 수평 중앙 정렬 */
+  padding: 20px;
+  background-color: #ffffff; /* 하얀색 배경 */
+  border-radius: 10px; /* 모서리 둥글게 처리 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
+  box-sizing: border-box; /* padding, border를 포함한 전체 크기 설정 */
+}
+
+/* 네비게이션 바 버튼 스타일 */
+.navbar-button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.navbar-button:hover {
+  background-color: #0056b3;
+}
+
+.navbar-button:focus {
+  outline: none;
+}
+
+/* App 레이아웃 설정 */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-body {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+/* main-container는 Navbar의 너비만큼 오른쪽으로 이동 */
+.main-container {
+  flex-grow: 1;
+  margin-left: 200px; /* Navbar의 너비 */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 모바일 환경에서 Navbar 숨김 */
+@media (max-width: 768px) {
+  .main-container {
+    margin-left: 0; /* Navbar가 숨겨질 경우 기본 여백 제거 */
+  }
+}
+

@@ -1,0 +1,54 @@
+/* Header 컴포넌트 스타일 */
+header {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  display: flex; /* 플렉스 컨테이너 설정 */
+  justify-content: center; /* 기본적으로 title을 가운데 정렬 */
+  align-items: center; /* 세로축 가운데 정렬 */
+  font-size: 1.5rem;
+  box-sizing: border-box; /* 패딩 포함 크기 계산 */
+}
+
+/* PC 환경에서 */
+@media (min-width: 769px) {
+  header {
+    justify-content: center; /* header-title을 가운데로 정렬 */
+  }
+
+  .navbar-toggle {
+    display: none; /* PC에서는 버튼을 숨깁니다 */
+  }
+
+  .header-title {
+    font-size: 2rem; /* PC에서 제목 크기 설정 */
+  }
+}
+
+/* 모바일 환경에서만 버튼 표시 */
+@media (max-width: 768px) {
+  header {
+    justify-content: space-between; /* 모바일에서는 title과 버튼을 양쪽 끝에 배치 */
+  }
+
+  .header-title {
+    font-size: 1.5rem; /* 모바일에서 제목 크기 조정 */
+    margin: 0; /* 여백 제거 */
+  }
+
+  .navbar-toggle {
+    display: block; /* 모바일에서는 버튼을 표시 */
+    background-color: #636e72;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    width : 70px;
+  }
+
+  .navbar-toggle:hover {
+    background-color: #b2bec3;
+  }
+}

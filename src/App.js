@@ -1,20 +1,68 @@
-import React, { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import LoginModal from "./components/LoginModal";
+import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import LoginModal from "./components/login/LoginModal";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import Item from "./components/item/Item";
+import Sales from "./components/sales/Sales";
+import EMP from "./components/emp/EMP";
+import Navbar from "./components/layout/Navbar";
 import "./App.css";
 
 const App = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isNavVisible, setIsNavVisible] = useState(window.innerWidth >= 768);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    setIsLoggedIn(!!userId);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsNavVisible(window.innerWidth >= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setIsLoggedIn(false);
+  };
+
+  const toggleNavbar = () => {
+    setIsNavVisible((prev) => !prev);
+  };
 
   return (
-    <div>
-      {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
-      <div className="actions">
-        <button onClick={() => setShowLoginModal(true)}>로그인</button>
+    <div className="app">
+      {/* Header에 toggleNavbar와 isNavVisible 전달 */}
+      <Header toggleNavbar={toggleNavbar} isNavVisible={isNavVisible} />
+      <div className="app-body">
+        {/* Navbar에 isVisible 상태를 전달 */}
+        <Navbar isVisible={isNavVisible} />
+        <div className="main-container">
+          {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
+          <div className="actions">
+            {isLoggedIn && <p>안녕하세요, {localStorage.getItem("userId")}님!</p>}
+            {isLoggedIn ? (
+              <button onClick={handleLogout}>로그아웃</button>
+            ) : (
+              <button onClick={() => setShowLoginModal(true)}>로그인</button>
+            )}
+          </div>
+          <Routes>
+            <Route path="/" element={<div>메인 페이지</div>} />
+            <Route path="/emp" element={<EMP />} />
+            <Route path="/item" element={<Item />} />
+            <Route path="/sales" element={<Sales />} />
+          </Routes>
+        </div>
       </div>
-      <Routes>
-        <Route path="/" element={<div>메인 페이지</div>} />
-      </Routes>
+      <Footer />
     </div>
   );
 };

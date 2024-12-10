@@ -1,0 +1,67 @@
+footer {
+  position: relative; /* 고정되지 않음 */
+  background-color: #333; /* 배경색 */
+  color: white; /* 글자색 */
+  padding: 20px;
+  text-align: center; /* 가운데 정렬 */
+  font-size: 1rem; /* 기본 폰트 크기 */
+  position: relative; /* 위치 조정 */
+  bottom: 0;
+  width: 100%;
+}
+
+footer h1 {
+  font-size: 1.5rem; /* 기본 글자 크기 */
+  margin-bottom: 10px;
+}
+
+footer p {
+  font-size: 0.9rem; /* 기본 글자 크기 */
+  margin: 5px 0;
+}
+
+footer a {
+  color: #4CAF50; /* 링크 색상 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+
+footer a:hover {
+  text-decoration: underline; /* 마우스 오버 시 밑줄 */
+}
+
+/* 모바일 화면에서 푸터 스타일 */
+@media (max-width: 768px) {
+  footer {
+    padding: 15px;
+    font-size: 0.8rem; /* 모바일 화면에서 폰트 크기 축소 */
+  }
+
+  footer h1 {
+    font-size: 1.2rem; /* 모바일 화면에서 제목 크기 축소 */
+  }
+
+  footer p {
+    font-size: 0.8rem; /* 모바일 화면에서 글자 크기 축소 */
+  }
+
+  footer a {
+    font-size: 0.8rem; /* 링크 글자 크기 축소 */
+  }
+}
+
+/* 아주 작은 화면 (모바일 기기)에서 텍스트 줄바꿈을 조정 */
+@media (max-width: 480px) {
+  footer p {
+    font-size: 0.75rem; /* 더욱 작은 화면에서는 폰트 크기 더 축소 */
+  }
+
+  footer h1 {
+    font-size: 1rem; /* 제목 크기 더 축소 */
+  }
+
+  footer a {
+    font-size: 0.75rem; /* 링크 크기 축소 */
+    display: block; /* 각 링크를 블록 요소로 만들어 줄바꿈 */
+    margin: 5px 0; /* 링크들 간의 간격을 더 줌 */
+  }
+}
