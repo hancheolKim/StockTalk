@@ -18,8 +18,6 @@ const LoginModal = ({ onClose }) => {
 
       const data = await response.json(); // 응답 데이터를 JSON으로 파싱
 
-      alert(JSON.stringify(data));
-
 
       // 로그인 성공 시
       if (data.success) {
