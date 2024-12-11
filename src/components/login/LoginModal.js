@@ -8,7 +8,7 @@ const LoginModal = ({ onClose }) => {
   const handleLogin = async () => {
     try {
       // 로그인 데이터를 포함하여 POST 요청을 보냄
-      const response = await fetch("https://v49ff59fe9aafd038285c90daf79fe1a0.apppaas.app/login", {
+      const response = await fetch("https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // JSON 형식으로 데이터 전송
