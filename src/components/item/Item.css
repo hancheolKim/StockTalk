@@ -56,19 +56,15 @@
   
   /* 반응형 디자인 */
   @media (max-width: 768px) {
+    .table th:nth-child(3), 
+    .table td:nth-child(3),
     .table th:nth-child(5), 
-    .table td:nth-child(5) {
-      display: none; /* '업데이트 날짜' 컬럼 숨기기 */
-    }
-  
+    .table td:nth-child(5),
     .table th:nth-child(6), 
-    .table td:nth-child(6) {
-      display: none; /* '비고' 컬럼 숨기기 */
-    }
-  
+    .table td:nth-child(6),
     .table th:nth-child(7), 
-    .table td:nth-child(7) {
-      display: none; /* '카테고리' 컬럼 숨기기 */
+    .table td:nth-child(7){
+      display: none; /* '업데이트 날짜' 컬럼 숨기기 */
     }
   }
   
