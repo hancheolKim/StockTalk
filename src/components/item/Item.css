@@ -39,8 +39,8 @@
   
   .table th,
   .table td {
-    padding: 10px;
-    text-align: left;
+    padding: 10px 0;
+    text-align: center;
     border: 1px solid #ccc;
     white-space: nowrap;
   }
