@@ -1,0 +1,64 @@
+/* 전체 컨테이너 스타일 */
+.container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* 페이지 제목 스타일 */
+  .title {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* 테이블 스타일 */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 테이블 헤더 스타일 */
+  .table thead tr {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .table thead th {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  /* 테이블 바디 스타일 */
+  .table tbody tr {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
+  
+  .table tbody td {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  /* 숫자와 가격 정렬 */
+  .table tbody td.text-right {
+    text-align: right;
+  }
+  
+  /* 비어 있는 데이터 메시지 */
+  .table tbody .empty-message {
+    padding: 20px;
+    text-align: center;
+    color: #777;
+    font-size: 18px;
+  }
+  

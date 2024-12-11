@@ -21,7 +21,7 @@ const Navbar = ({ isVisible, setIsVisible }) => {
           인사관리
         </Link>
         <Link to="/item" className="navbar-item" onClick={isClicked}>
-          재고관리
+          상품관리
         </Link>
         <Link to="/sales" className="navbar-item" onClick={isClicked}>
           매출관리
