@@ -6,7 +6,7 @@ header {
   display: flex; /* 플렉스 컨테이너 설정 */
   justify-content: center; /* 기본적으로 title을 가운데 정렬 */
   align-items: center; /* 세로축 가운데 정렬 */
-  font-size: 1.5rem;
+  font-size: 2.0rem;
   box-sizing: border-box; /* 패딩 포함 크기 계산 */
 }
 
