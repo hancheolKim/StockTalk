@@ -38,34 +38,46 @@
     border: 1px solid #007bff;
   }
   
-  /* 테이블 스타일 */
-  .table {
+/* 기본 테이블 스타일 */
+.table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 0; /* 테이블 상단 여백 없애기 */
   }
   
-
-  .table th, .table td {
+  .table th,
+  .table td {
     padding: 10px;
-    border: 1px solid #ccc;
     text-align: left;
-    text-align: center;
+    border: 1px solid #ccc;
   }
   
   .table th {
     background-color: #f4f4f4;
   }
   
-  .text-right {
-    text-align: right;
-  }
-  
   .empty-message {
     text-align: center;
-    font-size: 16px;
     color: #888;
   }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .table th:nth-child(5), 
+    .table td:nth-child(5) {
+      display: none; /* '업데이트 날짜' 컬럼 숨기기 */
+    }
+  
+    .table th:nth-child(6), 
+    .table td:nth-child(6) {
+      display: none; /* '비고' 컬럼 숨기기 */
+    }
+  
+    .table th:nth-child(7), 
+    .table td:nth-child(7) {
+      display: none; /* '카테고리' 컬럼 숨기기 */
+    }
+  }
+  
   
   /* 선택된 버튼 스타일 */
   .selected {
