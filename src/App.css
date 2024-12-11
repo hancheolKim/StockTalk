@@ -125,12 +125,13 @@ h2 {
     box-shadow : none;
     border : none;
     margin: 10px; /* 모바일에서 상단 여백을 적게 */
-    padding: 15px; /* 패딩을 조금 줄임 */
+    padding: 15px 0; /* 패딩을 줄이고 좌우 패딩을 0으로 설정 */
   }
 
   .main-container {
     margin-left: 0; /* Navbar가 숨겨질 경우 기본 여백 제거 */
     width: 100%; /* 모바일 환경에서 컨테이너 너비를 100%로 설정 */
+    padding: 0; /* 모바일에서 좌우 패딩을 0으로 설정 */
   }
 
   .app-body {

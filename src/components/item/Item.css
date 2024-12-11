@@ -49,6 +49,7 @@
     padding: 10px;
     text-align: left;
     border: 1px solid #ccc;
+    white-space: nowrap;
   }
   
   .table th {
