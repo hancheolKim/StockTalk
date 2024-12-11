@@ -19,7 +19,8 @@ div {
   padding: 0 100px;
   height : 40px;
   margin : 10px;
-  font-size: 25px;
+  font-size: 20px;
+  white-space:nowrap;
 }
 
 .actions button {
@@ -84,29 +85,6 @@ h2 {
   box-sizing: border-box;
 }
 
-/* 네비게이션 바 버튼 스타일 */
-.navbar-button {
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  margin: 10px 0;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  text-align: center;
-}
-
-.navbar-button:hover {
-  background-color: #0056b3;
-}
-
-.navbar-button:focus {
-  outline: none;
-}
-
 /* App 레이아웃 설정 */
 .app {
   display: flex;
@@ -122,14 +100,46 @@ h2 {
 
 .main-container {
   flex-grow: 1;
-  margin-left: 200px; /* Navbar의 너비 */
+  margin-left: 240px; /* Navbar의 너비 */
   padding: 20px;
   box-sizing: border-box;
 }
 
-/* 모바일 환경에서 Navbar 숨김 */
+/* main-content 영역 스타일 */
+.main-content {
+  background-color: #ffffff; /* 배경 색상 */
+  border-radius: 10px; /* 모서리를 둥글게 */
+  padding: 20px; /* 내부 여백 */
+  margin: 20px 0px 0px 0px; /* 상단 여백 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  box-sizing: border-box; /* padding, border를 포함한 전체 크기 설정 */
+  flex-grow: 1; /* 상위 컨테이너 내에서 공간 차지 */
+  height: 90%; /* 최소 높이 설정 */
+}
+
+/* 화면이 작은 경우의 스타일 */
 @media (max-width: 768px) {
+  .main-content {
+    box-shadow : none;
+    border : none;
+    margin: 10px; /* 모바일에서 상단 여백을 적게 */
+    padding: 15px; /* 패딩을 조금 줄임 */
+  }
+
+  .main-container {
+    margin-left: 0; /* Navbar가 숨겨질 경우 기본 여백 제거 */
+    width: 100%; /* 모바일 환경에서 컨테이너 너비를 100%로 설정 */
+  }
+
+  .app-body {
+    flex-direction: column; /* 모바일 환경에서 세로 레이아웃으로 전환 */
+  }
+
+  .actions {
+    padding : 3px;
+  }
   .main-container {
     margin-left: 0; /* Navbar가 숨겨질 경우 기본 여백 제거 */
   }
 }
+

@@ -65,12 +65,14 @@ const App = () => {
               <button onClick={() => setShowLoginModal(true)}>로그인</button>
             )}
           </div>
-          <Routes>
-            <Route path="/" element={<div>메인 페이지</div>} />
-            <Route path="/emp" element={<EMP />} />
-            <Route path="/item" element={<Item />} />
-            <Route path="/sales" element={<Sales />} />
-          </Routes>
+          <div className="main-content">
+            <Routes>
+              <Route path="/" element={<div>메인 페이지</div>} />
+              <Route path="/emp" element={<EMP />} />
+              <Route path="/item" element={<Item />} />
+              <Route path="/sales" element={<Sales />} />
+            </Routes>
+          </div>
         </div>
       </div>
       <Footer />
