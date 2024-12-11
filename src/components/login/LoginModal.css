@@ -49,7 +49,7 @@
   }
   
   /* 로그인 버튼 */
-  button {
+  .login-button {
     width: 100%;
     padding: 12px;
     background-color: #007bff;
@@ -61,17 +61,25 @@
     transition: background-color 0.3s ease;
   }
   
-  button:hover {
+  .login-button:hover {
     background-color: #0056b3;
   }
   
   /* 닫기 버튼 */
-  button:last-of-type {
-    background-color: #ccc;
-    margin-top: 10px;
+  .cancle-button {
+    width: 100%;
+    margin-top : 10px;
+    padding: 12px;
+    background-color: #aaa;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
   
-  button:last-of-type:hover {
+  .cancel-button:hover {
     background-color: #aaa;
   }
   

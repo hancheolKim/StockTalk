@@ -13,11 +13,22 @@ const App = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(window.innerWidth >= 768);
+  const [userStatus, setUserStatus] = useState("");
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     setIsLoggedIn(!!userId);
   }, []);
+  useEffect(()=>{
+    const user_status = localStorage.getItem("userStatus");
+    if(user_status==="a"){
+      setUserStatus("어드민");
+    }else if(user_status==="m"){
+      setUserStatus("매니저");
+    }else{
+      setUserStatus("사용자");
+    }
+  },[])
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,7 +58,7 @@ const App = () => {
         <div className="main-container">
           {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
           <div className="actions">
-            {isLoggedIn && <p>안녕하세요, {localStorage.getItem("userId")}님!</p>}
+            {isLoggedIn && <p>안녕하세요, {localStorage.getItem("userId")}님!&nbsp; ({userStatus})</p>}
             {isLoggedIn ? (
               <button onClick={handleLogout}>로그아웃</button>
             ) : (

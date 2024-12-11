@@ -31,7 +31,7 @@ const LoginModal = ({ onClose }) => {
         localStorage.setItem("userNum", data.user_num);
         localStorage.setItem("userId", data.user_id);
         localStorage.setItem("userStatus", data.user_status);
-        
+
         onClose(); // 모달 닫기
         window.location.reload();
       } else {
@@ -81,8 +81,8 @@ const LoginModal = ({ onClose }) => {
           />
           {passwordError && <p className="error-text">{passwordError}</p>}
         </div>
-        <button onClick={handleLogin}>로그인</button>
-        <button onClick={onClose}>닫기</button>
+        <button onClick={handleLogin} className="login-button">로그인</button>
+        <button onClick={onClose} className="cancle-button">닫기</button>
       </div>
     </div>
   );

@@ -10,28 +10,32 @@ div {
   margin: 0;
   padding: 0;
 }
-
 /* 로그인 버튼과 로그아웃 버튼 스타일 */
 .actions {
-  margin-top: 20px;
   display: flex;
-  justify-content: flex-start; /* 버튼과 사용자 정보를 왼쪽 정렬 */
+  justify-content: right; /* 사용자 정보와 버튼을 양쪽 끝으로 배치 */
+  gap : 30px;
   align-items: center; /* 세로 정렬 */
-  padding: 0 20px;
+  padding: 0 100px;
+  height : 40px;
+  margin : 10px;
+  font-size: 25px;
 }
 
 .actions button {
   background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 8px 16px; /* 높이는 그대로 두고 좌우만 적절히 조정 */
-  margin-left: 10px;
   cursor: pointer;
   border-radius: 5px;
   font-size: 1rem;
   transition: background-color 0.3s ease;
-  width: auto; /* 버튼 크기를 자동으로 조정 */
-  min-width: 80px; /* 최소 너비 설정 */
+  width: auto;
+  min-width: 100px;
+  height: 40px; /* 버튼의 높이를 고정 */
+  display: flex;
+  align-items: center; /* 세로 정렬 */
+  justify-content: center; /* 가로 정렬 */
   text-align: center;
 }
 
@@ -47,14 +51,18 @@ div {
 .user-info {
   font-size: 1rem;
   color: #333;
-  margin-right: 20px; /* 버튼과의 간격을 조정 */
+  margin-right: 20px;
   font-size: 1.1rem;
+  display: flex;
+  align-items: center;
 }
 
 /* 로그인된 사용자 이름 스타일 */
 .user-info p {
   font-size: 1.2rem;
-  color: #4CAF50; /* 로그인된 사용자 이름을 강조하는 색상 */
+  color: #4CAF50;
+  margin: 0;
+  line-height: 40px; /* p 태그의 세로 정렬을 맞추기 위해 line-height 설정 */
 }
 
 
@@ -63,18 +71,17 @@ h2 {
   font-size: 2rem;
   color: #333;
   text-align: center;
-  margin-top: 50px;
 }
 
 /* 메인 컨텐츠 박스 */
 .main-container {
-  min-height: 100vh; /* 화면 높이에 맞게 확장되도록 설정 */
-  margin: 0 auto; /* 수평 중앙 정렬 */
+  min-height: 100vh;
+  margin: 0 auto;
   padding: 20px;
-  background-color: #ffffff; /* 하얀색 배경 */
-  border-radius: 10px; /* 모서리 둥글게 처리 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
-  box-sizing: border-box; /* padding, border를 포함한 전체 크기 설정 */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 /* 네비게이션 바 버튼 스타일 */
@@ -113,7 +120,6 @@ h2 {
   flex-grow: 1;
 }
 
-/* main-container는 Navbar의 너비만큼 오른쪽으로 이동 */
 .main-container {
   flex-grow: 1;
   margin-left: 200px; /* Navbar의 너비 */
@@ -127,4 +133,3 @@ h2 {
     margin-left: 0; /* Navbar가 숨겨질 경우 기본 여백 제거 */
   }
 }
-

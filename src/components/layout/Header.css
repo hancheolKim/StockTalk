@@ -52,3 +52,15 @@ header {
     background-color: #b2bec3;
   }
 }
+.Header-button {
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 링크의 색상을 부모 요소의 색상과 동일하게 설정 */
+  cursor: pointer; /* 기본적으로 손 모양 커서를 사용 */
+}
+
+/* 마우스 오버 시 효과 제거 */
+.Header-button:hover,
+.Header-button:focus {
+  color: inherit; /* 색상 변경 없음 */
+  outline: none; /* 포커스 효과 제거 */
+}
