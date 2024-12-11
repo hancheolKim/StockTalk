@@ -26,6 +26,7 @@
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     transition: background-color 0.3s;
+    white-space:nowrap;
   }
   
   .button-group button:hover {
