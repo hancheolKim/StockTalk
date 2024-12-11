@@ -66,6 +66,11 @@
     padding: 8px 16px; /* 버튼 크기 줄이기 */
   }
 
+  /* 기본 테이블 스타일 */
+.table {
+  margin : 0 3px;
+}
+
   /* 테이블의 데이터 padding 줄이기 */
   .table th,
   .table td {
