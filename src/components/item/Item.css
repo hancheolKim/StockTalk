@@ -1,64 +1,81 @@
-/* 전체 컨테이너 스타일 */
+/* 기본 스타일 */
 .container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
   }
   
-  /* 페이지 제목 스타일 */
   .title {
     text-align: center;
-    color: #333;
     font-size: 24px;
     margin-bottom: 20px;
+  }
+  
+  .button-group {
+    display: flex; /* 버튼을 가로로 나열 */
+    justify-content: flex-start; /* 버튼들을 왼쪽에 정렬 */
+    margin: 0; /* 버튼의 하단 여백 없애기 */
+    width: 100%; /* 버튼들이 테이블과 같은 너비를 가지도록 */
+  }
+  
+  .button-group button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    transition: background-color 0.3s;
+  }
+  
+  .button-group button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .button-group button.selected {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
   }
   
   /* 테이블 스타일 */
   .table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 0; /* 테이블 상단 여백 없애기 */
   }
   
-  /* 테이블 헤더 스타일 */
-  .table thead tr {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .table thead th {
+
+  .table th, .table td {
     padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
     text-align: center;
   }
   
-  /* 테이블 바디 스타일 */
-  .table tbody tr {
-    border-bottom: 1px solid #ddd;
+  .table th {
+    background-color: #f4f4f4;
   }
   
-  .table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .table tbody tr:nth-child(odd) {
-    background-color: #ffffff;
-  }
-  
-  .table tbody td {
-    padding: 10px;
-    text-align: center;
-  }
-  
-  /* 숫자와 가격 정렬 */
-  .table tbody td.text-right {
+  .text-right {
     text-align: right;
   }
   
-  /* 비어 있는 데이터 메시지 */
-  .table tbody .empty-message {
-    padding: 20px;
+  .empty-message {
     text-align: center;
-    color: #777;
-    font-size: 18px;
+    font-size: 16px;
+    color: #888;
+  }
+  
+  /* 선택된 버튼 스타일 */
+  .selected {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
+  /* 다른 컴포넌트에 대한 스타일 */
+  button:focus {
+    outline: none;
   }
   

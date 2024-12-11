@@ -61,6 +61,13 @@
     transition: background-color 0.3s, transform 0.2s ease-in-out;
   }
   
+  /* 버튼이 선택된 상태(active)일 때 */
+  .navbar-item.active {
+    background-color: #007bff; /* 선택된 버튼 색상 */
+    transform: scale(1.05);
+  }
+  
+  /* 버튼에 마우스 올릴 때의 스타일 */
   .navbar-item:hover {
     background-color: #636e72;
     transform: scale(1.05);

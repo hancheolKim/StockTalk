@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"; // useLocation 추가
 import "./Navbar.css";
 
 const Navbar = ({ isVisible, setIsVisible }) => {
+  const location = useLocation(); // 현재 경로 추적
+
   const isMobile = window.innerWidth <= 768; // 모바일 화면 여부 체크
 
   const isClicked = () => {
@@ -17,13 +19,25 @@ const Navbar = ({ isVisible, setIsVisible }) => {
         <h2>GIANT ERP</h2>
       </Link>
       <div className="navbar-buttons">
-        <Link to="/emp" className="navbar-item" onClick={isClicked}>
+        <Link
+          to="/emp"
+          className={`navbar-item ${location.pathname === "/emp" ? "active" : ""}`} // 현재 경로에 따라 active 클래스 추가
+          onClick={isClicked}
+        >
           인사관리
         </Link>
-        <Link to="/item" className="navbar-item" onClick={isClicked}>
+        <Link
+          to="/item"
+          className={`navbar-item ${location.pathname === "/item" ? "active" : ""}`} // 현재 경로에 따라 active 클래스 추가
+          onClick={isClicked}
+        >
           상품관리
         </Link>
-        <Link to="/sales" className="navbar-item" onClick={isClicked}>
+        <Link
+          to="/sales"
+          className={`navbar-item ${location.pathname === "/sales" ? "active" : ""}`} // 현재 경로에 따라 active 클래스 추가
+          onClick={isClicked}
+        >
           매출관리
         </Link>
       </div>
