@@ -17,6 +17,12 @@ const Item = () => {
     }
   };
 
+  // 날짜를 'YYYY-MM-DD' 형식으로 변환하는 함수
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString(); // 기본적으로 로컬 형식으로 날짜를 변환
+  };
+
   useEffect(() => {
     fetchItems();
   }, []);
@@ -39,16 +45,16 @@ const Item = () => {
         <tbody>
           {items.length > 0 ? (
             items.map((item, index) => (
-              <tr key={item.item_num}>
+              <tr key={item.itemNum}>
                 <td>{index + 1}</td>
-                <td>{item.item_name}</td>
+                <td>{item.itemName}</td>
                 <td className="text-right">
                   {item.price.toLocaleString()} 원
                 </td>
-                <td>{item.item_quantity}</td>
-                <td>{item.item_upt_date}</td>
-                <td>{item.item_notes}</td>
-                <td>{item.category_name}</td>
+                <td>{item.itemQuantity}</td>
+                <td>{formatDate(item.itemUptDate)}</td>
+                <td>{item.itemNotes}</td>
+                <td>{item.categoryName}</td>
               </tr>
             ))
           ) : (
