@@ -18,7 +18,6 @@ const LoginModal = ({ onClose }) => {
 
       const data = await response.json(); // 응답 데이터를 JSON으로 파싱
 
-
       // 로그인 성공 시
       if (data.success) {
         // user 정보 localStorage에 저장
@@ -30,11 +29,18 @@ const LoginModal = ({ onClose }) => {
         onClose(); // 모달 닫기
         window.location.reload();
       } else {
-        alert("로그인 실패! 아이디와 비밀번호를 확인해주세요.");
+        // 실패 시 에러 코드에 따른 메시지 출력
+        if (data.error === "INVALID_ID") {
+          alert("존재하지 않는 아이디입니다. 다시 확인해주세요.");
+        } else if (data.error === "INVALID_PASSWORD") {
+          alert("비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
+        } else {
+          alert("로그인 실패! 알 수 없는 오류가 발생했습니다.");
+        }
       }
     } catch (error) {
       console.error(error);
-      alert("로그인 요청 중 오류가 발생했습니다.");
+      alert("로그인 요청 중 오류가 발생했습니다. 네트워크를 확인해주세요.");
     }
   };
 
@@ -62,4 +68,3 @@ const LoginModal = ({ onClose }) => {
 };
 
 export default LoginModal;
-  
