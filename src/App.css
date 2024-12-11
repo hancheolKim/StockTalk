@@ -124,7 +124,7 @@ h2 {
   .main-content {
     box-shadow : none;
     border : none;
-    margin: 10px; /* 모바일에서 상단 여백을 적게 */
+    margin: 10px 0; /* 모바일에서 상단 여백을 적게 */
     padding: 15px 0; /* 패딩을 줄이고 좌우 패딩을 0으로 설정 */
   }
 
