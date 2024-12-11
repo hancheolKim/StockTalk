@@ -61,6 +61,10 @@
     font-size: 18px;
   }
 
+  .button-group{
+    margin : 0 6px;
+  }
+
   .button-group button {
     font-size: 14px; /* 버튼 글자 크기 줄이기 */
     padding: 8px 16px; /* 버튼 크기 줄이기 */
@@ -68,27 +72,26 @@
 
   /* 기본 테이블 스타일 */
 .table {
-  margin : 0 3px;
+  margin : 0 6px;
 }
 
   /* 테이블의 데이터 padding 줄이기 */
   .table th,
   .table td {
-    padding: 5px 10px; /* 테이블의 padding 줄이기 */
-    font-size: 14px; /* 테이블 글자 크기 줄이기 */
+    padding: 10px 0px; /* 테이블의 padding 줄이기 */
+    font-size: 12px; /* 테이블 글자 크기 줄이기 */
   }
 
-  /* '업데이트 날짜' 컬럼을 숨기지 않고 가격까지 보이게 할 수 있도록 */
   .table th:nth-child(5), 
   .table td:nth-child(5),
   .table th:nth-child(6), 
   .table td:nth-child(6) {
-    display: none; /* 숨긴 컬럼을 다시 보이게 */
+    display: none;
   }
 
   /* 모바일 환경에서 테이블의 각 데이터 영역을 더 넓게 조정 */
   .table {
-    width: 100%; /* 테이블 너비를 다시 100%로 설정 */
+    width: 95%; /* 테이블 너비를 다시 100%로 설정 */
     font-size: 14px; /* 폰트 크기 조정 */
   }
 }

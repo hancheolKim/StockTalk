@@ -40,23 +40,6 @@ div {
   outline: none;
 }
 
-/* 로그인된 사용자 정보 스타일 */
-.user-info {
-  font-size: 1rem;
-  color: #333;
-  margin-right: 20px;
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-}
-
-/* 로그인된 사용자 이름 스타일 */
-.user-info p {
-  font-size: 1.2rem;
-  color: #4CAF50;
-  margin: 0;
-  line-height: 40px; /* p 태그의 세로 정렬을 맞추기 위해 line-height 설정 */
-}
 
 
 /* 메인 페이지 스타일 */
@@ -133,6 +116,11 @@ h2 {
   }
   .main-container {
     margin-left: 0; /* Navbar가 숨겨질 경우 기본 여백 제거 */
+  }
+  .actions {
+    font-size: 1rem;
+    gap : 10px;
+    margin: 5px;
   }
 }
 
