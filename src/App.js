@@ -54,7 +54,7 @@ const App = () => {
       <Header toggleNavbar={toggleNavbar} isNavVisible={isNavVisible} />
       <div className="app-body">
         {/* Navbar에 isVisible 상태를 전달 */}
-        <Navbar isVisible={isNavVisible} />
+        <Navbar isVisible={isNavVisible} setIsVisible={setIsNavVisible}/>
         <div className="main-container">
           {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
           <div className="actions">
