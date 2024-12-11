@@ -6,7 +6,7 @@ const Item = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch("/item/list");
+      const response = await fetch("https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/item/list");
       if (!response.ok) {
         throw new Error("데이터를 가져오는 중 오류가 발생했습니다.");
       }
@@ -23,7 +23,7 @@ const Item = () => {
 
   return (
     <div className="container">
-      <h1 className="title">재고관리 페이지</h1>
+      <h1 className="title">상품관리 페이지</h1>
       <table className="table">
         <thead>
           <tr>
