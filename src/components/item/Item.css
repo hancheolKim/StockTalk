@@ -1,83 +1,89 @@
-  .title {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .button-group {
-    display: flex; /* 버튼을 가로로 나열 */
-    justify-content: flex-start; /* 버튼들을 왼쪽에 정렬 */
-    margin: 0; /* 버튼의 하단 여백 없애기 */
-    width: 100%; /* 버튼들이 테이블과 같은 너비를 가지도록 */
-  }
-  
-  .button-group button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    transition: background-color 0.3s;
-    white-space:nowrap;
-  }
-  
-  .button-group button:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .button-group button.selected {
-    background-color: #007bff;
-    color: white;
-    border: 1px solid #007bff;
-  }
-  
+.title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex; /* 버튼을 가로로 나열 */
+  justify-content: flex-start; /* 버튼들을 왼쪽에 정렬 */
+  margin: 0; /* 버튼의 하단 여백 없애기 */
+  width: 100%; /* 버튼들이 테이블과 같은 너비를 가지도록 */
+}
+
+.button-group button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s;
+  white-space: nowrap;
+}
+
+.button-group button:hover {
+  background-color: #e0e0e0;
+}
+
+.button-group button.selected {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+}
+
 /* 기본 테이블 스타일 */
 .table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px 0;
+  text-align: center;
+  border: 1px solid #ccc;
+  white-space: nowrap;
+}
+
+.table th {
+  background-color: #f4f4f4;
+}
+
+.empty-message {
+  text-align: center;
+  color: #888;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  /* 모바일에서 글자 크기 작게 */
+  .title {
+    font-size: 18px;
   }
-  
+
+  .button-group button {
+    font-size: 14px; /* 버튼 글자 크기 줄이기 */
+    padding: 8px 16px; /* 버튼 크기 줄이기 */
+  }
+
+  /* 테이블의 데이터 padding 줄이기 */
   .table th,
   .table td {
-    padding: 10px 0;
-    text-align: center;
-    border: 1px solid #ccc;
-    white-space: nowrap;
+    padding: 5px 10px; /* 테이블의 padding 줄이기 */
+    font-size: 14px; /* 테이블 글자 크기 줄이기 */
   }
-  
-  .table th {
-    background-color: #f4f4f4;
+
+  /* '업데이트 날짜' 컬럼을 숨기지 않고 가격까지 보이게 할 수 있도록 */
+  .table th:nth-child(5), 
+  .table td:nth-child(5),
+  .table th:nth-child(6), 
+  .table td:nth-child(6) {
+    display: none; /* 숨긴 컬럼을 다시 보이게 */
   }
-  
-  .empty-message {
-    text-align: center;
-    color: #888;
+
+  /* 모바일 환경에서 테이블의 각 데이터 영역을 더 넓게 조정 */
+  .table {
+    width: 100%; /* 테이블 너비를 다시 100%로 설정 */
+    font-size: 14px; /* 폰트 크기 조정 */
   }
-  
-  /* 반응형 디자인 */
-  @media (max-width: 768px) {
-    .table th:nth-child(3), 
-    .table td:nth-child(3),
-    .table th:nth-child(5), 
-    .table td:nth-child(5),
-    .table th:nth-child(6), 
-    .table td:nth-child(6),
-    .table th:nth-child(7), 
-    .table td:nth-child(7){
-      display: none; /* '업데이트 날짜' 컬럼 숨기기 */
-    }
-  }
-  
-  
-  /* 선택된 버튼 스타일 */
-  .selected {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-  }
-  
-  /* 다른 컴포넌트에 대한 스타일 */
-  button:focus {
-    outline: none;
-  }
-  
+}
