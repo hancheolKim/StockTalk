@@ -87,7 +87,7 @@ const Item = () => {
 
   return (
     <div className="container">
-      <div className="button-group">
+       <div className="button-group">
         <button
           onClick={() => handleButtonClick("productList")}
           className={view === "productList" ? "selected" : ""}
@@ -108,16 +108,6 @@ const Item = () => {
         </button>
       </div>
 
-      {view === "productList" && (
-        <form onSubmit={handleSearch} className="search-form">
-          <select name="keyfield">
-            <option value="1">번호</option>
-            <option value="2">이름</option>
-          </select>
-          <input name="keyword" placeholder="검색어 입력" />
-          <button type="submit">검색</button>
-        </form>
-      )}
 
       {view === "productList" && (
         <div>
@@ -167,6 +157,16 @@ const Item = () => {
               )}
             </tbody>
           </table>
+        <div className="form-container">
+          <form onSubmit={handleSearch} className="search-form">
+            <select name="keyfield">
+              <option value="1">번호</option>
+              <option value="2">이름</option>
+            </select>
+            <input name="keyword" placeholder="검색어 입력" />
+            <button type="submit">검색</button>
+          </form>
+        </div>
         </div>
       )}
 
