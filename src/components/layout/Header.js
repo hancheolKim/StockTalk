@@ -8,9 +8,7 @@ const Header = ({ toggleNavbar, isNavVisible, isLoggedIn, userStatus, handleLogo
       <h1 className="header-title">
         <Link to="/" className="Header-button">My Application</Link>
       </h1>
-      <button className="navbar-toggle header-button" onClick={toggleNavbar}>
-        {isNavVisible ? "닫기" : "메뉴"}
-      </button>
+
       
       {/* 로그인 상태에 따라 버튼 표시 */}
       <div className="login-section">
@@ -23,6 +21,9 @@ const Header = ({ toggleNavbar, isNavVisible, isLoggedIn, userStatus, handleLogo
           <button className="header-button" onClick={() => setShowLoginModal(true)}>로그인</button>
         )}
       </div>
+      <button className="navbar-toggle header-button" onClick={toggleNavbar}>
+        {isNavVisible ? "닫기" : "메뉴"}
+      </button>
     </header>
   );
 };
