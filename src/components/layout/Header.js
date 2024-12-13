@@ -17,9 +17,10 @@ const Header = ({ toggleNavbar, isNavVisible, isLoggedIn, userStatus, handleLogo
             <p>안녕하세요, {localStorage.getItem("userId")}님! ({userStatus})</p>
             <button className="header-button" onClick={handleLogout}>로그아웃</button>
           </div>
-        ) : (
-          <button className="header-button" onClick={() => setShowLoginModal(true)}>로그인</button>
-        )}
+        ) : (<div className="loginState">
+              <button className="header-button" onClick={() => setShowLoginModal(true)}>로그인</button>
+          </div>
+      )}
       </div>
       <button className="navbar-toggle header-button" onClick={toggleNavbar}>
         {isNavVisible ? "닫기" : "메뉴"}
