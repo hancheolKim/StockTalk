@@ -19,16 +19,17 @@ const App = () => {
     const userId = localStorage.getItem("userId");
     setIsLoggedIn(!!userId);
   }, []);
-  useEffect(()=>{
+  
+  useEffect(() => {
     const user_status = localStorage.getItem("userStatus");
-    if(user_status==="a"){
+    if (user_status === "a") {
       setUserStatus("어드민");
-    }else if(user_status==="m"){
+    } else if (user_status === "m") {
       setUserStatus("매니저");
-    }else{
+    } else {
       setUserStatus("사용자");
     }
-  },[])
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -50,21 +51,19 @@ const App = () => {
 
   return (
     <div className="app">
-      {/* Header에 toggleNavbar와 isNavVisible 전달 */}
-      <Header toggleNavbar={toggleNavbar} isNavVisible={isNavVisible} />
+      {/* Header에 로그인 상태와 상태 변경 함수 전달 */}
+      <Header
+        toggleNavbar={toggleNavbar}
+        isNavVisible={isNavVisible}
+        isLoggedIn={isLoggedIn}
+        userStatus={userStatus}
+        handleLogout={handleLogout}
+        setShowLoginModal={setShowLoginModal}
+      />
       <div className="app-body">
-        {/* Navbar에 isVisible 상태를 전달 */}
-        <Navbar isVisible={isNavVisible} setIsVisible={setIsNavVisible}/>
+        <Navbar isVisible={isNavVisible} setIsVisible={setIsNavVisible} />
         <div className="main-container">
           {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
-          <div className="actions">
-            {isLoggedIn && <p>안녕하세요, {localStorage.getItem("userId")}님!&nbsp; ({userStatus})</p>}
-            {isLoggedIn ? (
-              <button onClick={handleLogout}>로그아웃</button>
-            ) : (
-              <button onClick={() => setShowLoginModal(true)}>로그인</button>
-            )}
-          </div>
           <div className="main-content">
             <Routes>
               <Route path="/" element={<div>메인 페이지</div>} />

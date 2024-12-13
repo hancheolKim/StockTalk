@@ -8,12 +8,36 @@ header {
   align-items: center; /* 세로축 가운데 정렬 */
   font-size: 2.0rem;
   box-sizing: border-box; /* 패딩 포함 크기 계산 */
+  position: relative; /* 버튼 배치를 위한 상대적 위치 설정 */
+}
+
+.loginState {
+  display: flex; /* 가로로 배치 */
+  align-items: center; /* 세로 가운데 정렬 */
+  justify-content: center; /* 가로 가운데 정렬 */
+}
+
+/* 공통 버튼 스타일 */
+.header-button {
+  padding: 8px 12px; /* 동일한 padding 값으로 버튼 크기 통일 */
+  font-size: 0.9rem; /* 버튼 텍스트 크기 통일 */
+  background-color:  #636e72;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-left : 10px;
+}
+
+.header-button:hover {
+  background-color: #b2bec3;
 }
 
 /* PC 환경에서 */
 @media (min-width: 769px) {
   header {
-    justify-content: center; /* header-title을 가운데로 정렬 */
+    justify-content: center; /* 제목은 중앙 정렬 */
   }
 
   .navbar-toggle {
@@ -22,6 +46,18 @@ header {
 
   .header-title {
     font-size: 2rem; /* PC에서 제목 크기 설정 */
+  }
+
+  .login-section {
+    position: absolute; /* 로그인 버튼을 header의 오른쪽에 고정 */
+    right: 20px; /* 오른쪽 여백 */
+    display: flex;
+    font-size: 10px;
+    gap: 10px; /* 버튼 사이 간격 좁히기 */
+  }
+
+  .login-section button {
+    font-size: 0.8rem; /* 버튼 크기 조정 */
   }
 }
 
@@ -41,17 +77,32 @@ header {
     background-color: #636e72;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 6px 10px; /* 버튼 크기 조정 */
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 0.8rem; /* 버튼 폰트 크기 통일 */
     cursor: pointer;
-    width : 70px;
+    width: 60px;
   }
 
   .navbar-toggle:hover {
     background-color: #b2bec3;
   }
+
+  .login-section {
+    display: flex; /* 모바일에서도 로그인 버튼 표시 */
+    gap: 10px; /* 버튼 사이 간격 좁히기 */
+  }
+
+  .loginState p {
+    display: none; /* 유저 문구 숨기기 */
+  }
+
+  .loginState button {
+    font-size: 0.8rem; /* 로그인/로그아웃 버튼 크기 조정 */
+    padding: 6px 12px; /* 버튼 크기 조정 */
+  }
 }
+
 .Header-button {
   text-decoration: none; /* 밑줄 제거 */
   color: inherit; /* 링크의 색상을 부모 요소의 색상과 동일하게 설정 */

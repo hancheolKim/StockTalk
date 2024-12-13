@@ -158,12 +158,13 @@
   }
 
   .search-form select {
-    width : 20%;
+    width : 25%;
   }
 
   .search-form input {
-    width : 60%;
+    width : 50%;
   }
+
 }
 
 .page-buttons {
@@ -205,6 +206,21 @@
   background-color: #ddd;
   color: #aaa;
   cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .page-buttons {
+    margin-top: 0px;
+    gap: 5px; /* 버튼 간격 줄이기 */
+  }
+
+  .page-buttons button {
+    padding: 6px 12px; /* 버튼 크기 줄이기 */
+    font-size: 0.9rem; /* 버튼 글자 크기 줄이기 */
+  }
+  .search-form{
+    margin-bottom : 10px;
+  }
 }
  
 

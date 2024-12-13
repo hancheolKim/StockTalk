@@ -89,17 +89,6 @@
       transform: translateX(0); /* 왼쪽에서 오른쪽으로 슬라이드 */
     }
   
-    .navbar-toggle {
-      display: block;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      font-size: 1.2rem;
-      border-radius: 5px;
-      margin: 10px;
-      z-index: 15;
-    }
+
   }
   
