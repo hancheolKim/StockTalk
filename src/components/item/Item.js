@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "./Item.css";
-import StockList from "./StockList"; // 재고리스트 컴포넌트 import
-import InOutInfo from "./InOutInfo"; // 입출고정보 컴포넌트 import
+import StockList from "./StockList";
+import InOutInfo from "./InOutInfo";
 
 const Item = () => {
   const [items, setItems] = useState([]);
-  const [view, setView] = useState("productList"); // 현재 보여줄 리스트 상태
-  const [pageInfo, setPageInfo] = useState({}); // 페이지 정보
+  const [view, setView] = useState("productList");
+  const [pageInfo, setPageInfo] = useState({});
   const [filters, setFilters] = useState({
     pageNum: 1,
-    order: 1, // 기본 정렬 방식
+    order: 1,
     category: "",
     keyfield: "",
     keyword: "",
@@ -26,11 +26,15 @@ const Item = () => {
       }
       const data = await response.json();
       setItems(data.items);
-      setPageInfo({ page: data.page, count: data.count });
+      setPageInfo({ count: data.count });
     } catch (error) {
       console.error("에러 발생:", error);
     }
   }, [filters]);
+
+  useEffect(() => {
+    console.log(pageInfo);
+  }, [pageInfo]);
 
   useEffect(() => {
     fetchItems();
@@ -44,15 +48,21 @@ const Item = () => {
     e.preventDefault();
     const keyfield = e.target.keyfield.value;
     const keyword = e.target.keyword.value;
-    setFilters((prev) => ({ ...prev, keyfield, keyword, pageNum: 1 }));
+
+    setFilters((prev) => ({
+      ...prev,
+      keyfield,
+      keyword,
+      pageNum: 1,
+    }));
+  };
+
+  const goPage = (pageNum) => {
+    setFilters((prev) => ({ ...prev, pageNum }));
   };
 
   const handleOrderChange = (order) => {
     setFilters((prev) => ({ ...prev, order, pageNum: 1 }));
-  };
-
-  const handlePageChange = (pageNum) => {
-    setFilters((prev) => ({ ...prev, pageNum }));
   };
 
   const formatDate = (dateStr) => {
@@ -60,9 +70,23 @@ const Item = () => {
     return date.toLocaleDateString();
   };
 
+  // 페이지 수 계산: totalCount가 아니라 count를 기준으로 계산
+  const totalPages = pageInfo.count > 0 ? Math.ceil(pageInfo.count / 15) : 0; // count를 기준으로 계산
+  const pageButtons = [];
+  for (let i = 1; i <= totalPages; i++) {  // totalPages는 전체 페이지 수
+    pageButtons.push(
+      <button
+        key={i}
+        onClick={() => goPage(i)}
+        className={filters.pageNum === i ? "selected" : ""}
+      >
+        {i}
+      </button>
+    );
+  }
+
   return (
     <div className="container">
-      {/* 항상 보이는 버튼 그룹 */}
       <div className="button-group">
         <button
           onClick={() => handleButtonClick("productList")}
@@ -84,7 +108,6 @@ const Item = () => {
         </button>
       </div>
 
-      {/* 제품리스트일 경우만 보이는 검색 폼 */}
       {view === "productList" && (
         <form onSubmit={handleSearch} className="search-form">
           <select name="keyfield">
@@ -96,25 +119,24 @@ const Item = () => {
         </form>
       )}
 
-      {/* 제품리스트일 경우만 보이는 테이블 */}
       {view === "productList" && (
         <div>
           <table className="table">
             <thead>
               <tr>
-                <th onClick={() => handleOrderChange(1)}>
+                <th onClick={() => handleOrderChange(1)} className="canClick">
                   코드 <small>▲▼</small>
                 </th>
-                <th onClick={() => handleOrderChange(2)}>
+                <th onClick={() => handleOrderChange(2)} className="canClick">
                   이름 <small>▲▼</small>
                 </th>
-                <th onClick={() => handleOrderChange(3)}>
+                <th onClick={() => handleOrderChange(3)} className="canClick">
                   가격 <small>▲▼</small>
                 </th>
-                <th onClick={() => handleOrderChange(4)}>
+                <th onClick={() => handleOrderChange(4)} className="canClick">
                   수량 <small>▲▼</small>
                 </th>
-                <th onClick={() => handleOrderChange(5)}>
+                <th onClick={() => handleOrderChange(5)} className="canClick">
                   업데이트 날짜 <small>▲▼</small>
                 </th>
                 <th>비고</th>
@@ -122,7 +144,7 @@ const Item = () => {
               </tr>
             </thead>
             <tbody>
-              {items.length > 0 ? (
+              {pageInfo.count > 0 ? (
                 items.map((item, index) => (
                   <tr key={index}>
                     <td>{item.itemNum}</td>
@@ -145,17 +167,30 @@ const Item = () => {
               )}
             </tbody>
           </table>
-
-          <div
-            className="pagination"
-            dangerouslySetInnerHTML={{ __html: pageInfo.page }}
-          />
         </div>
       )}
 
-      {/* 선택된 뷰에 따라 다른 컴포넌트 렌더링 */}
-      {view === "stockList" && <StockList />} {/* 재고리스트 컴포넌트 렌더링 */}
-      {view === "inOutInfo" && <InOutInfo />} {/* 입출고정보 컴포넌트 렌더링 */}
+      {view === "stockList" && <StockList />}
+      {view === "inOutInfo" && <InOutInfo />}
+
+      {/* 페이지 버튼 추가 */}
+      {totalPages > 0 && (
+        <div className="page-buttons">
+          <button
+            onClick={() => goPage(Math.max(1, filters.pageNum - 1))}
+            disabled={filters.pageNum === 1}
+          >
+            이전
+          </button>
+          {pageButtons}
+          <button
+            onClick={() => goPage(Math.min(totalPages, filters.pageNum + 1))}
+            disabled={filters.pageNum === totalPages}
+          >
+            다음
+          </button>
+        </div>
+      )}
     </div>
   );
 };
