@@ -62,11 +62,11 @@ const Perchase = ({ item, closeModal }) => {
         },
         body: JSON.stringify({
           paymentId: response.paymentId,  // 결제 ID
-          orderName: item.itemName,       // 상품명
-          totalAmount: item.price * quantity, // 가격 * 수량
-          totalCostPrice: item.CostPrice * quantity, // 원가 * 수량
-          quantity : quantity, // 수량
-          payType: response.payMethod,
+          itemNum: item.itemNum,       // 상품명
+          totalPrice: item.price * quantity, // 가격 * 수량
+          totalCostPrice: item.costPrice * quantity, // 원가 * 수량
+          salesQuantity : quantity, // 수량
+          payType: "Easy_Pay",
           userNum, // 사용자 번호 추가
           userId,  // 사용자 ID 추가
         }),
