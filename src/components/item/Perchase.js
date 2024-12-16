@@ -42,7 +42,6 @@ const Perchase = ({ item, closeModal }) => {
         redirectUrl: "https://hancheolkim.github.io/react_real/#/item"
       });
   
-      console.log(response);
   
       // 결제 실패 시 처리
       if (response.code !== undefined) {
@@ -76,6 +75,8 @@ const Perchase = ({ item, closeModal }) => {
       if (result.success) {
         alert("결제가 완료되었습니다.");
         closeModal();
+        window.location.reload();  // 페이지 새로고침
+    
       } else {
         alert("결제 처리에 실패했습니다.");
       }
