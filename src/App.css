@@ -89,7 +89,7 @@ h2 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
   box-sizing: border-box; /* padding, border를 포함한 전체 크기 설정 */
   flex-grow: 1; /* 상위 컨테이너 내에서 공간 차지 */
-  height: 90%; /* 최소 높이 설정 */
+  height: 95%; /* 최대 높이 설정 */
 }
 
 /* 화면이 작은 경우의 스타일 */

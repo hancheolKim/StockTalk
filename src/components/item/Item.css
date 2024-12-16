@@ -172,7 +172,6 @@
   gap: 10px;
   justify-content: center;
   align-items: center; /* 세로 가운데 정렬 */
-  margin-top: 10px;
   height: 60px; /* 부모 컨테이너의 높이를 화면 전체로 설정 */
 }
 
