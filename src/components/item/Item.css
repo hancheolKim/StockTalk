@@ -45,9 +45,11 @@
   white-space: nowrap;
 }
 
-.table th {
-  background-color: #f4f4f4;
+th {
+  background-color: #f0f4f8; /* 부드러운 파스텔 블루 */
+  color: #333; /* 글자 색상 */
 }
+
 
 .empty-message {
   text-align: center;
@@ -186,6 +188,7 @@
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   color: #333;
+  white-space: nowrap;
 }
 
 /* 페이지 버튼 선택시 강조 스타일 */
@@ -210,44 +213,50 @@
 @media (max-width: 768px) {
   .page-buttons {
     margin-top: 0px;
-    gap: 5px; /* 버튼 간격 줄이기 */
+    gap: 3px; /* 버튼 간격 줄이기 */
   }
 
   .page-buttons button {
     padding: 6px 12px; /* 버튼 크기 줄이기 */
-    font-size: 0.9rem; /* 버튼 글자 크기 줄이기 */
+    font-size: 0.8rem; /* 버튼 글자 크기 줄이기 */
   }
   .search-form{
     margin-bottom : 10px;
   }
 }
-.order-radio {
-  margin-top: 10px;
-  margin-left: 30px;
-  display: flex; /* 라디오 버튼을 1행으로 정렬 */
-  gap: 10px; /* 버튼 간격 */
-  font-size: 12px; /* 글자 크기 */
-  font-weight: bold; /* 글자 굵게 */
-  white-space: nowrap;
-}
-
-.order-radio label {
-  display: flex;
-  align-items: center;
-}
-
-.order-radio input[type="radio"] {
-  margin-right: 5px; /* 라디오 버튼과 텍스트 간격 */
-}
-
-/* 반응형 처리 */
-@media (max-width: 768px) {
   .order-radio {
-    margin-left: 10px; /* 왼쪽 여백 없애기 */
-    font-size: 10px; /* 글자 크기 줄이기 */
+    margin-top: 10px;
+    margin-left: 30px;
+    display: flex; /* 라디오 버튼을 1행으로 정렬 */
+    gap: 10px; /* 버튼 간격 */
+    font-size: 12px; /* 글자 크기 */
+    font-weight: bold; /* 글자 굵게 */
+    white-space: nowrap;
   }
-
+  
   .order-radio label {
-    font-size: 10px; /* 레이블 글자 크기 줄이기 */
+    display: flex;
+    align-items: center;
   }
-}
+  
+  .order-radio input[type="radio"] {
+    margin-right: 5px; /* 라디오 버튼과 텍스트 간격 */
+  }
+  
+  /* 반응형 처리 */
+  @media (max-width: 768px) {
+    .order-radio {
+      margin-left: 10px; /* 왼쪽 여백 없애기 */
+      font-size: 10px; /* 글자 크기 줄이기 */
+      gap: 5px; /* 모바일에서 버튼 간격 줄이기 */
+    }
+  
+    .order-radio label {
+      font-size: 10px; /* 레이블 글자 크기 줄이기 */
+    }
+  
+    .order-radio input[type="radio"] {
+      margin-right: 3px; /* 모바일에서 라디오 버튼과 텍스트 간의 간격 줄이기 */
+    }
+  }
+  
