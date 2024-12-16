@@ -68,24 +68,26 @@ const LoginModal = ({ onClose }) => {
       <div className="modal">
         <h2>로그인</h2>
         <div className="input-container">
-          <input
-            type="text"
-            placeholder="아이디"
-            value={id}
-            onChange={handleIdChange}
-          />
+        <input
+          type="text"
+          placeholder="아이디"
+          value={id}
+          onChange={handleIdChange}
+          className="input-field"
+        />
           {idError && <p className="error-text">{idError}</p>}
         </div>
         <div className="input-container">
-          <input
-            type="password"
-            placeholder="비밀번호"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              setPasswordError(""); // 에러 초기화
-            }}
-          />
+        <input
+          type="password"
+          placeholder="비밀번호"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setPasswordError(""); // 에러 초기화
+          }}
+          className="input-field"
+        />
           {passwordError && <p className="error-text">{passwordError}</p>}
         </div>
         <button onClick={handleLogin} className="login-button">로그인</button>

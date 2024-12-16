@@ -32,21 +32,22 @@
     font-weight: 600;
   }
   
-  /* 입력 필드 */
-  input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box;
-  }
-  
-  input:focus {
-    outline: none;
-    border-color: #007bff; /* 포커스 시 파란색 */
-  }
+/* 입력 필드 공통 스타일 */
+.input-field {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #007bff; /* 포커스 시 파란색 */
+}
+
   
   /* 로그인 버튼 */
   .login-button {
