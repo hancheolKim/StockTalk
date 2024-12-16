@@ -25,6 +25,7 @@ const Perchase = ({ item, closeModal }) => {
         totalAmount: item.price * quantity, // 가격 * 수량
         currency: "CURRENCY_KRW",
         payMethod: "EASY_PAY", // 결제 방법 (카드)
+        redirectUrl : "https://hancheolkim.github.io/react_real/#/item"
       });
 
       // 응답 구조 확인
