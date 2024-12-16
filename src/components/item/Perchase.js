@@ -82,8 +82,8 @@ const Perchase = ({ item, closeModal }) => {
         <span className="red-text">*최대 수량 이하로 입력하세요.</span>
 
         <div>
-          <button onClick={handlePayment}>결제하기</button>
-          <button onClick={closeModal} className="close">닫기</button>
+          <button onClick={handlePayment} className="perchase-button">결제하기</button>
+          <button onClick={closeModal} className="close perchase-button">닫기</button>
         </div>
       </div>
     </div>
