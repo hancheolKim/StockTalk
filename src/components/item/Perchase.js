@@ -3,18 +3,15 @@ import "./Perchase.css"; // 모달 스타일을 위한 CSS
 import * as PortOne from "@portone/browser-sdk/v2";
 
 const Perchase = ({ item, closeModal }) => {
-  // 수량 상태 관리
   const [quantity, setQuantity] = useState(1);
 
-  if (!item) return null; // item이 없으면 모달을 렌더링하지 않음
+  if (!item) return null;
 
-  // 수량 입력 변경 시 처리
   const handleQuantityChange = (e) => {
     const newQuantity = Math.min(Math.max(1, e.target.value), item.itemQuantity);
     setQuantity(newQuantity);
   };
 
-  // 결제 요청 처리
   const handlePayment = async () => {
     try {
       const response = await PortOne.requestPayment({
@@ -22,21 +19,19 @@ const Perchase = ({ item, closeModal }) => {
         channelKey: "channel-key-08beca98-f344-4692-9edc-78c5b0006ee7",
         paymentId: `payment-${crypto.randomUUID()}`,
         orderName: item.itemName,
-        totalAmount: item.price * quantity, // 가격 * 수량
+        totalAmount: item.price * quantity,
         currency: "CURRENCY_KRW",
-        payMethod: "EASY_PAY", // 결제 방법 (카드)
+        payMethod: "EASY_PAY",
       });
 
-      // 응답 구조 확인
       console.log(response);
 
-      // 결제 실패 시 처리
       if (response.code !== undefined) {
         return alert(response.message); // 오류 메시지 출력
       }
 
-      // 결제 성공 시, 백엔드로 결제 정보를 전달
-      const notified = await fetch(`http://localhost:8080/payment/complete`, {
+      // 결제 성공 시 백엔드로 결제 정보를 전송
+      const notified = await fetch("http://localhost:8080/payment/complete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,11 +41,12 @@ const Perchase = ({ item, closeModal }) => {
           paymentId: response.paymentId,  // 결제 ID
           orderName: item.itemName,       // 상품명
           totalAmount: item.price * quantity, // 가격 * 수량
+          order: item.itemId,             // 주문 ID (여기서 전달해야 할 필드)
         }),
       });
 
       const result = await notified.json();
-      if (result.success) {
+      if (result.result === "success") {
         alert("결제가 완료되었습니다.");
         closeModal();
       } else {
