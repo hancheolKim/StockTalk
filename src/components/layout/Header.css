@@ -52,7 +52,7 @@ header {
     position: absolute; /* 로그인 버튼을 header의 오른쪽에 고정 */
     right: 20px; /* 오른쪽 여백 */
     display: flex;
-    font-size: 10px;
+    font-size: 15px;
     gap: 10px; /* 버튼 사이 간격 좁히기 */
   }
 

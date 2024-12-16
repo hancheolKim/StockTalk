@@ -87,50 +87,51 @@ const Item = () => {
 
   return (
     <div className="container">
-       <div className="button-group">
-        <button
-          onClick={() => handleButtonClick("productList")}
-          className={view === "productList" ? "selected" : ""}
-        >
-          제품리스트
-        </button>
-        <button
-          onClick={() => handleButtonClick("stockList")}
-          className={view === "stockList" ? "selected" : ""}
-        >
-          재고리스트
-        </button>
-        <button
-          onClick={() => handleButtonClick("inOutInfo")}
-          className={view === "inOutInfo" ? "selected" : ""}
-        >
-          입출고정보
-        </button>
+      <div className="same-line">
+        <div className="button-group">
+          <button
+            onClick={() => handleButtonClick("productList")}
+            className={view === "productList" ? "selected" : ""}
+          >
+            제품리스트
+          </button>
+          <button
+            onClick={() => handleButtonClick("stockList")}
+            className={view === "stockList" ? "selected" : ""}
+          >
+            재고리스트
+          </button>
+          <button
+            onClick={() => handleButtonClick("inOutInfo")}
+            className={view === "inOutInfo" ? "selected" : ""}
+          >
+            입출고정보
+          </button>
+        </div>
       </div>
-
 
       {view === "productList" && (
         <div>
           <table className="table">
             <thead>
               <tr>
-                <th onClick={() => handleOrderChange(1)} className="canClick">
-                  코드 <small>▲▼</small>
+                <th>
+                  상품코드
                 </th>
-                <th onClick={() => handleOrderChange(2)} className="canClick">
-                  이름 <small>▲▼</small>
+                <th>
+                  상품명
                 </th>
-                <th onClick={() => handleOrderChange(3)} className="canClick">
-                  가격 <small>▲▼</small>
-                </th>
-                <th onClick={() => handleOrderChange(4)} className="canClick">
-                  수량 <small>▲▼</small>
-                </th>
-                <th onClick={() => handleOrderChange(5)} className="canClick">
-                  업데이트 날짜 <small>▲▼</small>
-                </th>
-                <th>비고</th>
                 <th>카테고리</th>
+                <th>
+                  가격
+                </th>
+                <th>
+                  수량
+                </th>
+                <th>
+                  업데이트 날짜
+                </th>
+                <th>비고</th>                
               </tr>
             </thead>
             <tbody>
@@ -139,13 +140,13 @@ const Item = () => {
                   <tr key={index}>
                     <td>{item.itemNum}</td>
                     <td>{item.itemName}</td>
+                    <td>{item.categoryName}</td>
                     <td className="text-right">
                       {item.price.toLocaleString()} 원
                     </td>
                     <td>{item.itemQuantity}</td>
                     <td>{formatDate(item.itemUptDate)}</td>
                     <td>{item.itemNotes}</td>
-                    <td>{item.categoryName}</td>
                   </tr>
                 ))
               ) : (
@@ -157,6 +158,48 @@ const Item = () => {
               )}
             </tbody>
           </table>
+          <div className="order-radio">
+            <label>
+              <input 
+                type="radio" 
+                name="order" 
+                value="1" 
+                onChange={() => handleOrderChange(1)} 
+                checked={filters.order === 1} 
+              />
+              가격 낮은순
+            </label>
+            <label>
+              <input 
+                type="radio" 
+                name="order" 
+                value="2" 
+                onChange={() => handleOrderChange(2)} 
+                checked={filters.order === 2} 
+              />
+              가격 높은순
+            </label>
+            <label>
+              <input 
+                type="radio" 
+                name="order" 
+                value="3" 
+                onChange={() => handleOrderChange(3)} 
+                checked={filters.order === 3} 
+              />
+              수량 많은순
+            </label>
+            <label>
+              <input 
+                type="radio" 
+                name="order" 
+                value="4" 
+                onChange={() => handleOrderChange(4)} 
+                checked={filters.order === 4} 
+              />
+              수량 적은순
+            </label>
+          </div>
         <div className="form-container">
           <form onSubmit={handleSearch} className="search-form">
             <select name="keyfield">
@@ -167,12 +210,7 @@ const Item = () => {
             <button type="submit">검색</button>
           </form>
         </div>
-        </div>
-      )}
-
-      {view === "stockList" && <StockList />}
-      {view === "inOutInfo" && <InOutInfo />}
-
+        
       {/* 페이지 버튼 추가 */}
       {totalPages > 0 && (
         <div className="page-buttons">
@@ -191,6 +229,12 @@ const Item = () => {
           </button>
         </div>
       )}
+        </div>
+      )}
+
+      {view === "stockList" && <StockList />}
+      {view === "inOutInfo" && <InOutInfo />}
+
     </div>
   );
 };
