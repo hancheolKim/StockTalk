@@ -243,7 +243,7 @@
 /* 반응형 처리 */
 @media (max-width: 768px) {
   .order-radio {
-    margin-left: 3; /* 왼쪽 여백 없애기 */
+    margin-left: 3px; /* 왼쪽 여백 없애기 */
     margin-top: 10px;
     gap: 5px; /* 버튼 간격 좁히기 */
     font-size: 10px; /* 글자 크기 줄이기 */

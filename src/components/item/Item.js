@@ -19,9 +19,13 @@ const Item = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태
 
   const handleItemClick = (item) => {
+    console.log("클릭된 아이템:", item); // item이 제대로 전달되는지 확인
     setSelectedItem(item);
     setIsModalOpen(true); // 모달 열기
+    console.log("isModalOpen:", true); // isModalOpen 상태가 true로 설정되는지 확인
   };
+  
+  
 
   const closeModal = () => {
     setIsModalOpen(false);
