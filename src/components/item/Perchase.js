@@ -8,12 +8,26 @@ const Perchase = ({ item, closeModal }) => {
 
   if (!item) return null; // item이 없으면 모달을 렌더링하지 않음
 
-  // 수량 입력 변경 시 처리
   const handleQuantityChange = (e) => {
-    const newQuantity = Math.min(Math.max(1, e.target.value), item.itemQuantity);
+    const value = e.target.value;
+  
+    // 빈 값 허용
+    if (value === "") {
+      setQuantity("");
+      return;
+    }
+  
+    // 숫자로 변환하여 검증
+    const newQuantity = Math.min(Math.max(1, Number(value)), item.itemQuantity);
     setQuantity(newQuantity);
   };
-
+  
+  // 포커스가 벗어났을 때 기본값 설정
+  const handleQuantityBlur = () => {
+    if (quantity === "" || quantity < 1) {
+      setQuantity(1); // 기본값
+    }
+  };
   // 결제 요청 처리
   const handlePayment = async () => {
     try {
@@ -75,8 +89,9 @@ const Perchase = ({ item, closeModal }) => {
             type="number"
             value={quantity}
             onChange={handleQuantityChange}
+            onBlur={handleQuantityBlur} // 포커스가 벗어날 때 처리
             className="quantity-input"
-          />
+            />
           <span className="perchase-quantity">({item.itemQuantity}개까지 선택 가능)</span>
         </div>
         <span className="red-text">*최대 수량 이하로 입력하세요.</span>
