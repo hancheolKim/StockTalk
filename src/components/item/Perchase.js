@@ -28,7 +28,7 @@ const Perchase = ({ item, closeModal }) => {
       setQuantity(1); // 기본값
     }
   };
-  // 결제 요청 처리
+
   const handlePayment = async () => {
     try {
       const response = await PortOne.requestPayment({
@@ -38,20 +38,23 @@ const Perchase = ({ item, closeModal }) => {
         orderName: item.itemName,
         totalAmount: item.price * quantity, // 가격 * 수량
         currency: "CURRENCY_KRW",
-        payMethod: "EASY_PAY", // 결제 방법 (카드)
-        redirectUrl : "https://hancheolkim.github.io/react_real/#/item"
+        payMethod: "EASY_PAY", // 결제 방법 
+        redirectUrl: "https://hancheolkim.github.io/react_real/#/item"
       });
-
-      // 응답 구조 확인
+  
       console.log(response);
-
+  
       // 결제 실패 시 처리
       if (response.code !== undefined) {
         return alert(response.message); // 오류 메시지 출력
       }
-
-      // 결제 성공 시, 백엔드로 결제 정보를 전달
-      const notified = await fetch(`http://localhost:8080/payment/complete`, {
+  
+      // 로컬스토리지에서 사용자 정보 가져오기
+      const userNum = localStorage.getItem("userNum");
+      const userId = localStorage.getItem("userId");
+  
+      // 결제 성공 시, 백엔드로 결제 정보 및 사용자 정보 전달
+      const notified = await fetch(`https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/payment/complete`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,9 +64,14 @@ const Perchase = ({ item, closeModal }) => {
           paymentId: response.paymentId,  // 결제 ID
           orderName: item.itemName,       // 상품명
           totalAmount: item.price * quantity, // 가격 * 수량
+          totalCostPrice: item.CostPrice * quantity, // 원가 * 수량
+          quantity : quantity, // 수량
+          payType: response.payMethod,
+          userNum, // 사용자 번호 추가
+          userId,  // 사용자 ID 추가
         }),
       });
-
+  
       const result = await notified.json();
       if (result.success) {
         alert("결제가 완료되었습니다.");
