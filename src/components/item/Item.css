@@ -220,6 +220,23 @@
   .search-form{
     margin-bottom : 10px;
   }
+
+  .order-radio {
+    margin-top: 5px;
+    margin-left: 5px; 
+    display: flex; /* 라디오 버튼을 1행으로 정렬 */
+    gap: 2px; /* 버튼 간격 */
+    font-size: 8px; /* 글자 크기 */
+  }
+  
+  .order-radio label {
+    display: flex;
+    align-items: center;
+  }
+  
+  .order-radio input[type="radio"] {
+    margin-right: 1px; /* 라디오 버튼과 텍스트 간격 */
+  }
 }
  
 .order-radio {
@@ -240,4 +257,8 @@
 
 .order-radio input[type="radio"] {
   margin-right: 5px; /* 라디오 버튼과 텍스트 간격 */
+}
+
+.canPerchase{
+  cursor: pointer;
 }

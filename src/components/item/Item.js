@@ -2,11 +2,13 @@ import React, { useEffect, useState, useCallback } from "react";
 import "./Item.css";
 import StockList from "./StockList";
 import InOutInfo from "./InOutInfo";
+import Perchase from "./Perchase";
 
 const Item = () => {
   const [items, setItems] = useState([]);
   const [view, setView] = useState("productList");
   const [pageInfo, setPageInfo] = useState({});
+  const [selectedItem, setSelectedItem] = useState(null); // 선택된 상품 정보
   const [filters, setFilters] = useState({
     pageNum: 1,
     order: 1,
@@ -14,6 +16,16 @@ const Item = () => {
     keyfield: "",
     keyword: "",
   });
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태
+
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    setIsModalOpen(true); // 모달 열기
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const fetchItems = useCallback(async () => {
     try {
@@ -31,10 +43,6 @@ const Item = () => {
       console.error("에러 발생:", error);
     }
   }, [filters]);
-
-  useEffect(() => {
-    console.log(pageInfo);
-  }, [pageInfo]);
 
   useEffect(() => {
     fetchItems();
@@ -70,10 +78,21 @@ const Item = () => {
     return date.toLocaleDateString();
   };
 
-  // 페이지 수 계산: totalCount가 아니라 count를 기준으로 계산
-  const totalPages = pageInfo.count > 0 ? Math.ceil(pageInfo.count / 15) : 0; // count를 기준으로 계산
+  // 페이지 수 계산: count를 기준으로 계산
+  const totalPages = pageInfo.count > 0 ? Math.ceil(pageInfo.count / 15) : 0;
+
+  // 페이지 번호 버튼 범위 설정: 현재 페이지를 기준으로 앞뒤 2개 버튼만 보이도록
+  const maxButtons = 5;
+  const half = Math.floor(maxButtons / 2);
+  let startPage = Math.max(filters.pageNum - half, 1);
+  let endPage = Math.min(startPage + maxButtons - 1, totalPages);
+
+  if (endPage - startPage < maxButtons - 1) {
+    startPage = Math.max(endPage - maxButtons + 1, 1);
+  }
+
   const pageButtons = [];
-  for (let i = 1; i <= totalPages; i++) {  // totalPages는 전체 페이지 수
+  for (let i = startPage; i <= endPage; i++) {
     pageButtons.push(
       <button
         key={i}
@@ -115,29 +134,19 @@ const Item = () => {
           <table className="table">
             <thead>
               <tr>
-                <th>
-                  상품코드
-                </th>
-                <th>
-                  상품명
-                </th>
+                <th>상품코드</th>
+                <th>상품명</th>
                 <th>카테고리</th>
-                <th>
-                  가격
-                </th>
-                <th>
-                  수량
-                </th>
-                <th>
-                  업데이트 날짜
-                </th>
-                <th>비고</th>                
+                <th>가격</th>
+                <th>수량</th>
+                <th>업데이트 날짜</th>
+                <th>비고</th>
               </tr>
             </thead>
             <tbody>
               {pageInfo.count > 0 ? (
                 items.map((item, index) => (
-                  <tr key={index}>
+                  <tr key={index} onClick={() => handleItemClick(item)} className="canPerchase">
                     <td>{item.itemNum}</td>
                     <td>{item.itemName}</td>
                     <td>{item.categoryName}</td>
@@ -210,31 +219,33 @@ const Item = () => {
             <button type="submit">검색</button>
           </form>
         </div>
-        
-      {/* 페이지 버튼 추가 */}
-      {totalPages > 0 && (
-        <div className="page-buttons">
-          <button
-            onClick={() => goPage(Math.max(1, filters.pageNum - 1))}
-            disabled={filters.pageNum === 1}
-          >
-            이전
-          </button>
-          {pageButtons}
-          <button
-            onClick={() => goPage(Math.min(totalPages, filters.pageNum + 1))}
-            disabled={filters.pageNum === totalPages}
-          >
-            다음
-          </button>
-        </div>
-      )}
+
+          {/* 페이지 버튼 추가 */}
+          {totalPages > 0 && (
+            <div className="page-buttons">
+              <button
+                onClick={() => goPage(Math.max(1, filters.pageNum - 1))}
+                disabled={filters.pageNum === 1}
+              >
+                이전
+              </button>
+              {pageButtons}
+              <button
+                onClick={() => goPage(Math.min(totalPages, filters.pageNum + 1))}
+                disabled={filters.pageNum === totalPages}
+              >
+                다음
+              </button>
+            </div>
+          )}
         </div>
       )}
 
       {view === "stockList" && <StockList />}
       {view === "inOutInfo" && <InOutInfo />}
-
+      {isModalOpen && (
+        <Perchase item={selectedItem} closeModal={closeModal} />
+      )}
     </div>
   );
 };

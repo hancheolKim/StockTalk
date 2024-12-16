@@ -1,0 +1,89 @@
+/* 모달 배경 오버레이 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* 모달 내용 스타일 */
+  .modal-content {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* 제목 스타일 */
+  .modal-content h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* 상품 정보 텍스트 */
+  .modal-content p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #555;
+  }
+  
+  /* 수량 입력 스타일 */
+  .quantity-input {
+    width: 60px;
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* 버튼 스타일 */
+  button {
+    background-color: #4CAF50; /* 기본 버튼 색상 */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049; /* 호버 시 색상 변경 */
+  }
+  
+  /* 닫기 버튼 스타일 */
+  button.close {
+    background-color: #f44336;
+  }
+  
+  button.close:hover {
+    background-color: #e53935;
+  }
+  
+  /* 수량 최대값 표시 */
+  .perchase-quantity {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .red-text{
+    color : red;
+  }
