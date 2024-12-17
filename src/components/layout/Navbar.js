@@ -31,7 +31,7 @@ const Navbar = ({ isVisible, setIsVisible }) => {
           className={`navbar-item ${location.pathname === "/item" ? "active" : ""}`} // 현재 경로에 따라 active 클래스 추가
           onClick={isClicked}
         >
-          상품관리
+          제품관리
         </Link>
         <Link
           to="/sales"
