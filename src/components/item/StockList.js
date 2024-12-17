@@ -82,10 +82,10 @@ const StockList = () => {
         <thead>
           <tr>
             <th><button>삭제</button></th>
-            <th>번호</th>
+            <th>제품코드</th>
             <th>이름</th>
             <th>원가</th>
-            <th>총 수량</th>
+            <th>총수량</th>
             <th>양품수량</th>
             <th>불량수량</th>
           </tr>

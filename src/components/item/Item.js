@@ -12,6 +12,15 @@ const Item = () => {
   const [pageInfo, setPageInfo] = useState({});
   const [selectedItem, setSelectedItem] = useState(null); // 선택된 상품 정보
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isPerchaseModalOpen, setIsPerchaseModalOpen] = useState(false); // Perchase 모달 상태
+
+
+
+  useEffect(() => {
+    const userNum = localStorage.getItem("userNum");
+    setIsLoggedIn(!!userNum); // user_num이 있으면 true, 없으면 false
+  }, []);
+
   const [filters, setFilters] = useState({
     pageNum: 1,
     order: 1,
@@ -19,12 +28,21 @@ const Item = () => {
     keyfield: "",
     keyword: "",
   });
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태
 
-  useEffect(() => {
-    const userNum = localStorage.getItem("userNum");
-    setIsLoggedIn(!!userNum); // user_num이 있으면 true, 없으면 false
-  }, []);
+  // 상품 클릭 시 Perchase 모달 열기
+  const handleItemClick = (item) => {
+    if (!isLoggedIn) {
+      alert("로그인 후 상품을 구매할 수 있습니다.");
+      return; // 로그인되지 않았다면 실행 중단
+    }
+
+    setSelectedItem(item);
+    setIsPerchaseModalOpen(true); // Perchase 모달 열기
+  };
+
+  const closeModal = () => {
+    setIsPerchaseModalOpen(false); // 모달을 닫음
+};
 
   const fetchItems = useCallback(async () => {
     try {
@@ -47,22 +65,8 @@ const Item = () => {
     fetchItems();
   }, [fetchItems]);
 
-  const handleItemClick = (item) => {
-    if (!isLoggedIn) {
-      alert("로그인 후 상품을 구매할 수 있습니다.");
-      return; // 로그인되지 않았다면 실행 중단
-    }
-
-    setSelectedItem(item);
-    setIsModalOpen(true); // 모달 열기
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   const handleButtonClick = (viewType) => {
-    setView(viewType);
+    setView(viewType); // 버튼 클릭 시 view만 변경
   };
 
   const handleSearch = (e) => {
@@ -144,13 +148,13 @@ const Item = () => {
           {view === "stockList" && (
             <>
               <button
-                onClick={() => handleButtonClick("addStock")}
+                onClick={() => handleButtonClick("addStock")} // 등록 버튼 클릭 시 AddStock view로 변경
                 className={view === "addStock" ? "selected" : ""}
               >
                 등록
               </button>
               <button
-                onClick={() => handleButtonClick("modifyStock")}
+                onClick={() => handleButtonClick("modifyStock")} // 수정 버튼 클릭 시 ModifyStock view로 변경
                 className={view === "modifyStock" ? "selected" : ""}
               >
                 수정
@@ -165,8 +169,8 @@ const Item = () => {
           <table className="table">
             <thead>
               <tr>
-                <th>상품코드</th>
-                <th>상품명</th>
+                <th>제품코드</th>
+                <th>제품명</th>
                 <th>카테고리</th>
                 <th>가격</th>
                 <th>수량</th>
@@ -200,42 +204,42 @@ const Item = () => {
           </table>
           <div className="order-radio">
             <label>
-              <input 
-                type="radio" 
-                name="order" 
-                value="1" 
-                onChange={() => handleOrderChange(1)} 
-                checked={filters.order === 1} 
+              <input
+                type="radio"
+                name="order"
+                value="1"
+                onChange={() => handleOrderChange(1)}
+                checked={filters.order === 1}
               />
               가격 낮은순
             </label>
             <label>
-              <input 
-                type="radio" 
-                name="order" 
-                value="2" 
-                onChange={() => handleOrderChange(2)} 
-                checked={filters.order === 2} 
+              <input
+                type="radio"
+                name="order"
+                value="2"
+                onChange={() => handleOrderChange(2)}
+                checked={filters.order === 2}
               />
               가격 높은순
             </label>
             <label>
-              <input 
-                type="radio" 
-                name="order" 
-                value="3" 
-                onChange={() => handleOrderChange(3)} 
-                checked={filters.order === 3} 
+              <input
+                type="radio"
+                name="order"
+                value="3"
+                onChange={() => handleOrderChange(3)}
+                checked={filters.order === 3}
               />
               수량 많은순
             </label>
             <label>
-              <input 
-                type="radio" 
-                name="order" 
-                value="4" 
-                onChange={() => handleOrderChange(4)} 
-                checked={filters.order === 4} 
+              <input
+                type="radio"
+                name="order"
+                value="4"
+                onChange={() => handleOrderChange(4)}
+                checked={filters.order === 4}
               />
               수량 적은순
             </label>
@@ -273,18 +277,34 @@ const Item = () => {
         </div>
       )}
 
-      {view === "stockList" && <StockList />}
-      {view === "addStock" && <AddStock />}
-      {view === "modifyStock" && <ModifyStock selectedItem={selectedItem} />}
-      {view === "inOutInfo" && <InOutInfo />}
-      {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <div className="modal-content">
-              <Perchase selectedItem={selectedItem} closeModal={closeModal} />
-            </div>
-          </div>
+      {view === "stockList" && (
+        <div>
+          <StockList />
         </div>
+      )}
+
+      {view === "inOutInfo" && (
+        <div>
+          <InOutInfo />
+        </div>
+      )}
+
+      {/* AddStock */}
+      {view === "addStock" && (
+        <AddStock setView={setView} /> // AddStock 컴포넌트에 setView 전달
+      )}
+
+      {/* ModifyStock */}
+      {view === "modifyStock" && (
+        <ModifyStock setView={setView} /> // ModifyStock 컴포넌트에 setView 전달
+      )}
+
+      {/* Perchase 모달창 */}
+      {isPerchaseModalOpen && selectedItem && (
+        <Perchase
+          item={selectedItem} closeModal ={closeModal}
+          onClose={() => setIsPerchaseModalOpen(false)} // 모달 닫기
+        />
       )}
     </div>
   );
