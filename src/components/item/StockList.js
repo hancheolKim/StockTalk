@@ -6,6 +6,8 @@ const StockList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [items, setItems] = useState([]); // 재고 목록을 위한 상태 추가
   const [pageInfo, setPageInfo] = useState({});
+
+  const [selectedItem, setSelectedItem] = useState(null); // 선택된 항목을 추적하는 상태 추가
   const [filters, setFilters] = useState({
     pageNum: 1,
     order: 1,
@@ -75,13 +77,49 @@ const StockList = () => {
    );
  }
 
+    // 라디오 버튼 클릭 시 선택된 항목을 상태에 저장
+  const handleRadioChange = (itemId) => {
+    setSelectedItem(itemId);
+  };
+  const deleteItem = async () => {
+    if (!selectedItem) {
+      alert('삭제할 항목을 선택해주세요.');
+      return;
+    }
+  
+    const itemNum = selectedItem;
+  
+    try {
+      const response = await fetch(`https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/item/delItem`, {
+        method: 'POST', // POST 메소드 사용
+        headers: {
+          "Content-Type": "application/json", // JSON 형식으로 데이터 전송
+        },
+        body: JSON.stringify({ itemNum }) // itemNum을 body로 전달
+      });
+  
+      const result = await response.json();
+  
+      if (result.message === 'Item deleted successfully') {
+        alert('아이템이 삭제되었습니다.');
+        // 아이템 삭제 후, 목록을 새로 고침
+        setItems(items.filter(item => item.itemNum !== selectedItem));
+        setSelectedItem(null); // 삭제 후 선택된 항목 초기화
+      } else {
+        alert('아이템 삭제 실패');
+      }
+    } catch (error) {
+      console.error('아이템 삭제 중 오류 발생:', error);
+      alert('아이템 삭제 중 오류가 발생했습니다.');
+    }
+  };
   return (
     <div className="stock-list-container">
       {/* 재고 목록 테이블 */}
       <table className="table">
         <thead>
           <tr>
-            <th><button>삭제</button></th>
+             <th><button onClick={deleteItem}>삭제</button></th>
             <th>제품코드</th>
             <th>이름</th>
             <th>원가</th>
@@ -92,10 +130,17 @@ const StockList = () => {
         </thead>
         <tbody>
           {/* 실제 데이터를 사용하여 테이블을 동적으로 채우기 */}
-          {items.length > 0 ? (
+          {pageInfo.count > 0 ? (
             items.map((item, index) => (
               <tr key={index}>
-                <td><input type="checkbox" /></td>
+                <td>
+                  <input 
+                    type="radio" 
+                    name="itemRadio" // 동일한 name 속성으로 한 번에 하나만 선택되게 설정
+                    checked={selectedItem === item.itemNum} // 선택된 항목에 맞게 체크 상태 관리
+                    onChange={() => handleRadioChange(item.itemNum)} // 라디오 버튼 클릭 시 상태 업데이트
+                  />
+                </td>
                 <td>{item.itemNum}</td>
                 <td>{item.itemName}</td>
                 <td>{item.costPrice}</td>
