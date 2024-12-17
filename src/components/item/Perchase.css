@@ -91,3 +91,7 @@
   .canPerchase{
     cursor: pointer;
   }
+
+  .align-left{
+    text-align: left;
+  }

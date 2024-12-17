@@ -90,21 +90,26 @@ const Perchase = ({ item, closeModal }) => {
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>상품 결제</h2>
-        <p><strong>상품명:</strong> {item.itemName}</p>
-        <p><strong>가격:</strong> {item.price.toLocaleString()} 원</p>
-        <div>
-          <strong>수량:</strong>
-          <input
-            type="number"
-            value={quantity}
-            onChange={handleQuantityChange}
-            onBlur={handleQuantityBlur} // 포커스가 벗어날 때 처리
-            className="quantity-input"
-            />
-          <span className="perchase-quantity">({item.itemQuantity}개까지 선택 가능)</span>
+        <div className="align-left">
+          <p><strong>상품명 : </strong> {item.itemName}</p>
+          <p><strong>가격 : </strong> {item.price.toLocaleString()} 원</p>
+          <div>
+            <strong>수량 : </strong>
+            <input
+              type="number"
+              value={quantity}
+              onChange={handleQuantityChange}
+              onBlur={handleQuantityBlur} // 포커스가 벗어날 때 처리
+              className="quantity-input"
+              /> 개 
+            <span className="perchase-quantity">&nbsp;({item.itemQuantity}개까지 선택 가능)</span>
         </div>
-        <span className="red-text">*최대 수량 이하로 입력하세요.</span>
-
+          <span className="red-text">*최대 수량 이하로 입력하세요.</span>
+        </div>
+        <hr></hr>
+        <div>
+        <strong>총 금액 : {(item.price * quantity).toLocaleString()}원</strong>
+        </div>
         <div>
           <button onClick={handlePayment} className="perchase-button">결제하기</button>
           <button onClick={closeModal} className="close perchase-button">닫기</button>

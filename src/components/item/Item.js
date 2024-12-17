@@ -226,6 +226,7 @@
               <select name="keyfield">
                 <option value="1">번호</option>
                 <option value="2">이름</option>
+                <option value="3">카테고리</option>
               </select>
               <input name="keyword" placeholder="검색어 입력" />
               <button type="submit">검색</button>
