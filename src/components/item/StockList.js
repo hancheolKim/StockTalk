@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Item.css'; // 제공된 CSS 파일을 여기에 연결
 
+
 const StockList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [items, setItems] = useState([]); // 재고 목록을 위한 상태 추가
   const [pageInfo, setPageInfo] = useState({});
-  
-  const totalPages = pageInfo.count > 0 ? Math.ceil(pageInfo.count / 15) : 0;
   const [filters, setFilters] = useState({
     pageNum: 1,
     order: 1,
@@ -46,27 +45,35 @@ const StockList = () => {
       pageNum: 1, // 검색 시 페이지를 1로 초기화
     }));
   };
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    setFilters((prev) => ({ ...prev, pageNum: page }));
+  const goPage = (pageNum) => {
+    setFilters((prev) => ({ ...prev, pageNum }));
   };
 
-  const renderPageButtons = () => {
-    let buttons = [];
-    for (let i = 1; i <= totalPages; i++) {
-      buttons.push(
-        <button
-          key={i}
-          onClick={() => handlePageChange(i)}
-          className={i === currentPage ? 'selected' : ''}
-        >
-          {i}
-        </button>
-      );
-    }
-    return buttons;
-  };
+ // 페이지 수 계산: count를 기준으로 계산
+ const totalPages = pageInfo.count > 0 ? Math.ceil(pageInfo.count / 15) : 0;
+
+ // 페이지 번호 버튼 범위 설정: 현재 페이지를 기준으로 앞뒤 2개 버튼만 보이도록
+ const maxButtons = 5;
+ const half = Math.floor(maxButtons / 2);
+ let startPage = Math.max(filters.pageNum - half, 1);
+ let endPage = Math.min(startPage + maxButtons - 1, totalPages);
+
+ if (endPage - startPage < maxButtons - 1) {
+   startPage = Math.max(endPage - maxButtons + 1, 1);
+ }
+
+ const pageButtons = [];
+ for (let i = startPage; i <= endPage; i++) {
+   pageButtons.push(
+     <button
+       key={i}
+       onClick={() => goPage(i)}
+       className={filters.pageNum === i ? "selected" : ""}
+     >
+       {i}
+     </button>
+   );
+ }
 
   return (
     <div className="stock-list-container">
@@ -77,8 +84,9 @@ const StockList = () => {
             <th><button>삭제</button></th>
             <th>번호</th>
             <th>이름</th>
-            <th>가격</th>
-            <th>수량</th>
+            <th>원가</th>
+            <th>총 수량</th>
+            <th>양품수량</th>
             <th>불량수량</th>
           </tr>
         </thead>
@@ -90,14 +98,15 @@ const StockList = () => {
                 <td><input type="checkbox" /></td>
                 <td>{item.itemNum}</td>
                 <td>{item.itemName}</td>
-                <td>{item.price}</td>
-                <td>{item.itemQuantity}</td>
+                <td>{item.costPrice}</td>
+                <td>{item.itemQuantity + item.defectiveQuantity}</td>
+                <td className={item.itemQuantity <= 3 ? 'low-quantity' : ''}>{item.itemQuantity}</td>
                 <td>{item.defectiveQuantity}</td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="6" className="empty-message">
+              <td colSpan="7" className="empty-message">
                 데이터가 없습니다.
               </td>
             </tr>
@@ -119,7 +128,19 @@ const StockList = () => {
 
       {/* 페이지 버튼 */}
       <div className="page-buttons">
-        {renderPageButtons()}
+        <button
+          onClick={() => goPage(Math.max(1, filters.pageNum - 1))}
+          disabled={filters.pageNum === 1}
+        >
+          이전
+        </button>
+        {pageButtons}
+        <button
+            onClick={() => goPage(Math.min(totalPages, filters.pageNum + 1))}
+            disabled={filters.pageNum === totalPages}
+          >
+            다음
+          </button>
       </div>
     </div>
   );

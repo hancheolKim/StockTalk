@@ -4,14 +4,21 @@
   margin-bottom: 20px;
 }
 
-.button-group {
+.same-line {
+  width: 100%; /* 100%로 수정하여 전체 폭을 사용 */
+  display: flex;
+  justify-content: space-between; /* 양쪽 끝에 정렬 */
+  align-items: center;
+}
+
+.button-group-left {
   display: flex; /* 버튼을 가로로 나열 */
   justify-content: flex-start; /* 버튼들을 왼쪽에 정렬 */
   margin: 0; /* 버튼의 하단 여백 없애기 */
   width: 100%; /* 버튼들이 테이블과 같은 너비를 가지도록 */
 }
 
-.button-group button {
+.button-group-left button {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
@@ -21,19 +28,62 @@
   white-space: nowrap;
 }
 
-.button-group button:hover {
+.button-group-left button:hover {
   background-color: #e0e0e0;
 }
 
-.button-group button.selected {
+.button-group-left button.selected {
   background-color: #007bff;
   color: white;
   border: 1px solid #007bff;
 }
 
-/* 기본 테이블 스타일 */
+.button-group-right {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start; /* 기본적으로 왼쪽 정렬 */
+}
+
+.button-group-right button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #28a745; /* 오른쪽 버튼 색상 추가 */
+  border: 1px solid #28a745; /* 오른쪽 버튼 테두리 색상 */
+  border-radius: 25px; /* 둥근 모서리 추가 */
+  transition: background-color 0.3s;
+  color: white;
+  white-space: nowrap;
+}
+
+.button-group-right button:hover {
+  background-color: #218838; /* 호버 시 색상 변경 */
+}
+
+@media (min-width: 769px) {
+  .button-group-right {
+    justify-content: flex-start;  /* 버튼을 왼쪽으로 정렬 */
+  }
+}
+
+@media (max-width: 768px) {
+  .button-group-right button {
+    font-size: 14px;  /* 버튼 글자 크기 줄이기 */
+    padding: 4px 8px;  /* 버튼 크기 줄이기 */
+  }
+
+  .button-group-right {
+    gap: 3px;  /* 버튼 간격 줄이기 */
+  }
+
+  .same-line {
+    width: 95%; /* 100%로 수정하여 전체 폭을 사용 */
+    margin : 0 6px;
+  }
+}
+
 .table {
-  width: 100%;
+  width: 100%; /* 테이블이 전체 폭을 사용하도록 */
   border-collapse: collapse;
 }
 
@@ -47,138 +97,128 @@
 
 th {
   background-color: #f0f4f8; /* 부드러운 파스텔 블루 */
-  color: #333; /* 글자 색상 */
+  color: #333;
 }
-
 
 .empty-message {
   text-align: center;
   color: #888;
 }
 
-/* 반응형 디자인 */
 @media (max-width: 768px) {
-  /* 모바일에서 글자 크기 작게 */
   .title {
     font-size: 18px;
   }
 
-  .button-group{
-    margin : 0 6px;
+  .button-group {
+    margin: 0 6px;
   }
 
-  .button-group button {
-    font-size: 14px; /* 버튼 글자 크기 줄이기 */
-    padding: 8px 16px; /* 버튼 크기 줄이기 */
+  .button-group-left button {
+    font-size: 8px;
+    padding: 4px 8px;
   }
 
-  /* 기본 테이블 스타일 */
-.table {
-  margin : 0 6px;
-}
+  .button-group-right button {
+    font-size: 8px;
+    padding: 4px 8px;
+  }
 
-  /* 테이블의 데이터 padding 줄이기 */
+  .table {
+    margin: 0 6px;
+  }
+
   .table th,
   .table td {
-    padding: 10px 0px; /* 테이블의 padding 줄이기 */
-    font-size: 12px; /* 테이블 글자 크기 줄이기 */
+    padding: 10px 0px;
+    font-size: 12px;
   }
 
-  .table th:nth-child(5), 
+  .table th:nth-child(5),
   .table td:nth-child(5),
-  .table th:nth-child(6), 
+  .table th:nth-child(6),
   .table td:nth-child(6) {
     display: none;
   }
 
-  /* 모바일 환경에서 테이블의 각 데이터 영역을 더 넓게 조정 */
   .table {
-    width: 95%; /* 테이블 너비를 다시 100%로 설정 */
-    font-size: 14px; /* 폰트 크기 조정 */
+    width: 95%;
+    font-size: 14px;
   }
 }
 
-.form-container{
+.form-container {
   margin-top: 20px;
-  display: flex; /* 가로로 나열 */
-  justify-content: center; /* 수평 가운데 정렬 */
+  display: flex;
+  justify-content: center;
 }
 
 .search-form {
-  width: 60%; /* 너비를 자동으로 설정 */
-  display: flex; /* 가로로 나열 */
-  align-items: center; /* 수평 가운데 정렬 */
-  justify-content: space-between; /* 각 항목 사이의 간격을 동일하게 설정 */
-  margin-bottom: 20px; /* 폼 아래에 여백 추가 */
-  padding: 10px 15px; /* 폼 안쪽 여백 추가 */
-  background-color: #f9f9f9; /* 폼 배경색 */
-  border-radius: 8px; /* 모서리 둥글게 */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
-  }
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
 .search-form select,
 .search-form input {
-  padding: 8px 12px; /* 입력란에 여백 추가 */
-  font-size: 14px; /* 글자 크기 */
-  border: 1px solid #ccc; /* 테두리 색 */
-  border-radius: 4px; /* 모서리 둥글게 */
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .search-form select {
-  width: 20%; /* 카테고리 선택 박스 너비 지정 */
+  width: 20%;
 }
 
 .search-form input {
-  padding: 8px 12px; /* 입력란에 여백 추가 */
-  font-size: 14px; /* 글자 크기 */
-  border: 1px solid #ccc; /* 테두리 색 */
-  border-radius: 4px; /* 모서리 둥글게 */
-  width: 67%; /* 입력란의 적당한 고정 너비 설정 */
+  width: 67%;
 }
 
-
 .search-form button {
-  padding: 8px 16px; /* 버튼 크기 */
-  font-size: 14px; /* 버튼 글자 크기 */
-  background-color: #007bff; /* 버튼 배경색 */
-  color: white; /* 버튼 텍스트 색 */
-  border: none; /* 기본 테두리 제거 */
-  border-radius: 4px; /* 버튼 모서리 둥글게 */
-  cursor: pointer; /* 마우스를 올렸을 때 포인터 커서 */
-  transition: background-color 0.3s ease; /* 배경색 변화에 애니메이션 효과 */
-  white-space: nowrap;
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .search-form button:hover {
-  background-color: #0056b3; /* 마우스 오버 시 배경색 변경 */
+  background-color: #0056b3;
 }
 
 @media (max-width: 768px) {
   .search-form {
-    padding: 15px; /* 모바일에서 여백 좀 더 추가 */
-    width: 90%
+    padding: 15px;
+    width: 90%;
   }
 
   .search-form select {
-    width : 25%;
+    width: 25%;
   }
 
   .search-form input {
-    width : 50%;
+    width: 50%;
   }
-
 }
 
 .page-buttons {
   display: flex;
   gap: 10px;
   justify-content: center;
-  align-items: center; /* 세로 가운데 정렬 */
-  height: 60px; /* 부모 컨테이너의 높이를 화면 전체로 설정 */
+  align-items: center;
+  height: 60px;
 }
 
-
-/* 페이지 버튼 기본 스타일 */
 .page-buttons button {
   padding: 8px 15px;
   font-size: 1rem;
@@ -191,19 +231,16 @@ th {
   white-space: nowrap;
 }
 
-/* 페이지 버튼 선택시 강조 스타일 */
 .page-buttons button.selected {
   background-color: #007bff;
   color: white;
   border-color: #007bff;
 }
 
-/* 페이지 버튼 hover 효과 */
 .page-buttons button:hover:not(.selected) {
   background-color: #e0e0e0;
 }
 
-/* 페이지 버튼 비활성화 스타일 */
 .page-buttons button:disabled {
   background-color: #ddd;
   color: #aaa;
@@ -213,50 +250,73 @@ th {
 @media (max-width: 768px) {
   .page-buttons {
     margin-top: 0px;
-    gap: 3px; /* 버튼 간격 줄이기 */
+    gap: 3px;
   }
 
   .page-buttons button {
-    padding: 6px 12px; /* 버튼 크기 줄이기 */
-    font-size: 0.8rem; /* 버튼 글자 크기 줄이기 */
+    padding: 6px 12px;
+    font-size: 0.8rem;
   }
-  .search-form{
-    margin-bottom : 10px;
+
+  .search-form {
+    margin-bottom: 10px;
   }
 }
+
+.order-radio {
+  margin-top: 10px;
+  margin-left: 30px;
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.order-radio label {
+  display: flex;
+  align-items: center;
+}
+
+.order-radio input[type="radio"] {
+  margin-right: 5px;
+}
+
+@media (max-width: 768px) {
   .order-radio {
-    margin-top: 10px;
-    margin-left: 30px;
-    display: flex; /* 라디오 버튼을 1행으로 정렬 */
-    gap: 10px; /* 버튼 간격 */
-    font-size: 12px; /* 글자 크기 */
-    font-weight: bold; /* 글자 굵게 */
-    white-space: nowrap;
+    margin-top: 0px;
+    margin-left: 5px;
+    font-size: 10px;
   }
-  
+
   .order-radio label {
-    display: flex;
-    align-items: center;
+    font-size: 10px;
   }
-  
+
   .order-radio input[type="radio"] {
-    margin-right: 5px; /* 라디오 버튼과 텍스트 간격 */
+    margin-right: 0px;
   }
-  
-  /* 반응형 처리 */
-  @media (max-width: 768px) {
-    .order-radio {
-      margin-top: 0 px;
-      margin-left: 5px; /* 왼쪽 여백 없애기 */
-      font-size: 10px; /* 글자 크기 줄이기 */
-    }
-  
-    .order-radio label {
-      font-size: 10px; /* 레이블 글자 크기 줄이기 */
-    }
-  
-    .order-radio input[type="radio"] {
-      margin-right: 0px; /* 모바일에서 라디오 버튼과 텍스트 간의 간격 줄이기 */
-    }
-  }
-  
+}
+
+.low-quantity {
+  color: red;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}

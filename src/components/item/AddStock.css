@@ -1,0 +1,119 @@
+/* 전체 컨테이너 스타일 */
+.add-stock-container {
+    max-width: 800px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;  /* 화면 중앙에 배치 */
+  }
+  
+  /* 헤더 스타일 */
+  .add-stock-header {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* 폼 스타일 */
+  .add-stock-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* 각 입력 필드 그룹 */
+  .add-stock-form-group {
+    display: flex;
+    align-items: center;  /* 라벨과 입력 필드를 한 줄에 배치 */
+    gap: 15px;  /* 라벨과 입력 필드 사이의 간격 */
+  }
+  
+  /* 라벨 스타일 */
+  .add-stock-form-group label {
+    flex: 0 0 120px;  /* 라벨의 고정 너비 */
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  /* 텍스트 입력 필드와 선택박스 */
+  .add-stock-select,
+  .add-stock-input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 250px;  /* input의 너비를 일정하게 설정 */
+  }
+  
+  /* 버튼 스타일 */
+  .add-stock-button {
+    padding: 8px 12px;
+    margin-top: 5px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* 버튼 그룹 스타일 */
+  .add-stock-button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* 제출 버튼 스타일 */
+  .add-stock-submit-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* 닫기 버튼 스타일 */
+  .add-stock-close-button {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* 모바일 환경을 위한 미디어 쿼리 */
+  @media (max-width: 768px) {
+    .add-stock-container {
+      max-width: 100%;  /* 화면 크기에 맞게 100%로 설정 */
+      padding: 15px;
+    }
+  
+    .add-stock-form-group {
+      flex-direction: column; /* 모바일에서는 세로로 배치 */
+      align-items: flex-start;  /* 왼쪽 정렬 */
+    }
+  
+    .add-stock-form-group label {
+      flex: 0 0 100%;  /* 라벨의 너비를 100%로 설정하여 줄바꿈 */
+      margin-bottom: 5px;  /* 라벨과 입력 필드 간격 추가 */
+    }
+  
+    .add-stock-select,
+    .add-stock-input {
+      width: 100%;  /* 입력 필드 너비를 100%로 설정 */
+    }
+  
+    .add-stock-button-group {
+      flex-direction: column;  /* 모바일에서는 버튼들이 세로로 배치 */
+      gap: 10px;
+    }
+  
+    .add-stock-submit-button,
+    .add-stock-close-button {
+      width: 100%;  /* 버튼 너비를 100%로 설정하여 전체 너비로 확장 */
+    }
+  }
+  
