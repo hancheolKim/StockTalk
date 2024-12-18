@@ -100,7 +100,7 @@ const AddStock = ({ onClose,setView }) => {
       <h2 className="add-stock-header">재고 등록</h2>
       <form onSubmit={handleSubmit} className="add-stock-form">
         <div className="add-stock-form-group">
-          <label>카테고리 :</label>
+          <label>카테고리 : </label>
           <select
             name="category_id"
             onChange={handleCategoryChange}
@@ -116,7 +116,7 @@ const AddStock = ({ onClose,setView }) => {
         </div>
 
         <div className="add-stock-form-group">
-          <label>제품코드 :</label>
+          <label>제품코드 : </label>
           <input
             type="text"
             name="product_code"
@@ -130,7 +130,7 @@ const AddStock = ({ onClose,setView }) => {
         </div>
 
         <div className="add-stock-form-group">
-          <label>제품명 :</label>
+          <label>제품명 : </label>
           <input
             type="text"
             name="product_name"
@@ -141,7 +141,7 @@ const AddStock = ({ onClose,setView }) => {
         </div>
 
         <div className="add-stock-form-group">
-          <label>제품원가 :</label>
+          <label>제품원가 : </label>
           <input
             type="number"
             name="product_cost"
@@ -152,7 +152,7 @@ const AddStock = ({ onClose,setView }) => {
         </div>
 
         <div className="add-stock-form-group">
-          <label>수량 :</label>
+          <label>수량 : </label>
           <input
             type="number"
             name="good_quantity"
@@ -163,7 +163,7 @@ const AddStock = ({ onClose,setView }) => {
         </div>
 
         <div className="add-stock-form-group">
-          <label>등록날짜 :</label>
+          <label>등록날짜 : </label>
           <input
             type="date"
             name="registration_date"
@@ -174,7 +174,7 @@ const AddStock = ({ onClose,setView }) => {
         </div>
 
         <div className="add-stock-form-group">
-          <label>비고 :</label>
+          <label>비고 : </label>
           <textarea
             name="item_notes"
             value={formData.item_notes}
