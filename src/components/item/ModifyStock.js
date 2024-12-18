@@ -50,7 +50,7 @@ const ModifyStock = ({ selectedItem, setView }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/item/modify`,
+        `https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/item/modify`,
         {
           method: 'POST',
           headers: {
