@@ -13,6 +13,7 @@ const Item = () => {
   const [selectedItem, setSelectedItem] = useState(null); // 선택된 상품 정보
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isPerchaseModalOpen, setIsPerchaseModalOpen] = useState(false); // Perchase 모달 상태
+  
 
 
 
@@ -41,8 +42,10 @@ const Item = () => {
   };
 
   const closeModal = () => {
-    setIsPerchaseModalOpen(false); // 모달을 닫음
-};
+    setIsPerchaseModalOpen(false);
+    setSelectedItem(null); // selectedItem 초기화
+  };
+  
 
   const fetchItems = useCallback(async () => {
     try {
@@ -65,10 +68,15 @@ const Item = () => {
     fetchItems();
   }, [fetchItems]);
 
-  const handleButtonClick = (viewType) => {
-    setView(viewType); // 버튼 클릭 시 view만 변경
+  const handleButtonClick = (viewName) => {
+    if (viewName === "modifyStock" && !selectedItem) {
+      // selectedItem이 없으면 ModifyStock으로 이동하지 않음
+      alert("수정할 항목을 선택해주세요.");
+      return;
+    }
+    
+    setView(viewName);
   };
-
   const handleSearch = (e) => {
     e.preventDefault();
     const keyfield = e.target.keyfield.value;
@@ -120,6 +128,15 @@ const Item = () => {
       </button>
     );
   }
+
+  const handleModifyItem = (modifiedItem) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.itemNum === modifiedItem.itemNum ? modifiedItem : item
+      )
+    );
+    setView("stockList"); // 수정 후 제품 목록으로 돌아가기
+  };
 
   return (
     <div className="container">
@@ -280,7 +297,7 @@ const Item = () => {
 
       {view === "stockList" && (
         <div>
-          <StockList />
+          <StockList setView={setView} setSelectedItem={setSelectedItem} selectedItem={selectedItem}/>
         </div>
       )}
 
@@ -297,7 +314,7 @@ const Item = () => {
 
       {/* ModifyStock */}
       {view === "modifyStock" && (
-        <ModifyStock setView={setView} /> // ModifyStock 컴포넌트에 setView 전달
+        <ModifyStock selectedItem={selectedItem} onModify={handleModifyItem} setView={setView}/>
       )}
 
       {/* Perchase 모달창 */}

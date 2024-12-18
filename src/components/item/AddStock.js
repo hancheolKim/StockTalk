@@ -95,6 +95,10 @@ const AddStock = ({ onClose,setView }) => {
     }
   };
 
+  const goStockList= () =>{
+    setView("stockList");
+  }
+
   return (
     <div className="add-stock-container">
       <h2 className="add-stock-header">재고 등록</h2>
@@ -187,7 +191,7 @@ const AddStock = ({ onClose,setView }) => {
           <button type="submit" className="add-stock-submit-button">
             등록
           </button>
-          <button type="button" onClick={onClose} className="add-stock-close-button">
+          <button type="button" onClick={() => setView("stockList")} className="add-stock-close-button">
             닫기
           </button>
         </div>

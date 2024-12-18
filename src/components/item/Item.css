@@ -320,3 +320,6 @@ th {
   border-radius: 8px;
   width: 300px;
 }
+.canChange{
+  cursor: pointer;
+}
