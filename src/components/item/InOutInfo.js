@@ -70,6 +70,7 @@ const handleOrderChange = (order) => {
           <tr>
             <th>번호</th>
             <th>제품코드</th>
+            <th>입고/출고</th>
             <th>수량</th>
             <th>입출고일</th>
             <th>비고</th>
@@ -85,6 +86,7 @@ const handleOrderChange = (order) => {
               <tr key={index}>
                 <td>{item.historyNum}</td>
                 <td>{item.itemNum}</td>
+                <td>{item.transactionType==='0'?"출고":"입고"}</td>
                 <td>{item.transactionQuantity}</td>
                 <td>{new Date(item.transactionDate).toLocaleDateString()}</td>
                 <td>{item.transactionNotes}</td>
