@@ -103,17 +103,16 @@
   
     .add-stock-select,
     .add-stock-input {
-      width: 100%;  /* 입력 필드 너비를 100%로 설정 */
+      width: 40%;  /* 입력 필드 너비를 100%로 설정 */
     }
   
     .add-stock-button-group {
-      flex-direction: column;  /* 모바일에서는 버튼들이 세로로 배치 */
       gap: 10px;
     }
   
     .add-stock-submit-button,
     .add-stock-close-button {
-      width: 100%;  /* 버튼 너비를 100%로 설정하여 전체 너비로 확장 */
+      width: 40%;  /* 버튼 너비를 100%로 설정하여 전체 너비로 확장 */
     }
   }
   
