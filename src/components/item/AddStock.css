@@ -5,7 +5,7 @@
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;  /* 화면 중앙에 배치 */
+  margin: 100px auto;  /* 화면 중앙에 배치 */
 }
 
 /* 헤더 스타일 */
@@ -90,6 +90,7 @@
   .add-stock-container {
     max-width: 100%;  /* 화면 크기에 맞게 100%로 설정 */
     padding: 15px;
+    margin : 0px 0px;
   }
 
   /* 폼 그룹 스타일을 세로로 정렬하는 것이 아니라, 가로로 배치 */
