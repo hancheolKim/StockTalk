@@ -163,6 +163,7 @@ const StockList = () => {
       <div className="form-container">
         <form onSubmit={handleSearch} className="search-form">
           <select name="keyfield">
+            <option value="0">선택</option>
             <option value="1">번호</option>
             <option value="2">이름</option>
           </select>

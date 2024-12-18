@@ -10,7 +10,6 @@ const AddStock = ({ onClose,setView }) => {
     product_name: '',
     product_cost: '',
     good_quantity: '',
-    defective_quantity: '',
     registration_date: '',
     item_notes: '',
   });
@@ -80,7 +79,6 @@ const AddStock = ({ onClose,setView }) => {
       costPrice: formData.product_cost,
       price: price,
       itemQuantity: formData.good_quantity,
-      defectiveQuantity: formData.defective_quantity,
       stockDate: formData.registration_date,
       categoryName: formData.category_name, // category_name 전달
       itemNotes: formData.item_notes,
@@ -154,22 +152,11 @@ const AddStock = ({ onClose,setView }) => {
         </div>
 
         <div className="add-stock-form-group">
-          <label>양품수량 :</label>
+          <label>수량 :</label>
           <input
             type="number"
             name="good_quantity"
             value={formData.good_quantity}
-            onChange={handleChange}
-            className="add-stock-input"
-          />
-        </div>
-
-        <div className="add-stock-form-group">
-          <label>불량수량 :</label>
-          <input
-            type="number"
-            name="defective_quantity"
-            value={formData.defective_quantity}
             onChange={handleChange}
             className="add-stock-input"
           />
