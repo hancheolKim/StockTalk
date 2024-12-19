@@ -181,7 +181,7 @@ th {
 }
 
 .search-form input {
-  width: 67%;
+  width: 60%;
 }
 
 .search-form button {
@@ -193,6 +193,7 @@ th {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
 .search-form button:hover {
@@ -210,7 +211,7 @@ th {
   }
 
   .search-form input {
-    width: 50%;
+    width: 40%;
   }
 }
 
