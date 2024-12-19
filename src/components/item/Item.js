@@ -25,7 +25,7 @@ const Item = () => {
 
   const [filters, setFilters] = useState({
     pageNum: 1,
-    order: 1,
+    order: 0,
     category: "",
     keyfield: "",
     keyword: "",

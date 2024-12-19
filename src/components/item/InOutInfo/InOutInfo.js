@@ -48,11 +48,7 @@ const handleOrderChange = (order) => {
           </tr>
         </thead>
         <tbody>
-          {pageInfo.count === 0 ? (
-            <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>데이터가 없습니다.</td>
-            </tr>
-          ) : (
+          {pageInfo.count > 0 ? (
             itemHistory.map((item, index) => (
               <tr key={index}>
                 <td>{item.historyNum}</td>
@@ -63,7 +59,11 @@ const handleOrderChange = (order) => {
                 <td>{item.transactionNotes}</td>
               </tr>
             ))
-          )}
+          ) :(
+            <tr>
+              <td colSpan="5" className="empty-message">데이터가 없습니다.</td>
+            </tr>
+          ) }
         </tbody>
       </table>
       <div className="order-radio">
