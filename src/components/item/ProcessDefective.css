@@ -101,6 +101,7 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-weight: bold;
+    white-space: nowrap;
   }
   
   .button-process:hover {
@@ -117,9 +118,23 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-weight: bold;
+    white-space: nowrap;
   }
   
   .button-cancel:hover {
     background-color: #e53935;
   }
   
+  
+@media (max-width: 768px) {
+    .button-process {
+      font-size : 12px;
+      padding: 8px 14px;
+    }
+
+    .button-cancel {
+      font-size: 12px;
+      padding: 8px 14px;
+  }
+
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ProcessDefective.css"; // 필요한 CSS 파일
 
-const ProcessDefective = ({ item, onClose, onDefectiveProcessed,setView }) => {
+const ProcessDefective = ({ item, onClose, onDefectiveProcessed }) => {
   const [quantity, setQuantity] = useState(0);
 
   const handleProcess = async () => {
@@ -11,7 +11,7 @@ const ProcessDefective = ({ item, onClose, onDefectiveProcessed,setView }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/item/processDefective", {
+      const response = await fetch("https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/item/processDefective", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -24,7 +24,8 @@ const ProcessDefective = ({ item, onClose, onDefectiveProcessed,setView }) => {
       if (result.message === "불량 처리 완료") {
         alert("불량 처리 완료!");
         // 아이템 수량을 업데이트
-        onClose();  // 모달 닫기   
+        onDefectiveProcessed(item.itemNum, quantity);
+        onClose();  // 모달 닫기  
       } else {
         alert("불량 처리 실패!");
       }

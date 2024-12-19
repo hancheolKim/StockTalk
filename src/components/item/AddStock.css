@@ -109,6 +109,7 @@
   .add-stock-select,
   .add-stock-input {
     width: 60%;  /* 입력 필드 너비를 60%로 설정 */
+    white-space: nowrap;
   }
 
   .add-stock-button-group {

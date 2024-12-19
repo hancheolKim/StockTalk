@@ -212,12 +212,20 @@ const StockList = ({ setView, selectedItem,setSelectedItem }) => {
         <ProcessDefective
           item={selectedItem}
           onClose={closeModal}
-          setView={setView}
-          onDefectiveProcessed={(updatedItem) => {
+          onDefectiveProcessed={(itemNum, defectiveQuantity) => {
             setItems((prevItems) =>
-              prevItems.map((item) =>
-                item.itemNum === updatedItem.itemNum ? updatedItem : item
-              )
+              prevItems.map((item) => {
+                if (item.itemNum === itemNum) {
+                  console.log("Before Update:", item);
+                  console.log("Defective Quantity:", defectiveQuantity);
+                  return {
+                    ...item,
+                    itemQuantity: (item.itemQuantity || 0) - defectiveQuantity,
+                    defectiveQuantity: (item.defectiveQuantity || 0) + defectiveQuantity,
+                  };
+                }
+                return item;
+              })
             );
             closeModal();
           }}
