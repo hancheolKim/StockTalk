@@ -91,9 +91,7 @@ const Item = () => {
     }));
   };
 
-  const goPage = (pageNum) => {
-    setFilters((prev) => ({ ...prev, pageNum }));
-  };
+
 
   const handleOrderChange = (order) => {
     setFilters((prev) => ({ ...prev, order, pageNum: 1 }));
@@ -255,7 +253,7 @@ const Item = () => {
                 <Pagination
                   currentPage={filters.pageNum}
                   count={pageInfo.count}
-                  onPageChange={goPage}
+                  setFilters={setFilters}
                 />
               )}
         </div>

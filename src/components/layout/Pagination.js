@@ -1,7 +1,7 @@
 import React from "react";
 import "./Pagination.css"; // 필요한 스타일 추가
 
-const Pagination = ({ currentPage, count, onPageChange }) => {
+const Pagination = ({ currentPage, count, setFilters }) => {
   const maxButtons = 5; // 한 번에 표시할 버튼 수
   const half = Math.floor(maxButtons / 2);
     // 페이지 수 계산: count를 기준으로 계산
@@ -18,7 +18,7 @@ const Pagination = ({ currentPage, count, onPageChange }) => {
     pageButtons.push(
       <button
         key={i}
-        onClick={() => onPageChange(i)}
+        onClick={() => goPage(i)}
         className={currentPage === i ? "selected" : ""}
       >
         {i}
@@ -26,17 +26,21 @@ const Pagination = ({ currentPage, count, onPageChange }) => {
     );
   }
 
+  const goPage = (pageNum) => {
+    setFilters((prev) => ({ ...prev, pageNum }));
+  };
+
   return (
     <div className="pagination">
       <button
-        onClick={() => onPageChange(Math.max(1, currentPage - 1))}
+        onClick={() => goPage(Math.max(1, currentPage - 1))}
         disabled={currentPage === 1}
       >
         이전
       </button>
       {pageButtons}
       <button
-        onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
+        onClick={() => goPage(Math.min(totalPages, currentPage + 1))}
         disabled={currentPage === totalPages}
       >
         다음

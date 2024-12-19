@@ -58,9 +58,6 @@ const StockList = ({ setView, selectedItem, setSelectedItem }) => {
     }));
   };
 
-  const goPage = (pageNum) => {
-    setFilters((prev) => ({ ...prev, pageNum }));
-  };
 
   const handleRadioChange = (itemId) => {
     setSelectedItem(itemId);
@@ -167,10 +164,10 @@ const StockList = ({ setView, selectedItem, setSelectedItem }) => {
           {/* Pagination 컴포넌트 추가 */}
           {pageInfo.count > 0 && (
                 <Pagination
-                  currentPage={filters.pageNum}
-                  count={pageInfo.count}
-                  onPageChange={goPage}
-                />
+                currentPage={filters.pageNum}
+                count={pageInfo.count}
+                setFilters={setFilters}
+              />
               )}
       {modalOpen && selectedItem && (
         <ProcessDefective

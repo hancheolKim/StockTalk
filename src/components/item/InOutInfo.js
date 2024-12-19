@@ -28,11 +28,6 @@ const InOutInfo = () => {
     fetchItemHistory();
   }, [filters]);  // filters 변경 시마다 호출
 
-  const goPage = (pageNum) => {
-    setFilters((prev) => ({ ...prev, pageNum }));
-  };// 페이지 수 계산: count를 기준으로 계산
-
-
 const handleOrderChange = (order) => {
   setFilters((prev) => {
     return { ...prev, order, pageNum: 1 };  // 페이지 번호를 1로 초기화
@@ -115,11 +110,11 @@ const handleOrderChange = (order) => {
           </div>
                    {/* Pagination 컴포넌트 추가 */}
                    {pageInfo.count > 0 && (
-                <Pagination
-                  currentPage={filters.pageNum}
-                  count={pageInfo.count}
-                  onPageChange={goPage}
-                />
+                    <Pagination
+                    currentPage={filters.pageNum}
+                    count={pageInfo.count}
+                    setFilters={setFilters}
+                  />
               )}
     </div>
   );
