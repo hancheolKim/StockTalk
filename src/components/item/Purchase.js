@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./Perchase.css"; // 모달 스타일을 위한 CSS
+import "./Purchase.css"; // 모달 스타일을 위한 CSS
 import * as PortOne from "@portone/browser-sdk/v2";
 
-const Perchase = ({ item, closeModal }) => {
+const Purchase = ({ item, closeModal }) => {
   // 수량 상태 관리
   const [quantity, setQuantity] = useState(1);
 
@@ -119,4 +119,4 @@ const Perchase = ({ item, closeModal }) => {
   );
 };
 
-export default Perchase;
+export default Purchase;

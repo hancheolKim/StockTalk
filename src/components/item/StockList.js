@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Item.css';
 import ProcessDefective from './ProcessDefective';
+import Pagination from "../layout/Pagination.js";
 
-const StockList = ({ setView, selectedItem,setSelectedItem }) => {
+const StockList = ({ setView, selectedItem, setSelectedItem }) => {
   const [items, setItems] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
-
   const [modalOpen, setModalOpen] = useState(false);
   const [filters, setFilters] = useState({
     pageNum: 1,
@@ -34,13 +34,11 @@ const StockList = ({ setView, selectedItem,setSelectedItem }) => {
   }, [filters]);
 
   const handleRowClick = (item, e) => {
-    // 라디오 버튼이 아닌 곳을 클릭했을 때만 모달을 열도록 조건 추가
     if (e && e.target && e.target.type !== 'radio') {
       setSelectedItem(item);
       setModalOpen(true);
     }
   };
-  
 
   const closeModal = () => {
     setModalOpen(false);
@@ -64,30 +62,6 @@ const StockList = ({ setView, selectedItem,setSelectedItem }) => {
     setFilters((prev) => ({ ...prev, pageNum }));
   };
 
-  const totalPages = pageInfo.count > 0 ? Math.ceil(pageInfo.count / 15) : 0;
-
-  const maxButtons = 5;
-  const half = Math.floor(maxButtons / 2);
-  let startPage = Math.max(filters.pageNum - half, 1);
-  let endPage = Math.min(startPage + maxButtons - 1, totalPages);
-
-  if (endPage - startPage < maxButtons - 1) {
-    startPage = Math.max(endPage - maxButtons + 1, 1);
-  }
-
-  const pageButtons = [];
-  for (let i = startPage; i <= endPage; i++) {
-    pageButtons.push(
-      <button
-        key={i}
-        onClick={() => goPage(i)}
-        className={filters.pageNum === i ? 'selected' : ''}
-      >
-        {i}
-      </button>
-    );
-  }
-
   const handleRadioChange = (itemId) => {
     setSelectedItem(itemId);
   };
@@ -97,6 +71,7 @@ const StockList = ({ setView, selectedItem,setSelectedItem }) => {
       alert('삭제할 항목을 선택해주세요.');
       return;
     }
+
 
     const itemNum = selectedItem.itemNum;
 
@@ -126,8 +101,8 @@ const StockList = ({ setView, selectedItem,setSelectedItem }) => {
       alert('아이템 삭제 중 오류가 발생했습니다.');
     }
   };
-
-
+        // 페이지 수 계산: count를 기준으로 계산
+        const totalPages = pageInfo.count > 0 ? Math.ceil(pageInfo.count / 15) : 0;
   return (
     <div className="stock-list-container">
       <table className="table">
@@ -147,11 +122,11 @@ const StockList = ({ setView, selectedItem,setSelectedItem }) => {
         <tbody>
           {pageInfo.count > 0 ? (
             items.map((item, index) => (
-                <tr
-                  key={index}
-                  onClick={(e) => handleRowClick(item, e)} // 이벤트 객체 e를 전달
-                  className="canChange"
-                >
+              <tr
+                key={index}
+                onClick={(e) => handleRowClick(item, e)}
+                className="canChange"
+              >
                 <td>
                   <input
                     type="radio"
@@ -191,23 +166,12 @@ const StockList = ({ setView, selectedItem,setSelectedItem }) => {
           <button type="submit">검색</button>
         </form>
       </div>
-
-      <div className="page-buttons">
-        <button
-          onClick={() => goPage(Math.max(1, filters.pageNum - 1))}
-          disabled={filters.pageNum === 1}
-        >
-          이전
-        </button>
-        {pageButtons}
-        <button
-          onClick={() => goPage(Math.min(totalPages, filters.pageNum + 1))}
-          disabled={filters.pageNum === totalPages}
-        >
-          다음
-        </button>
-      </div>
-
+          {/* Pagination 컴포넌트 추가 */}
+            <Pagination
+              currentPage={filters.pageNum}
+              totalPages={totalPages}
+              onPageChange={goPage}
+            />
       {modalOpen && selectedItem && (
         <ProcessDefective
           item={selectedItem}
@@ -216,8 +180,6 @@ const StockList = ({ setView, selectedItem,setSelectedItem }) => {
             setItems((prevItems) =>
               prevItems.map((item) => {
                 if (item.itemNum === itemNum) {
-                  console.log("Before Update:", item);
-                  console.log("Defective Quantity:", defectiveQuantity);
                   return {
                     ...item,
                     itemQuantity: (item.itemQuantity || 0) - defectiveQuantity,

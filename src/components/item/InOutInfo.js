@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Pagination from "../layout/Pagination.js";
 
 const InOutInfo = () => {
   const [itemHistory, setItemHistory] = useState([]);
@@ -14,7 +15,6 @@ const InOutInfo = () => {
       try {
         // filters를 query 파라미터로 전달하기 전에 확인
         const query = new URLSearchParams(filters).toString();  
-        console.log("Query parameters: ", query);  // Debugging: 쿼리 파라미터 확인
         const response = await axios.get(`https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/item/itemHistory?${query}`);
         const { items, count } = response.data;
   
@@ -33,29 +33,6 @@ const InOutInfo = () => {
   };// 페이지 수 계산: count를 기준으로 계산
 
 const totalPages = pageInfo.count > 0 ? Math.ceil(pageInfo.count / 15) : 0;
-
-// 페이지 번호 버튼 범위 설정: 현재 페이지를 기준으로 앞뒤 2개 버튼만 보이도록
-const maxButtons = 5;
-const half = Math.floor(maxButtons / 2);
-let startPage = Math.max(filters.pageNum - half, 1);
-let endPage = Math.min(startPage + maxButtons - 1, totalPages);
-
-if (endPage - startPage < maxButtons - 1) {
-  startPage = Math.max(endPage - maxButtons + 1, 1);
-}
-
-const pageButtons = [];
-for (let i = startPage; i <= endPage; i++) {
-  pageButtons.push(
-    <button
-      key={i}
-      onClick={() => goPage(i)}
-      className={filters.pageNum === i ? "selected" : ""}
-    >
-      {i}
-    </button>
-  );
-}
 
 const handleOrderChange = (order) => {
   setFilters((prev) => {
@@ -137,24 +114,14 @@ const handleOrderChange = (order) => {
               수량 적은순
             </label>
           </div>
-          {/* 페이지 버튼 추가 */}
-          {totalPages > 0 && (
-            <div className="page-buttons">
-              <button
-                onClick={() => goPage(Math.max(1, filters.pageNum - 1))}
-                disabled={filters.pageNum === 1}
-              >
-                이전
-              </button>
-              {pageButtons}
-              <button
-                onClick={() => goPage(Math.min(totalPages, filters.pageNum + 1))}
-                disabled={filters.pageNum === totalPages}
-              >
-                다음
-              </button>
-            </div>
-          )}
+                   {/* Pagination 컴포넌트 추가 */}
+                   {totalPages > 0 && (
+                <Pagination
+                  currentPage={filters.pageNum}
+                  totalPages={totalPages}
+                  onPageChange={goPage}
+                />
+              )}
     </div>
   );
 };

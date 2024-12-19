@@ -2,9 +2,10 @@ import React, { useEffect, useState, useCallback } from "react";
 import "./Item.css";
 import StockList from "./StockList";
 import InOutInfo from "./InOutInfo";
-import Perchase from "./Perchase";
+import Perchase from "./Purchase.js";
 import AddStock from './AddStock.js';
 import ModifyStock from './ModifyStock.js';
+import Pagination from "../layout/Pagination.js";
 
 const Item = () => {
   const [items, setItems] = useState([]);
@@ -105,29 +106,6 @@ const Item = () => {
 
   // 페이지 수 계산: count를 기준으로 계산
   const totalPages = pageInfo.count > 0 ? Math.ceil(pageInfo.count / 15) : 0;
-
-  // 페이지 번호 버튼 범위 설정: 현재 페이지를 기준으로 앞뒤 2개 버튼만 보이도록
-  const maxButtons = 5;
-  const half = Math.floor(maxButtons / 2);
-  let startPage = Math.max(filters.pageNum - half, 1);
-  let endPage = Math.min(startPage + maxButtons - 1, totalPages);
-
-  if (endPage - startPage < maxButtons - 1) {
-    startPage = Math.max(endPage - maxButtons + 1, 1);
-  }
-
-  const pageButtons = [];
-  for (let i = startPage; i <= endPage; i++) {
-    pageButtons.push(
-      <button
-        key={i}
-        onClick={() => goPage(i)}
-        className={filters.pageNum === i ? "selected" : ""}
-      >
-        {i}
-      </button>
-    );
-  }
 
   const handleModifyItem = (modifiedItem) => {
     setItems((prevItems) =>
@@ -273,25 +251,14 @@ const Item = () => {
               <button type="submit">검색</button>
             </form>
           </div>
-
-          {/* 페이지 버튼 추가 */}
+          {/* Pagination 컴포넌트 추가 */}
           {totalPages > 0 && (
-            <div className="page-buttons">
-              <button
-                onClick={() => goPage(Math.max(1, filters.pageNum - 1))}
-                disabled={filters.pageNum === 1}
-              >
-                이전
-              </button>
-              {pageButtons}
-              <button
-                onClick={() => goPage(Math.min(totalPages, filters.pageNum + 1))}
-                disabled={filters.pageNum === totalPages}
-              >
-                다음
-              </button>
-            </div>
-          )}
+                <Pagination
+                  currentPage={filters.pageNum}
+                  totalPages={totalPages}
+                  onPageChange={goPage}
+                />
+              )}
         </div>
       )}
 
