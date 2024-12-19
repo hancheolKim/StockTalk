@@ -1,9 +1,11 @@
 import React from "react";
 import "./Pagination.css"; // 필요한 스타일 추가
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination = ({ currentPage, count, onPageChange }) => {
   const maxButtons = 5; // 한 번에 표시할 버튼 수
   const half = Math.floor(maxButtons / 2);
+    // 페이지 수 계산: count를 기준으로 계산
+  const totalPages = count > 0 ? Math.ceil(count / 15) : 0;
   let startPage = Math.max(currentPage - half, 1);
   let endPage = Math.min(startPage + maxButtons - 1, totalPages);
 

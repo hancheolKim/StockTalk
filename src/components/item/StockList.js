@@ -101,8 +101,6 @@ const StockList = ({ setView, selectedItem, setSelectedItem }) => {
       alert('아이템 삭제 중 오류가 발생했습니다.');
     }
   };
-        // 페이지 수 계산: count를 기준으로 계산
-        const totalPages = pageInfo.count > 0 ? Math.ceil(pageInfo.count / 15) : 0;
   return (
     <div className="stock-list-container">
       <table className="table">
@@ -167,11 +165,13 @@ const StockList = ({ setView, selectedItem, setSelectedItem }) => {
         </form>
       </div>
           {/* Pagination 컴포넌트 추가 */}
-            <Pagination
-              currentPage={filters.pageNum}
-              totalPages={totalPages}
-              onPageChange={goPage}
-            />
+          {pageInfo.count > 0 && (
+                <Pagination
+                  currentPage={filters.pageNum}
+                  count={pageInfo.count}
+                  onPageChange={goPage}
+                />
+              )}
       {modalOpen && selectedItem && (
         <ProcessDefective
           item={selectedItem}

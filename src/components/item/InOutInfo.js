@@ -32,7 +32,6 @@ const InOutInfo = () => {
     setFilters((prev) => ({ ...prev, pageNum }));
   };// 페이지 수 계산: count를 기준으로 계산
 
-const totalPages = pageInfo.count > 0 ? Math.ceil(pageInfo.count / 15) : 0;
 
 const handleOrderChange = (order) => {
   setFilters((prev) => {
@@ -115,10 +114,10 @@ const handleOrderChange = (order) => {
             </label>
           </div>
                    {/* Pagination 컴포넌트 추가 */}
-                   {totalPages > 0 && (
+                   {pageInfo.count > 0 && (
                 <Pagination
                   currentPage={filters.pageNum}
-                  totalPages={totalPages}
+                  count={pageInfo.count}
                   onPageChange={goPage}
                 />
               )}
