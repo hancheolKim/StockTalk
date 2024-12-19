@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "./Item.css";
-import StockList from "./StockList";
-import InOutInfo from "./InOutInfo";
+import StockList from "./Stock/StockList.js";
+import InOutInfo from "./InOutInfo/InOutInfo.js";
 import Perchase from "./Purchase.js";
-import AddStock from './AddStock.js';
-import ModifyStock from './ModifyStock.js';
+import AddStock from './Stock/AddStock.js';
+import ModifyStock from './Stock/ModifyStock.js';
 import Pagination from "../layout/Pagination.js";
 
 const Item = () => {

@@ -41,7 +41,7 @@ const ModifyStock = ({ selectedItem, setView }) => {
       itemNum: formData.itemNum,
       itemName: formData.itemName,
       costPrice: formData.costPrice,
-      price: formData.costPrice * 3,
+      price: price,
       itemQuantity: formData.itemQuantity,
       defectiveQuantity : formData.defectiveQuantity,
       stockDate: formData.stockDate,

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './Item.css';
-import ProcessDefective from './ProcessDefective';
-import Pagination from "../layout/Pagination.js";
+import ProcessDefective from './ProcessDefective.js';
+import Pagination from "../../layout/Pagination.js";
 
 const StockList = ({ setView, selectedItem, setSelectedItem }) => {
   const [items, setItems] = useState([]);
@@ -68,10 +67,14 @@ const StockList = ({ setView, selectedItem, setSelectedItem }) => {
       alert('삭제할 항목을 선택해주세요.');
       return;
     }
-
-
+  
+    const confirmDelete = window.confirm('정말로 선택한 아이템을 삭제하시겠습니까?');
+    if (!confirmDelete) {
+      return;
+    }
+  
     const itemNum = selectedItem.itemNum;
-
+  
     try {
       const response = await fetch(
         `https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/item/delItem`,
@@ -83,12 +86,12 @@ const StockList = ({ setView, selectedItem, setSelectedItem }) => {
           body: JSON.stringify({ itemNum }),
         }
       );
-
+  
       const result = await response.json();
-
+  
       if (result.message === 'Item deleted successfully') {
         alert('아이템이 삭제되었습니다.');
-        setItems(items.filter((item) => item.itemNum !== selectedItem));
+        setItems(items.filter((item) => item.itemNum !== selectedItem.itemNum));
         setSelectedItem(null);
       } else {
         alert('아이템 삭제 실패');

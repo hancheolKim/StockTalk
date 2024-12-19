@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Pagination from "../layout/Pagination.js";
+import Pagination from "../../layout/Pagination.js";
 
 const InOutInfo = () => {
   const [itemHistory, setItemHistory] = useState([]);

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import './AddStock.css';
 import axios from 'axios';
-import StockList from './StockList';
 
 const AddStock = ({ onClose,setView }) => {
   const [formData, setFormData] = useState({
@@ -95,9 +94,7 @@ const AddStock = ({ onClose,setView }) => {
     }
   };
 
-  const goStockList= () =>{
-    setView("stockList");
-  }
+
 
   return (
     <div className="add-stock-container">
