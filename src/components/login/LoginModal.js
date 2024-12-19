@@ -65,7 +65,7 @@ const LoginModal = ({ onClose }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal">
+      <div className="login-modal">
         <h2>로그인</h2>
         <div className="input-container">
         <input
