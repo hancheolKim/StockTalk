@@ -33,7 +33,7 @@ const Sales = () => {
     try {
       const query = new URLSearchParams(filters).toString();
       const response = await fetch(
-        `http://localhost:8080/payment/getPayList?${query}`
+        `https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/payment/getPayList?${query}`
       );
       if (!response.ok) {
         throw new Error("데이터를 가져오는 중 오류가 발생했습니다.");
@@ -116,7 +116,11 @@ const Sales = () => {
 
       {view === "Sales" && (
         <>
-          <table className="table">
+          {/* 월별 손익금액 그래프 버튼 */}
+          <button onClick={() => setIsModalOpen(true)} className="graph-button">
+            월별 손익금액 그래프 보기
+          </button>
+          <table className="Sales-table">
             <thead>
               <tr>
                 <th>번호</th>
@@ -166,10 +170,6 @@ const Sales = () => {
             />
           )}
 
-          {/* 월별 손익금액 그래프 버튼 */}
-          <button onClick={() => setIsModalOpen(true)} className="graph-button">
-            월별 손익금액 그래프 보기
-          </button>
 
           {/* 모달창 */}
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
