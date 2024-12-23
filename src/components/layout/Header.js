@@ -6,7 +6,7 @@ const Header = ({ toggleNavbar, isNavVisible, isLoggedIn, userStatus, handleLogo
   return (
     <header className="header">
       <h1 className="header-title">
-        <Link to="/" className="Header-button">My Application</Link>
+        <Link to="/" className="Header-button">HANCHEOL ERP</Link>
       </h1>
 
       

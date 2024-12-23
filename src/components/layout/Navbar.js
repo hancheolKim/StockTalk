@@ -16,7 +16,7 @@ const Navbar = ({ isVisible, setIsVisible }) => {
   return (
     <div className={`navbar ${isVisible ? "visible" : "hidden"}`}>
       <Link to="/" onClick={isClicked}>
-        <h2>GIANT ERP</h2>
+        <h2>Hancheol ERP</h2>
       </Link>
       <div className="navbar-buttons">
         <Link
