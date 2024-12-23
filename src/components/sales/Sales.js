@@ -9,7 +9,6 @@ const Sales = () => {
   const [filters, setFilters] = useState({ pageNum: 1 });
   const [view, setView] = useState("sales"); // 초기 상태를 "sales"로 설정
   const [isGraphVisible, setIsGraphVisible] = useState(false); // 그래프 표시 상태 관리
-  const [profitFilter, setProfitFilter] = useState("both"); // "both" (이익+손해), "profit", "loss"로 필터링 상태 관리
 
   // 서버에서 데이터 가져오기
   const fetchSalesData = useCallback(async () => {
@@ -61,22 +60,6 @@ const Sales = () => {
     setIsGraphVisible(!isGraphVisible);
   };
 
-  // 라디오 버튼 클릭 핸들러
-  const handleProfitFilterChange = (e) => {
-    setProfitFilter(e.target.value);
-  };
-
-  // 이익/손해 필터링된 데이터
-  const getFilteredProfitData = () => {
-    if (profitFilter === "profit") {
-      return salesData.filter((sale) => sale.totalPrice > sale.totalCostPrice);
-    } else if (profitFilter === "loss") {
-      return salesData.filter((sale) => sale.totalPrice < sale.totalCostPrice);
-    } else {
-      return salesData; // both일 경우 필터링 없이 모든 데이터를 표시
-    }
-  };
-
   const handleButtonClick = (viewName) => {
     setView(viewName);
   };
@@ -117,37 +100,6 @@ const Sales = () => {
             />
           )}
 
-          {/* 이익/손해 필터링 라디오 버튼 */}
-          <div className="profit-filter">
-            <label>
-              <input
-                type="radio"
-                value="both"
-                checked={profitFilter === "both"}
-                onChange={handleProfitFilterChange}
-              />
-              이익 + 손해
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="profit"
-                checked={profitFilter === "profit"}
-                onChange={handleProfitFilterChange}
-              />
-              이익만
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="loss"
-                checked={profitFilter === "loss"}
-                onChange={handleProfitFilterChange}
-              />
-              손해만
-            </label>
-          </div>
-
           {/* 판매 데이터 테이블 */}
           <table className="table">
             <thead>
@@ -162,27 +114,17 @@ const Sales = () => {
               </tr>
             </thead>
             <tbody>
-              {getFilteredSalesData()
-                .filter((sale) => {
-                  const profit = sale.totalPrice - sale.totalCostPrice;
-                  if (profitFilter === "profit") {
-                    return profit > 0;
-                  } else if (profitFilter === "loss") {
-                    return profit < 0;
-                  }
-                  return true; // "both"일 경우 모든 데이터를 표시
-                })
-                .map((sale, index) => (
-                  <tr key={index}>
-                    <td>{sale.salesNum}</td>
-                    <td>{sale.itemNum}</td>
-                    <td>{sale.salesQuantity}</td>
-                    <td>{(sale.totalPrice - sale.totalCostPrice).toLocaleString()}</td>
-                    <td>{sale.totalPrice.toLocaleString()}</td>
-                    <td>{new Date(sale.salesRegDate).toLocaleDateString("ko-KR")}</td>
-                    <td>{sale.payType}</td>
-                  </tr>
-                ))}
+              {getFilteredSalesData().map((sale, index) => (
+                <tr key={index}>
+                  <td>{sale.salesNum}</td>
+                  <td>{sale.itemNum}</td>
+                  <td>{sale.salesQuantity}</td>
+                  <td>{(sale.totalPrice - sale.totalCostPrice).toLocaleString()}</td>
+                  <td>{sale.totalPrice.toLocaleString()}</td>
+                  <td>{new Date(sale.salesRegDate).toLocaleDateString("ko-KR")}</td>
+                  <td>{sale.payType}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <Pagination
