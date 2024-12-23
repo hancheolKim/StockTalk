@@ -49,17 +49,6 @@ h2 {
   text-align: center;
 }
 
-/* 메인 컨텐츠 박스 */
-.main-container {
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-}
-
 /* App 레이아웃 설정 */
 .app {
   display: flex;
@@ -85,7 +74,7 @@ h2 {
   background-color: #ffffff; /* 배경 색상 */
   border-radius: 10px; /* 모서리를 둥글게 */
   padding: 20px; /* 내부 여백 */
-  margin: 20px 0px 0px 0px; /* 상단 여백 */
+  margin: 0px; /* 상단 여백 */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
   box-sizing: border-box; /* padding, border를 포함한 전체 크기 설정 */
   flex-grow: 1; /* 상위 컨테이너 내에서 공간 차지 */
@@ -112,9 +101,6 @@ h2 {
 
   .actions {
     padding : 3px;
-  }
-  .main-container {
-    margin-left: 0; /* Navbar가 숨겨질 경우 기본 여백 제거 */
   }
   .actions {
     font-size: 1rem;
