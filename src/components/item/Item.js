@@ -157,7 +157,7 @@ const Item = () => {
       </div>
 
       {view === "productList" && (
-        <div>
+        <>
           <table className="table">
             <thead>
               <tr>
@@ -256,7 +256,7 @@ const Item = () => {
                   setFilters={setFilters}
                 />
               )}
-        </div>
+        </>
       )}
 
       {view === "stockList" && (

@@ -9,6 +9,7 @@
   display: flex;
   justify-content: space-between; /* 양쪽 끝에 정렬 */
   align-items: center;
+  margin-bottom: 5px;
 }
 
 .button-group-left {
@@ -81,7 +82,7 @@
 
   .same-line {
     width: 95%; /* 100%로 수정하여 전체 폭을 사용 */
-    margin : 0 6px;
+    margin : 5px 6px;
   }
 }
 
@@ -118,7 +119,7 @@ th {
   }
 
   .button-group-left button {
-    font-size: 8px;
+    font-size: 10px;
     padding: 4px 8px;
   }
 
@@ -128,19 +129,22 @@ th {
   }
 
   .table {
+    width : 95%;
     margin: 0 6px;
   }
 
   .table th,
   .table td {
     padding: 10px 0px;
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .table th:nth-child(5),
   .table td:nth-child(5),
   .table th:nth-child(6),
-  .table td:nth-child(6) {
+  .table td:nth-child(6),
+  .table th:nth-child(7),
+  .table td:nth-child(7) {
     display: none;
   }
 
@@ -288,10 +292,10 @@ th {
 
 .order-radio {
   margin-top: 10px;
-  margin-left: 30px;
+  margin-left: 25px;
   display: flex;
   gap: 10px;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: bold;
   white-space: nowrap;
 }
@@ -309,11 +313,10 @@ th {
   .order-radio {
     margin-top: 0px;
     margin-left: 5px;
-    font-size: 10px;
   }
 
   .order-radio label {
-    font-size: 10px;
+    font-size: 8px;
   }
 
   .order-radio input[type="radio"] {

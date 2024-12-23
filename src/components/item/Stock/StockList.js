@@ -102,7 +102,7 @@ const StockList = ({ setView, selectedItem, setSelectedItem }) => {
     }
   };
   return (
-    <div className="stock-list-container">
+    <>
       <table className="table">
         <thead>
           <tr>
@@ -193,7 +193,7 @@ const StockList = ({ setView, selectedItem, setSelectedItem }) => {
           }}
         />
       )}
-    </div>
+    </>
   );
 };
 

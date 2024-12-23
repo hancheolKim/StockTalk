@@ -1,89 +1,176 @@
-/* 모달 오버레이 스타일 */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  
-  /* 모달 콘텐츠 */
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 90%;
-    max-height: 80%;
-    overflow-y: auto;
-    position: relative;
-  }
-  
-  /* 모달 닫기 버튼 */
-  .modal-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-  /* 모달 내부 */
-  .modal-body {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* 그래프 버튼 스타일 */
+/* 그래프 버튼 스타일 */
+.graph-button {
+  padding: 12px 24px;
+  background: linear-gradient(145deg, #4caf50, #45a049);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0px 0px 10px 0px;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.graph-button:hover {
+  background: linear-gradient(145deg, #45a049, #4caf50);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 그래프 컨테이너 스타일 */
+.graph-container {
+  width: 100%;
+  margin: 20px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 650px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+  background: linear-gradient(135deg, #f9f9f9, #fff);
+}
+
+.graph-container:hover {
+  transform: scale(1.02);
+}
+
+.graph-container h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #4caf50;
+  padding-bottom: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 차트 크기 및 여백 조정 */
+.chart-container {
+  position: relative;
+  height: 650px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 툴팁 스타일 */
+.chartjs-tooltip {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* x축, y축 레이블 스타일 */
+.chartjs-scale-label {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #888;
+  text-transform: capitalize;
+}
+
+/* y축 값 스타일 */
+.chartjs-tick {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* 차트의 레전드 스타일 */
+.chartjs-legend {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.chartjs-legend li {
+  font-size: 1rem;
+  color: #333;
+  margin: 5px 10px;
+  display: inline-block;
+}
+
+/* 그래프에서 막대 간격 및 색상 효과 */
+.chartjs-bar {
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.chartjs-bar:hover {
+  transform: scale(1.1);
+}
+
+/* 모달 닫기 버튼 스타일 */
+.close-modal-btn {
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.close-modal-btn:hover {
+  color: #e74c3c;
+  transform: scale(1.1);
+}
+
+/* 모바일 화면에서의 크기 조정 */
+@media (max-width: 768px) {
   .graph-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 5px;
-  }
-  
-  .graph-button:hover {
-    background-color: #45a049;
-  }
-  
-  /* 그래프 컨테이너 */
-  .graph-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
+    padding: 10px 18px;
+    font-size: 14px;
+    margin: 5px 0px;
   }
 
-  @media (max-width: 768px) {
-    .graph-button {
-      margin-left : 10px;
-      padding: 5px 10px;
-      font-size: 12px;
-      margin-top: 10px;
-    }
+  .graph-container {
+    padding: 20px;
   }
-  
-  .Sales-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+
+  .chart-container {
+    height: 300px;
   }
-  
-  .Sales-table th, .Sales-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
+
+  .graph-container h2 {
+    font-size: 1.25rem;
   }
-  
-  .Sales-table th {
-    background-color: #f4f4f4;
+
+  .chartjs-tooltip {
+    font-size: 0.9rem;
+    padding: 10px 14px;
   }
+
+  .chartjs-legend li {
+    font-size: 0.9rem;
+  }
+}
+
+/* 더 작은 화면에서는 그래프 크기 자동 조정 */
+@media (max-width: 480px) {
+  .graph-container {
+    padding: 15px;
+  }
+
+  .chart-container {
+    height: 250px;
+  }
+}
+
+/* 모바일에서 그래프 버튼 크기 조정 */
+@media (max-width: 768px) {
+  .graph-button {
+    padding: 7px 12px;
+    font-size: 10px;
+    margin: 0px 5px 5px 5px;
+  }
+}
