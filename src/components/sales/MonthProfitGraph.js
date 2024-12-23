@@ -61,10 +61,10 @@ const Graph = ({ data, onClose }) => {
   };
 
   return (
-    <div className="modal-container">
-      <div className="modal-content">
-        <div className="modal-header">
-          <div className="modal-title">월별 손익 그래프</div>
+    <div className="modal-container2">
+      <div className="modal-content2">
+        <div className="modal-header2">
+          <div className="modal-title2">월별 손익 그래프</div>
         </div>
         <div className="chart-container">
           <Bar data={chartData} options={chartOptions} /> {/* Bar 차트 사용 */}
