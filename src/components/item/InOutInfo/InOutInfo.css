@@ -1,0 +1,11 @@
+
+/* 입고 (연한 파란색) */
+.transaction-in {
+    color: lightblue;
+  }
+  
+  /* 출고 (연한 붉은색) */
+  .transaction-out {
+    color: lightcoral;
+  }
+  
