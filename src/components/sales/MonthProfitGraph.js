@@ -12,7 +12,7 @@ ChartJS.register(
   Legend
 );
 
-const Graph = ({ data }) => {
+const Graph = ({ data, onClose }) => {
   if (!data || data.length === 0) {
     return <div>데이터가 없습니다</div>;
   }
@@ -22,7 +22,7 @@ const Graph = ({ data }) => {
     return new Date(a.month) - new Date(b.month); // 날짜순 정렬
   });
 
-  // 차트 데이터 포맷 변경
+  // 차트 데이터 포맵핑
   const chartData = {
     labels: sortedData.map((item) => item.month), // x축: 월
     datasets: [
@@ -39,11 +39,9 @@ const Graph = ({ data }) => {
   // 차트 옵션 설정
   const chartOptions = {
     responsive: true,
+    maintainAspectRatio: false, // 고정 비율을 사용하지 않도록 설정
+    aspectRatio: 1.5, // 세로 비율을 줄여서 차트를 더 낮게 설정
     plugins: {
-      title: {
-        display: true,
-        text: '월별 손익 그래프',
-      },
       tooltip: {
         callbacks: {
           label: (tooltipItem) => {
@@ -55,6 +53,7 @@ const Graph = ({ data }) => {
     scales: {
       y: {
         ticks: {
+          stepSize: 2000, // 세로축 단위를 2000으로 설정
           callback: (value) => value.toLocaleString(), // y축 값 포맷팅
         },
       },
@@ -62,8 +61,16 @@ const Graph = ({ data }) => {
   };
 
   return (
-    <div className="graph-container">
-      <Bar data={chartData} options={chartOptions} /> {/* Bar 차트 사용 */}
+    <div className="modal-container">
+      <div className="modal-content">
+        <div className="modal-header">
+          <div className="modal-title">월별 손익 그래프</div>
+        </div>
+        <div className="chart-container">
+          <Bar data={chartData} options={chartOptions} /> {/* Bar 차트 사용 */}
+        </div>
+        <button onClick={onClose} className="close-btn">닫기</button>
+      </div>
     </div>
   );
 };

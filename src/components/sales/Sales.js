@@ -1,23 +1,17 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Pagination from "../layout/Pagination";
 import Graph from "./MonthProfitGraph";
-import Modal from "react-modal"; // react-modal import
 import Payment from "./Payment";
 import "./Sales.css";
-
-// 모달의 루트 엘리먼트를 설정
-Modal.setAppElement("#root");
 
 const Sales = () => {
   const [salesData, setSalesData] = useState([]);
   const [filters, setFilters] = useState({ pageNum: 1 });
-  const [isLoading, setIsLoading] = useState(true);
   const [view, setView] = useState("sales"); // 초기 상태를 "sales"로 설정
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+  const [isGraphVisible, setIsGraphVisible] = useState(false); // 그래프 표시 상태 관리
 
   // 서버에서 데이터 가져오기
   const fetchSalesData = useCallback(async () => {
-    setIsLoading(true);
     try {
       const response = await fetch(
         `https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/payment/getPayList`
@@ -29,8 +23,6 @@ const Sales = () => {
       setSalesData(data.items);
     } catch (error) {
       console.error("에러 발생:", error);
-    } finally {
-      setIsLoading(false);
     }
   }, []);
 
@@ -63,11 +55,10 @@ const Sales = () => {
     }));
   };
 
-  // 모달 열기
-  const openModal = () => setIsModalOpen(true);
-
-  // 모달 닫기
-  const closeModal = () => setIsModalOpen(false);
+  // 그래프 보기 토글
+  const toggleGraphVisibility = () => {
+    setIsGraphVisible(!isGraphVisible);
+  };
 
   const handleButtonClick = (viewName) => {
     setView(viewName);
@@ -90,18 +81,26 @@ const Sales = () => {
           >
             결제내역
           </button>
+        </div>
       </div>
-      </div>
-
 
       {/* 판매 데이터 테이블 */}
       {view === "sales" && (
         <>
-        
-      {/* 월별 손익 보기 버튼 */}
-      <button onClick={openModal} className="graph-button">
-        월별 손익금액 보기
-      </button>
+          {/* 월별 손익 보기 버튼 */}
+          <button onClick={toggleGraphVisibility} className="graph-button">
+            월별 손익금액 보기
+          </button>
+
+          {/* 그래프 모달 */}
+          {isGraphVisible && (
+            <Graph
+              data={calculateMonthlyProfit()}
+              onClose={toggleGraphVisibility}
+            />
+          )}
+
+          {/* 판매 데이터 테이블 */}
           <table className="table">
             <thead>
               <tr>
@@ -135,21 +134,6 @@ const Sales = () => {
           />
         </>
       )}
-
-      {/* 모달 컴포넌트 */}
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="월별 손익 그래프"
-        className="modal-content"
-        overlayClassName="modal-overlay"
-      >
-        <h2>월별 손익 그래프</h2>
-        <Graph data={calculateMonthlyProfit()} />
-        <button onClick={closeModal} className="close-modal-btn">
-          닫기
-        </button>
-      </Modal>
 
       {/* 재고리스트 (payment) 뷰 */}
       {view === "payment" && <Payment />}

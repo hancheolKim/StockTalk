@@ -95,3 +95,18 @@
   .align-left{
     text-align: left;
   }
+
+  /* 모바일 환경에서 버튼 크기 조정 */
+@media (max-width: 768px) {
+  .perchase-button,
+  button.close {
+      padding: 8px 12px; /* 버튼의 패딩을 줄여서 크기 조정 */
+      font-size: 12px; /* 폰트 크기 줄이기 */
+      box-sizing: border-box; /* 패딩과 보더가 포함된 크기 조정 */
+  }
+
+    /* 수량 최대값 표시 */
+    .perchase-quantity {
+      font-size: 12px;
+    }
+}

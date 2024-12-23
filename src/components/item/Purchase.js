@@ -107,7 +107,7 @@ const Purchase = ({ item, closeModal }) => {
           <span className="red-text">*최대 수량 이하로 입력하세요.</span>
         </div>
         <hr></hr>
-        <div>
+        <div className="align-left">
         <strong>총 금액 : {(item.price * quantity).toLocaleString()}원</strong>
         </div>
         <div>
