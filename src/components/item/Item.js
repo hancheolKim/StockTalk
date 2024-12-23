@@ -158,6 +158,18 @@ const Item = () => {
 
       {view === "productList" && (
         <>
+                  <div className="form-container">
+            <form onSubmit={handleSearch} className="search-form">
+              <select name="keyfield">
+                <option value="0">선택</option>
+                <option value="1">번호</option>
+                <option value="2">이름</option>
+                <option value="3">카테고리</option>
+              </select>
+              <input name="keyword" placeholder="검색어 입력" />
+              <button type="submit">검색</button>
+            </form>
+          </div>
           <table className="table">
             <thead>
               <tr>
@@ -236,18 +248,7 @@ const Item = () => {
               수량 적은순
             </label>
           </div>
-          <div className="form-container">
-            <form onSubmit={handleSearch} className="search-form">
-              <select name="keyfield">
-                <option value="0">선택</option>
-                <option value="1">번호</option>
-                <option value="2">이름</option>
-                <option value="3">카테고리</option>
-              </select>
-              <input name="keyword" placeholder="검색어 입력" />
-              <button type="submit">검색</button>
-            </form>
-          </div>
+
           {/* Pagination 컴포넌트 추가 */}
           {pageInfo.count > 0 && (
                 <Pagination

@@ -155,16 +155,16 @@ th {
 }
 
 .form-container {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   justify-content: center;
 }
 .search-form {
-  width: 60%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 20px 15px; /* 내부 여백 조정 */
   background-color: #f9f9f9;
   border-radius: 8px;
@@ -177,6 +177,7 @@ th {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-right: 10px; /* 여백 추가 */
+  width : 110px;
 }
 
 .search-form .input-group {
@@ -235,6 +236,9 @@ th {
   .search-form button {
     font-size: 10px;
     width: auto;
+  }
+  .form-container{
+    margin-top : 5px;
   }
 }
 
