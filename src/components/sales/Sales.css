@@ -1,13 +1,13 @@
 /* 그래프 버튼 스타일 */
 .graph-button {
-  padding: 12px 24px;
+  padding: 8px 18px;
   background: linear-gradient(145deg, #4caf50, #45a049);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   margin: 0px 0px 10px 0px;
-  font-size: 16px;
+  font-size: 14px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
 }
