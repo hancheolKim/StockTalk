@@ -10,115 +10,127 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-  }
-  
-  /* 모달 컨텐츠 스타일 */
-  .modal-content {
+}
+
+/* 모달 컨텐츠 스타일 */
+.modal-content {
     background: #fff;
     border-radius: 10px;
     padding: 20px;
-    width: 400px;
+    width: 400px; /* 모달 크기 약간 축소 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.3s ease-in-out;
-  }
-  
-  /* 모달 제목 스타일 */
-  .modal-title {
+}
+
+/* 모달 제목 스타일 */
+.modal-title {
     margin-bottom: 20px;
-    font-size: 1.5rem;
+    font-size: 1.2rem; /* 제목 크기 축소 */
     font-weight: bold;
     color: #333;
     text-align: center;
-  }
-  
-  /* 모달 폼 */
+}
+
+/* 모달 폼 */
 .modal-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-  }
-  
-  /* 레이블과 입력 필드의 컨테이너 */
-  .modal-form-group {
+    gap: 16px; /* 폼 항목 간격을 충분히 넓게 설정 */
+}
+
+/* 레이블과 입력 필드의 컨테이너 */
+.modal-form-group {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
-  }
-  
-  /* 레이블 스타일 */
-  .modal-label {
-    font-size: 0.9rem;
+    gap: 12px; /* 레이블과 입력 필드 간격 */
+    width: 100%;
+}
+
+/* 레이블 스타일 */
+.modal-label {
+    font-size: 0.8rem; /* 레이블 크기 축소 */
     font-weight: bold;
     color: #555;
-    flex-basis: 30%;
+    flex-basis: 30%; /* 레이블의 너비를 일정하게 */
     text-align: left;
     white-space: nowrap;
-  }
-  
-  /* 입력 필드 스타일 */
-  .modal-input,
-  .modal-select {
-    padding: 5px;
-    font-size: 0.7rem;
+    word-wrap: break-word; /* 긴 텍스트가 줄 바뀌도록 */
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 텍스트가 넘칠 경우 '...' 표시 */
+}
+
+/* 입력 필드 스타일 */
+.modal-input,
+.modal-select {
+    padding: 6px; /* 패딩 줄여서 크기 조정 */
+    font-size: 0.8rem; /* 폰트 크기 약간 축소 */
     border: 1px solid #ccc;
     border-radius: 5px;
-    flex-basis: 70%;
+    flex-basis: 65%; /* 모든 입력 필드의 너비를 동일하게 설정 */
     transition: border-color 0.3s ease;
-    width: 214px;
-  }
-  
-  .modal-input:focus,
-  .modal-select:focus {
+    min-width: 0; /* 크기 조정을 쉽게 함 */
+    flex-grow: 1; /* 공간을 더 채우도록 설정 */
+}
+
+/* 입력 필드가 포커스될 때 스타일 */
+.modal-input:focus,
+.modal-select:focus {
     border-color: #007bff;
     outline: none;
-  }
-  
-  
-  /* 버튼 스타일 */
-  .modal-actions {
+}
+
+/* 버튼 스타일 */
+.modal-actions {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
-  }
-  
-  .modal-button {
-    padding: 10px 20px;
-    font-size: 0.9rem;
+    gap: 8px; /* 버튼 간격 */
+}
+
+.modal-button {
+    padding: 8px 16px; /* 버튼 크기 축소 */
+    font-size: 0.8rem; /* 폰트 크기 약간 축소 */
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     white-space: nowrap;
-  }
-  
-  .modal-button-cancel {
+}
+
+.modal-button-cancel {
     background-color: #f44336;
     color: #fff;
-  }
-  
-  .modal-button-cancel:hover {
+}
+
+.modal-button-cancel:hover {
     background-color: #d32f2f;
-  }
-  
-  .modal-button-save {
+}
+
+.modal-button-save {
     background-color: #4caf50;
     color: #fff;
-  }
-  
-  .modal-button-save:hover {
+}
+
+.modal-button-save:hover {
     background-color: #388e3c;
-  }
-  
-  /* 모달 애니메이션 */
-  @keyframes fadeIn {
+}
+
+/* 재고 수량 정보 스타일 */
+.inventory-info {
+    font-size: 0.75rem; /* 폰트 크기 축소 */
+    color: #555;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+/* 모달 애니메이션 */
+@keyframes fadeIn {
     from {
-      opacity: 0;
-      transform: translateY(-10%);
+        opacity: 0;
+        transform: translateY(-10%);
     }
     to {
-      opacity: 1;
-      transform: translateY(0);
+        opacity: 1;
+        transform: translateY(0);
     }
-  }
-  
+}

@@ -95,7 +95,7 @@ const Sales = () => {
               className="add-button"
               onClick={() => setIsAddSalesVisible(true)}
             >
-              추가
+              직접추가
             </button>
           </div>
 
