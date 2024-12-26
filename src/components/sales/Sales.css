@@ -21,9 +21,9 @@
 /* 모바일에서 그래프 버튼 크기 조정 */
 @media (max-width: 768px) {
   .graph-button {
-    padding: 7px 12px;
-    font-size: 10px;
-    margin: 0px 5px 5px 5px;
+    padding: 6px 10px;
+    font-size: 9px;
+    margin: 3px 5px 3px 2px;
   }
 }
 

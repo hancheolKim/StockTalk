@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AddSales.css";
 
 const AddSales = ({ onClose, onSave }) => {
@@ -10,6 +10,25 @@ const AddSales = ({ onClose, onSave }) => {
     salesRegDate: "",
     payType: "",
   });
+  const [itemList, setItemList] = useState([]); // 상품 번호 리스트 상태
+
+  useEffect(() => {
+    // 서버에서 상품 번호 리스트 가져오기
+    const fetchItemList = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/payment/getItemNumList");
+        if (!response.ok) {
+          throw new Error("상품 번호를 가져오는데 실패했습니다.");
+        }
+        const data = await response.json();
+        setItemList(data.items); // items 배열 설정
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
+    fetchItemList();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,13 +58,19 @@ const AddSales = ({ onClose, onSave }) => {
         <form className="modal-form" onSubmit={handleSubmit}>
           <div className="modal-form-group">
             <label className="modal-label">상품 번호 :</label>
-            <input
-              type="text"
+            <select
               name="itemNum"
-              className="modal-input"
+              className="modal-select"
               value={formData.itemNum}
               onChange={handleChange}
-            />
+            >
+              <option value="">선택</option>
+              {itemList.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="modal-form-group">
             <label className="modal-label">판매 수량 :</label>
@@ -96,8 +121,14 @@ const AddSales = ({ onClose, onSave }) => {
               onChange={handleChange}
             >
               <option value="">선택</option>
-              <option value="카드">카드</option>
-              <option value="현금">현금</option>
+              <option value="Card">카드</option>
+            <option value="Cash">현금</option>
+            <option value="Credit">외상금 납입</option>
+            <option value="BankTransfer">은행 송금</option>
+            <option value="GiftCard">상품권</option>
+            <option value="MobilePayment">모바일 결제</option>
+            <option value="Check">수표</option>
+            <option value="Other">기타</option>
             </select>
           </div>
           <div className="modal-actions">

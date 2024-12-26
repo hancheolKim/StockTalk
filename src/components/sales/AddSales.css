@@ -59,12 +59,13 @@
   /* 입력 필드 스타일 */
   .modal-input,
   .modal-select {
-    padding: 10px;
-    font-size: 0.9rem;
+    padding: 5px;
+    font-size: 0.7rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     flex-basis: 70%;
     transition: border-color 0.3s ease;
+    width: 214px;
   }
   
   .modal-input:focus,
