@@ -2,15 +2,16 @@ import React, { useState, useEffect, useCallback } from "react";
 import Pagination from "../layout/Pagination";
 import Graph from "./MonthProfitGraph";
 import Payment from "./Payment";
+import AddSales from "./AddSales";
 import "./Sales.css";
 
 const Sales = () => {
   const [salesData, setSalesData] = useState([]);
   const [filters, setFilters] = useState({ pageNum: 1 });
-  const [view, setView] = useState("sales"); // 초기 상태를 "sales"로 설정
-  const [isGraphVisible, setIsGraphVisible] = useState(false); // 그래프 표시 상태 관리
+  const [view, setView] = useState("sales");
+  const [isGraphVisible, setIsGraphVisible] = useState(false);
+  const [isAddSalesVisible, setIsAddSalesVisible] = useState(false);
 
-  // 서버에서 데이터 가져오기
   const fetchSalesData = useCallback(async () => {
     try {
       const response = await fetch(
@@ -30,13 +31,11 @@ const Sales = () => {
     fetchSalesData();
   }, [fetchSalesData]);
 
-  // 페이지 데이터 계산
   const getFilteredSalesData = () => {
     const startIndex = (filters.pageNum - 1) * 15;
     return salesData.slice(startIndex, startIndex + 15);
   };
 
-  // 월별 손익 계산
   const calculateMonthlyProfit = () => {
     const monthlyProfit = {};
     salesData.forEach((sale) => {
@@ -55,7 +54,6 @@ const Sales = () => {
     }));
   };
 
-  // 그래프 보기 토글
   const toggleGraphVisibility = () => {
     setIsGraphVisible(!isGraphVisible);
   };
@@ -64,9 +62,12 @@ const Sales = () => {
     setView(viewName);
   };
 
+  const handleAddSales = (newSale) => {
+    setSalesData((prev) => [...prev, newSale]);
+  };
+
   return (
     <div className="sales-container">
-      {/* 버튼 그룹 */}
       <div className="same-line">
         <div className="button-group-left">
           <button
@@ -84,15 +85,20 @@ const Sales = () => {
         </div>
       </div>
 
-      {/* 판매 데이터 테이블 */}
       {view === "sales" && (
         <>
-          {/* 월별 손익 보기 버튼 */}
-          <button onClick={toggleGraphVisibility} className="graph-button">
-            월별 손익금액 보기
-          </button>
+          <div className="same-line">
+            <button onClick={toggleGraphVisibility} className="graph-button">
+              월별 손익금액 보기
+            </button>
+            <button
+              className="add-button"
+              onClick={() => setIsAddSalesVisible(true)}
+            >
+              추가
+            </button>
+          </div>
 
-          {/* 그래프 모달 */}
           {isGraphVisible && (
             <Graph
               data={calculateMonthlyProfit()}
@@ -100,7 +106,13 @@ const Sales = () => {
             />
           )}
 
-          {/* 판매 데이터 테이블 */}
+          {isAddSalesVisible && (
+            <AddSales
+              onClose={() => setIsAddSalesVisible(false)}
+              onSave={handleAddSales}
+            />
+          )}
+
           <table className="table">
             <thead>
               <tr>
@@ -135,7 +147,6 @@ const Sales = () => {
         </>
       )}
 
-      {/* 재고리스트 (payment) 뷰 */}
       {view === "payment" && <Payment />}
     </div>
   );

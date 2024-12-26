@@ -5,23 +5,24 @@ import * as PortOne from "@portone/browser-sdk/v2";
 const Purchase = ({ item, closeModal }) => {
   // 수량 상태 관리
   const [quantity, setQuantity] = useState(1);
+  const [errorMessage, setErrorMessage] = useState(""); // 오류 메시지 상태
 
   if (!item) return null; // item이 없으면 모달을 렌더링하지 않음
 
   const handleQuantityChange = (e) => {
     const value = e.target.value;
-  
+
     // 빈 값 허용
     if (value === "") {
       setQuantity("");
       return;
     }
-  
+
     // 숫자로 변환하여 검증
     const newQuantity = Math.min(Math.max(1, Number(value)), item.itemQuantity);
     setQuantity(newQuantity);
   };
-  
+
   // 포커스가 벗어났을 때 기본값 설정
   const handleQuantityBlur = () => {
     if (quantity === "" || quantity < 1) {
@@ -31,43 +32,67 @@ const Purchase = ({ item, closeModal }) => {
 
   const handlePayment = async () => {
     try {
+      // 현재 시각을 기준으로 3시간 후 만료 설정
+      const validHours = 3; // 예: 3시간 후 만료 기한
+      const dueDate = new Date(); // 특정 날짜로 설정할 경우
+  
+      // validHours를 설정하려면
+      const expirationDate = new Date();
+      expirationDate.setHours(expirationDate.getHours() + validHours);
+      const validHoursString = expirationDate.toISOString(); // ISO 형식으로 변환
+  
+      // 또는, dueDate를 설정하려면
+      // const dueDateString = "20241231"; // YYYYMMDD 형식
+      // const dueDateString = "2024-12-31"; // YYYY-MM-DD 형식
+      // const dueDateString = "2024-12-31 15:00:00"; // YYYY-MM-DD HH:mm:ss 형식
+  
       const response = await PortOne.requestPayment({
-        storeId: "store-3f9ebc91-a91b-4783-8f05-da9c39896c3a",
-        channelKey: "channel-key-08beca98-f344-4692-9edc-78c5b0006ee7",
+        storeId: "store-3f9ebc91-a91b-4783-8f05-da9c39896c3a", // 고객사 storeId로 변경
         paymentId: `payment-${crypto.randomUUID()}`,
-        orderName: item.itemName,
-        totalAmount: item.price * quantity, // 가격 * 수량
+        orderName: item.itemName, // 상품명
+        totalAmount: item.price * quantity, // 총 금액
         currency: "CURRENCY_KRW",
-        payMethod: "EASY_PAY", // 결제 방법 
-        redirectUrl: "https://hancheolkim.github.io/react_real/#/item"
+        channelKey: "channel-key-86c5c97a-6f3c-45db-8b06-73b316d1788f", // 채널 키
+        payMethod: "VIRTUAL_ACCOUNT",
+  
+        // 가상계좌 관련 파라미터 추가
+        virtualAccount: {
+          // validHours 예시
+          accountExpiry: {
+            validHours: validHours, // 또는 validHoursString으로 설정
+            // dueDate: dueDateString // 또는 dueDate로 설정
+          },
+          bankCode: "KOOKMIN_BANK", // 예시: 은행 코드
+          accountHolderName: "김한철", // 계좌 소유자 이름
+          accountHolderBirthday: "980518", // 계좌 소유자 생년월일 (YYYYMMDD 형식)
+        },
       });
   
-  
-      // 결제 실패 시 처리
+      // 결제 처리 후의 로직
       if (response.code !== undefined) {
-        return alert(response.message); // 오류 메시지 출력
+        alert(response.message); // 오류 메시지 출력
+        return;
       }
   
-      // 로컬스토리지에서 사용자 정보 가져오기
+      // 결제 성공 후 백엔드 처리
       const userNum = localStorage.getItem("userNum");
       const userId = localStorage.getItem("userId");
   
-      // 결제 성공 시, 백엔드로 결제 정보 및 사용자 정보 전달
-      const notified = await fetch(`https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/payment/complete`, {
+      const notified = await fetch("https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/payment/complete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "PortOne utFxMAsGVKNYWxXKECqU3WTkGrwnLnSjLuHbrhtds3MxieauTc9YSzEuxaycVPHAxl2DHGJnTiEkKdBS", // 여기에 인증 헤더 추가
+          "Authorization": "PortOne utFxMAsGVKNYWxXKECqU3WTkGrwnLnSjLuHbrhtds3MxieauTc9YSzEuxaycVPHAxl2DHGJnTiEkKdBS", // 인증 헤더
         },
         body: JSON.stringify({
-          paymentId: response.paymentId,  // 결제 ID
-          itemNum: item.itemNum,       // 상품명
-          totalPrice: item.price * quantity, // 가격 * 수량
-          totalCostPrice: item.costPrice * quantity, // 원가 * 수량
-          salesQuantity : quantity, // 수량
+          paymentId: response.paymentId,
+          itemNum: item.itemNum, // 상품 번호
+          totalPrice: item.price * quantity, // 총 가격
+          totalCostPrice: item.costPrice * quantity, // 원가 총액
+          salesQuantity: quantity, // 수량
           payType: "Easy_Pay",
-          userNum, // 사용자 번호 추가
-          userId,  // 사용자 ID 추가
+          userNum,
+          userId,
         }),
       });
   
@@ -75,8 +100,6 @@ const Purchase = ({ item, closeModal }) => {
       if (result.success) {
         alert("결제가 완료되었습니다.");
         closeModal();
-        window.location.reload();  // 페이지 새로고침
-    
       } else {
         alert("결제 처리에 실패했습니다.");
       }
@@ -85,6 +108,8 @@ const Purchase = ({ item, closeModal }) => {
       alert("결제 처리 중 오류가 발생했습니다.");
     }
   };
+  
+  
 
   return (
     <div className="modal-overlay">
@@ -101,14 +126,15 @@ const Purchase = ({ item, closeModal }) => {
               onChange={handleQuantityChange}
               onBlur={handleQuantityBlur} // 포커스가 벗어날 때 처리
               className="quantity-input"
-              /> 개 
-            <span className="perchase-quantity">&nbsp;({item.itemQuantity}개까지 선택 가능)</span>
-        </div>
+            /> 개
+            <span className="perchase-quantity"> ({item.itemQuantity}개까지 선택 가능)</span>
+          </div>
           <span className="red-text">*최대 수량 이하로 입력하세요.</span>
         </div>
-        <hr></hr>
+        {errorMessage && <p className="error-message">{errorMessage}</p>} {/* 오류 메시지 표시 */}
+        <hr />
         <div className="align-left">
-        <strong>총 금액 : {(item.price * quantity).toLocaleString()}원</strong>
+          <strong>총 금액 : {(item.price * quantity).toLocaleString()}원</strong>
         </div>
         <div>
           <button onClick={handlePayment} className="perchase-button">결제하기</button>
