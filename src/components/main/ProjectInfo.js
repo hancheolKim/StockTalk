@@ -1,35 +1,32 @@
 import React, { useState, useEffect } from "react";
 import "./ProjectInfo.css";
+import EditProgress from "./EditProgress";
 
 const ProjectInfo = () => {
-  // 진행도 데이터
-  const [progress, setProgress] = useState([
-    { feature: "로그인 및 인증 시스템", status: "완료", progress: 100 },
-    { feature: "상품 관리 모듈", status: "진행 중", progress: 70 },
-    { feature: "판매 데이터 분석", status: "대기", progress: 0 },
-    { feature: "결제 연동", status: "진행 중", progress: 40 },
-  ]);
+  const [progress, setProgress] = useState([]);
+  const [editItem, setEditItem] = useState(null);
 
-  // 진행도 업데이트 로직 (주기적 변경 시뮬레이션)
+  // 진행도 데이터 가져오기 함수
+  const fetchProgress = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/ProjectProgress/all");
+      const data = await response.json();
+      setProgress(data);
+    } catch (error) {
+      console.error("Failed to fetch progress", error);
+    }
+  };
+
+  // 컴포넌트 마운트 시 데이터 가져오기
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prevProgress) =>
-        prevProgress.map((item) => {
-          // 예제: 진행 중인 작업을 자동 업데이트
-          if (item.status === "진행 중" && item.progress < 100) {
-            return { ...item, progress: item.progress + 5 };
-          }
-          // 진행 완료 시 상태 변경
-          if (item.progress >= 100) {
-            return { ...item, status: "완료" };
-          }
-          return item;
-        })
-      );
-    }, 5000); // 5초마다 업데이트
-
-    return () => clearInterval(interval);
+    fetchProgress();
   }, []);
+
+  // 저장 후 처리
+  const handleSave = () => {
+    setEditItem(null); // 수정 완료 후 편집 모드 종료
+    fetchProgress(); // 데이터 다시 가져오기
+  };
 
   return (
     <div>
@@ -69,32 +66,52 @@ const ProjectInfo = () => {
           </tr>
         </tbody>
       </table>
+
       <span className="progress-title">개발 진행도</span>
+
+      {editItem && (
+        <EditProgress
+          item={editItem}
+          onSave={handleSave}
+          onCancel={() => setEditItem(null)}
+        />
+      )}
+
       <table className="progress-table">
         <thead>
           <tr>
             <th>기능</th>
             <th>상태</th>
             <th>진행도</th>
+            <th>작업</th>
           </tr>
         </thead>
         <tbody>
-          {progress.map((item, index) => (
-            <tr key={index}>
-              <td>{item.feature}</td>
-              <td>{item.status}</td>
-              <td>
-                <div className="progress-bar">
-                  <div
-                    className="progress"
-                    style={{ width: `${item.progress}%` }}
-                  >
-                    {item.progress}%
+          {progress.length > 0 ? (
+            progress.map((item, index) => (
+              <tr key={index}>
+                <td>{item.taskName}</td>
+                <td>{item.taskStatus}</td>
+                <td>
+                  <div className="progress-bar">
+                    <div
+                      className="progress"
+                      style={{ width: `${item.completionPercentage}%` }}
+                    >
+                      {item.completionPercentage}%
+                    </div>
                   </div>
-                </div>
-              </td>
+                </td>
+                <td>
+                  <button onClick={() => setEditItem(item)}>수정</button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4">진행도 정보가 없습니다.</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
