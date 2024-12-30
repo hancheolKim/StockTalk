@@ -1,0 +1,134 @@
+.project-info {
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: "Arial", sans-serif;
+  }
+  
+  .main-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+    white-space: nowrap;
+  }
+  
+  .project-info .description {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .info-table {
+    width: 60%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+  }
+  
+  .info-table th,
+  .info-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 1rem;
+  }
+  
+  .info-table th {
+    background-color: #f7f7f7;
+    color: #444;
+    font-weight: bold;
+    width: 35%;
+  }
+  
+  .info-table td {
+    color: #555;
+  }
+  
+  .info-table th:first-child,
+  .info-table td:first-child {
+    border-left: 0;
+  }
+  
+  .info-table th:last-child,
+  .info-table td:last-child {
+    border-right: 0;
+  }
+
+  .progress-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    white-space: nowrap;
+  }
+
+  .progress-table {
+    width: 60%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .progress-table th,
+  .progress-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .progress-bar {
+    background-color: #f3f3f3;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 20px;
+    width: 100%;
+    position: relative;
+  }
+  
+  .progress {
+    background-color: #4caf50;
+    height: 100%;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+    white-space: nowrap;
+  }
+  
+
+  @media (max-width: 768px) {
+    .project-info {
+      padding: 20px;
+    }
+
+    .description{
+        display: none;
+    }
+    .info-table{
+        width:98%;
+    }
+
+    .info-table th,
+    .info-table td {
+      padding: 7px;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 0.7rem;
+      white-space: nowrap;
+    }
+
+    .main-title{
+        font-size: 1.5rem;
+    }
+    .progress-title {
+        font-size: 1.5rem;
+      }
+    .progress-table{
+        width: 98%;
+        margin-top:0px;
+        font-size : 0.7rem;
+    }
+  }
+  

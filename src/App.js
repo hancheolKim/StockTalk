@@ -8,6 +8,7 @@ import Sales from "./components/sales/Sales";
 import EMP from "./components/emp/EMP";
 import Navbar from "./components/layout/Navbar";
 import "./App.css";
+import ProjectInfo from "./components/main/ProjectInfo";
 
 const App = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -66,7 +67,7 @@ const App = () => {
           {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
           <div className="main-content">
             <Routes>
-              <Route path="/" element={<div>메인 페이지</div>} />
+              <Route path="/" element={<ProjectInfo />} />
               <Route path="/emp" element={<EMP />} />
               <Route path="/item" element={<Item />} />
               <Route path="/sales" element={<Sales />} />
