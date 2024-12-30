@@ -9,7 +9,7 @@ const ProjectInfo = () => {
   // 진행도 데이터 가져오기 함수
   const fetchProgress = async () => {
     try {
-      const response = await fetch("http://localhost:8080/ProjectProgress/all");
+      const response = await fetch("https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/ProjectProgress/all");
       const data = await response.json();
       setProgress(data);
     } catch (error) {

@@ -18,7 +18,7 @@ const EditProgress = ({ item, onSave, onCancel }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/ProjectProgress/${item.id}`, {
+      const response = await fetch(`https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/${item.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
