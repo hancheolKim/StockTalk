@@ -160,7 +160,8 @@
 /* 저장 및 취소 버튼 스타일 */
 .progress-table button {
   padding: 6px 12px;
-  margin: 2px;
+  margin-left: 10px;
+  margin-right : 10px;
   font-size: 14px;
   border: none;
   border-radius: 4px;
@@ -196,6 +197,17 @@
   animation: highlightRow 0.5s ease-in-out;
 }
 
+.progress-table tr td:last-child {
+  width: 20%;
+}
+.progress-table tr td:first-child{
+width: 20%;
+}
+.progress-table tr td:nth-child(2){
+width: 20%;
+}
+
+
 @media (max-width: 768px) {
   /* 저장 및 취소 버튼 스타일 */
   .progress-table button {
@@ -207,15 +219,7 @@
     cursor: pointer;
   }
 
-.progress-table tr td:last-child {
-    width: 20%;
-}
-.progress-table tr td:first-child{
-  width: 20%;
-}
-.progress-table tr td:nth-child(2){
-  width: 20%;
-}
+
 
     /* 테이블 입력 칸 스타일 */
 .progress-table input[type="text"],
