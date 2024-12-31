@@ -351,7 +351,7 @@ const handleRemoveWithStatusCheck = (index) => {
       </table>
       </div>
       <div className="right-container">
-
+        <img src="/images/KakaoTalk_20241231_152120136.jpg" alt="Gorapaduck character" />
       </div>
     </div>
   );

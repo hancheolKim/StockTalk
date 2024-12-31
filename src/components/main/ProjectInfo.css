@@ -283,6 +283,7 @@ width: 20%;
   border: 1px solid #ccc;
   padding: 20px;
   background-color: #f9f9f9;
+  
 }
 @media (max-width: 768px) {
   .main-page-container {
