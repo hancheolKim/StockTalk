@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./ProjectInfo.css";
-import EditProgress from "./EditProgress";
 
 const ProjectInfo = () => {
   const [progress, setProgress] = useState([]);
-  const [editItem, setEditItem] = useState(null);
+  const [editIndex, setEditIndex] = useState(null);
+  const [editedData, setEditedData] = useState({});
 
   // 진행도 데이터 가져오기 함수
   const fetchProgress = async () => {
@@ -22,10 +22,71 @@ const ProjectInfo = () => {
     fetchProgress();
   }, []);
 
-  // 저장 후 처리
-  const handleSave = () => {
-    setEditItem(null); // 수정 완료 후 편집 모드 종료
-    fetchProgress(); // 데이터 다시 가져오기
+  // 수정 모드 활성화
+  const handleEdit = (index) => {
+    setEditIndex(index);
+    setEditedData({ ...progress[index] });
+  };
+
+  // 변경된 데이터 저장
+  const handleSave = async (index) => {
+    try {
+      const item = { ...editedData };
+
+      // 상태에 따라 진행도 조정
+      if (item.taskStatus === "대기") {
+        item.completionPercentage = 0;
+      } else if (item.taskStatus === "완료") {
+        item.completionPercentage = 100;
+      }
+
+      const response = await fetch(`https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/ProjectProgress/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+      });
+
+      if (!response.ok) throw new Error("Failed to update progress");
+
+      const updatedProgress = [...progress];
+      updatedProgress[index] = item;
+      setProgress(updatedProgress);
+      setEditIndex(null);
+    } catch (error) {
+      console.error("Error updating progress:", error);
+    }
+  };
+
+  // 수정 취소
+  const handleCancel = () => {
+    setEditIndex(null);
+    setEditedData({});
+  };
+
+  // 입력값 변경 핸들러
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditedData((prev) => {
+      let newValue = value;
+
+      // 진행도 값 제한
+      if (name === "completionPercentage") {
+        newValue = Math.min(Math.max(parseInt(value, 10), 0), 100) || ""; // 0 ~ 100 범위
+      }
+
+      // 상태 변경 시 진행도 동기화
+      if (name === "taskStatus") {
+        if (value === "대기") {
+          return { ...prev, [name]: value, completionPercentage: 0 };
+        } else if (value === "완료") {
+          return { ...prev, [name]: value, completionPercentage: 100 };
+        }
+      }
+
+      return { ...prev, [name]: newValue };
+    });
   };
 
   return (
@@ -69,14 +130,6 @@ const ProjectInfo = () => {
 
       <span className="progress-title">개발 진행도</span>
 
-      {editItem && (
-        <EditProgress
-          item={editItem}
-          onSave={handleSave}
-          onCancel={() => setEditItem(null)}
-        />
-      )}
-
       <table className="progress-table">
         <thead>
           <tr>
@@ -91,19 +144,51 @@ const ProjectInfo = () => {
             progress.map((item, index) => (
               <tr key={index}>
                 <td>{item.taskName}</td>
-                <td>{item.taskStatus}</td>
                 <td>
-                  <div className="progress-bar">
-                    <div
-                      className="progress"
-                      style={{ width: `${item.completionPercentage}%` }}
+                  {editIndex === index ? (
+                    <select
+                      name="taskStatus"
+                      value={editedData.taskStatus || ""}
+                      onChange={handleChange}
                     >
-                      {item.completionPercentage}%
-                    </div>
-                  </div>
+                      <option value="진행중">진행중</option>
+                      <option value="완료">완료</option>
+                      <option value="대기">대기</option>
+                    </select>
+                  ) : (
+                    item.taskStatus
+                  )}
                 </td>
                 <td>
-                  <button onClick={() => setEditItem(item)}>수정</button>
+                  {editIndex === index ? (
+                    <input
+                      type="number"
+                      name="completionPercentage"
+                      value={editedData.completionPercentage || ""}
+                      onChange={handleChange}
+                      min="0"
+                      max="100"
+                    />
+                  ) : (
+                    <div className="progress-bar">
+                      <div
+                        className="progress"
+                        style={{ width: `${item.completionPercentage}%` }}
+                      >
+                        {item.completionPercentage}%
+                      </div>
+                    </div>
+                  )}
+                </td>
+                <td>
+                  {editIndex === index ? (
+                    <>
+                      <button onClick={() => handleSave(index)}>저장</button>
+                      <button onClick={handleCancel}>취소</button>
+                    </>
+                  ) : (
+                    <button onClick={() => handleEdit(index)}>수정</button>
+                  )}
                 </td>
               </tr>
             ))

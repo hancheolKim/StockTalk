@@ -67,14 +67,13 @@ const StockList = ({ setView, selectedItem, setSelectedItem }) => {
       alert('삭제할 항목을 선택해주세요.');
       return;
     }
-  
     const confirmDelete = window.confirm('정말로 선택한 아이템을 삭제하시겠습니까?');
     if (!confirmDelete) {
       return;
     }
   
     const itemNum = selectedItem.itemNum;
-  
+
     try {
       const response = await fetch(
         `https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/item/delItem`,
