@@ -117,14 +117,16 @@ const TaskLogTable = () => {
           </tr>
         </thead>
         <tbody>
-          {taskLogs.map((log) => (
+          {taskLogs.length > 0 ?taskLogs.map((log) => (
             <tr key={log.logId}>
               <td>{log.logId}</td>
               <td>{log.taskName}</td>
               <td>{log.title}</td>
               <td>{new Date(log.taskDate).toLocaleDateString()}</td>
             </tr>
-          ))}
+          )) : <tr>
+                <td colspan="4">작업 기록이 없습니다.</td>
+            </tr>}
         </tbody>
       </table>
 
