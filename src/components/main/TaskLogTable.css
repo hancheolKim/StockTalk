@@ -9,36 +9,21 @@
     margin-bottom: 20px;
     display: block;
   }
-  
-  .add-button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-bottom: 20px;
-    display: inline-block;
-  }
-  
-  .add-button:hover {
-    background-color: #0056b3;
-  }
-  
   /* 테이블 스타일 */
-  .table {
+  .log-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
   }
   
-  .table th, .table td {
+  .log-table th, .log-table td {
     padding: 12px;
-    text-align: left;
+    text-align: center;
+    white-space: nowrap;
     border-bottom: 1px solid #ddd;
   }
   
-  .table th {
+  .log-table th {
     background-color: #f4f4f4;
   }
   
@@ -133,4 +118,51 @@
   } 
   .form-actions button{
     margin : 10px;
+  }
+
+  @media (max-width: 768px) {
+    .Add-form-container input,
+    .Add-form-container textarea {
+      width: 95%;
+      padding: 6px;
+      font-size: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .Add-form-container{
+        margin-top : 10px;
+        padding : 5px;
+    }
+
+    /* TaskLogTable 컴포넌트 스타일 */
+    .task-log-container {
+    padding: 0px;
+  }
+  .log-table{
+    margin-bottom:0px;
+  }
+
+  .log-table th, .log-table td {
+    padding: 8px;
+    font-size: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .log-table th {
+    background-color: #f4f4f4;
+  }
+
+  .pagination button {
+    padding: 3px 6px;
+    font-size: 0.8rem;
+  }
+
+  .form-actions button{
+    margin : 5px;
+  }
+  .Add-form-container button{
+    padding : 7px 14px;
+    font-size: 0.9rem;
+  }
   }

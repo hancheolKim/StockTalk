@@ -138,11 +138,11 @@ const TaskLogTable = () => {
   return (
     <div className="task-log-container">
       <div className="same-line">
-        <span>작업 내역</span>
+        <span className="progress-title">작업 내역</span>
         {/* 작업 내역 추가 버튼 */}
         <button className="add-button" onClick={handleAddButtonClick}>작업 내역 추가</button>
       </div>
-      <table className="table">
+      <table className="log-table">
         <thead>
           <tr>
             <th>번호</th>
@@ -175,6 +175,7 @@ const TaskLogTable = () => {
       {/* 추가/수정 폼 */}
       {showForm && (
         <div className="Add-form-container">
+            <h2>작업 내역 추가/수정</h2>
             {error && <p className="error">{error}</p>}
             <form
             onSubmit={(e) => {
@@ -217,7 +218,7 @@ const TaskLogTable = () => {
                 />
                 </li>
                 <li>
-                <label>설명명 : </label>
+                <label>설명 : </label>
                 <textarea
                     name="description"
                     value={formData.description}
