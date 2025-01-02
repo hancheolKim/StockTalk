@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ProjectInfo.css";
+import TaskLogTable from "./TaskLogTable";
 
 const ProjectInfo = () => {
   const [progress, setProgress] = useState([]);
@@ -351,16 +352,7 @@ const handleRemoveWithStatusCheck = (index) => {
       </table>
       </div>
         <div className="right-container">
-          <img 
-            src={process.env.PUBLIC_URL + '/KakaoTalk_20241231_152120136.jpg'} 
-            alt="Gorapaduck character" 
-            className="gora" 
-          />
-          <span>
-            고라파덕: "새해가 밝았어요! 🎉 올해는 여러분이 꿈꾸는 모든 일이 이루어지길 바랄게요. 💖
-            새해에는 몸도 마음도 튼튼하게! 운동도 열심히 하고, 행복한 공부도 함께 하자구요! 💪
-            2025년에도 항상 행복한 일들만 가득하길! 파이팅~!"
-          </span>
+        <TaskLogTable />
         </div>
       </div>
         );

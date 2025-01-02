@@ -271,7 +271,6 @@ width: 20%;
 
 .main-page-container {
   display: flex;
-  justify-content: space-between;
 }
 
 .left-container {
@@ -279,24 +278,10 @@ width: 20%;
 }
 
 .right-container {
-  width: 35%; /* 크기 조정 */
-  border: 1px solid #ccc;
-  padding: 20px;
+  width: 40%; /* 크기 조정 */
+  padding: 5px;
 }
-.right-container span {
-  font-size: 18px; /* 글자 크기 */
-  color: #4caf50; /* 글자 색상 */
-  font-family: 'Comic Sans MS', cursive, sans-serif; /* 귀여운 폰트 */
-  line-height: 1.6; /* 줄 간격 */
-  text-align: center; /* 가운데 정렬 */
-  display: block; /* 블록 요소로 변경 */
-  margin-top: 20px; /* 위 여백 */
-  font-weight: bold; /* 굵은 글씨 */
-  padding: 10px; /* 안쪽 여백 */
-  background-color: #fff; /* 배경색 추가 */
-  border-radius: 8px; /* 둥근 모서리 */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-}
+
 @media (max-width: 768px) {
   .main-page-container {
     flex-direction: column; /* 세로 방향으로 배치 */
