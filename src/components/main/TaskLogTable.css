@@ -1,146 +1,136 @@
-/* 전체 컨테이너 스타일 */
+/* TaskLogTable 컴포넌트 스타일 */
 .task-log-container {
-    padding : 10px;
-    font-family: Arial, sans-serif;
-    max-width: 100%; /* 최대 너비 제한 */
-    margin: 0 auto; /* 중앙 정렬 */
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-}
-
-/* 테이블 스타일 */
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0px;
-}
-
-.table th, .table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-}
-
-.table th {
-    background-color: #f2f2f2;
-}
-
-.table tbody tr:hover {
-    background-color: #f9f9f9;
-}
-
-/* 폼 스타일 */
-.Add-form-container {
-    margin-top: 30px;
     padding: 20px;
-    max-width: 450px; /* 폼의 최대 너비 제한 */
   }
   
-  .Add-form-container ul {
-    list-style-type: none; /* 기본 리스트 스타일 제거 */
+  span {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: block;
+  }
+  
+  .add-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+  
+  .add-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* 테이블 스타일 */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #f4f4f4;
+  }
+  
+  /* 페이징 버튼 스타일 */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .pagination button {
+    padding: 5px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+  }
+  
+  .pagination button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Add-form-container 스타일 */
+  .Add-form-container {
+    margin-top: 30px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .Add-form-container form ul {
+    list-style-type: none;
     padding: 0;
   }
   
-  .Add-form-container li {
-    margin-bottom: 20px; /* 각 항목 사이에 간격을 주기 */
-    display: flex; /* label과 input을 가로로 배치 */
-    align-items: center; /* 수직 정렬 */
+  .Add-form-container form li {
+    margin-bottom: 10px;
   }
   
   .Add-form-container label {
+    width: 120px;
     font-weight: bold;
-    color: #555;
-    width: 30%; /* label의 너비 설정 */
-  }
-  
-  .Add-form-container .input-description {
-    font-size: 0.9em;
-    color: #777;
-    margin-top: 5px;
-    margin-left: 10px;
+    display: inline-block;
   }
   
   .Add-form-container input,
   .Add-form-container textarea {
-    width: 65%; /* input, textarea의 너비 설정 */
-    padding: 12px;
+    width: 60%;
+    padding: 8px;
+    font-size: 1rem;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
-    font-size: 1em;
+    border-radius: 4px;
+    display: inline-block;
   }
   
-  .Add-form-container input:focus,
-  .Add-form-container textarea:focus {
-    border-color: #4CAF50;
-    outline: none;
+  .Add-form-container textarea {
+    width: 60%;
+    height: 100px;
+  }
+  
+  .Add-form-container .input-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 5px;
   }
   
   .Add-form-container button {
-    padding: 12px 20px;
-    background-color: #4CAF50;
+    background-color: #007bff;
     color: white;
+    padding: 10px 20px;
     border: none;
-    border-radius: 8px;
-    font-size: 1.2em;
     cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-top: 20px;
   }
   
   .Add-form-container button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
   }
   
-/* 버튼 스타일 */
-.edit-button, .delete-button {
-    padding: 5px 10px;
-    margin: 5px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.edit-button:hover, .delete-button:hover {
-    background-color: #0056b3;
-}
-
-/* 모바일 화면에서 폼의 스타일 조정 */
-@media (max-width: 768px) {
-    /* 테이블 스타일 */
-    .table {
-        font-size: 10px;
-    }
-    .table th, .table td {
-        padding: 8px;
-    }
-
-    .Add-form-container {
-        max-width: 100%; /* 모바일에서는 최대 너비를 100%로 설정 */
-        padding: 15px; /* 여백을 약간 줄여줌 */
-    }
-
-    .Add-form-container label {
-        font-size: 14px; /* 라벨 폰트 크기 조정 */
-    }
-
-    .Add-form-container input, .Add-form-container textarea {
-        font-size: 0.9em; /* 폰트 크기 조금 더 키움 */
-        padding: 7px; /* 입력 필드 여백 조정 */
-        margin-bottom: 3px; /* 여백 간격 줄임 */
-    }
-    p{
-        font-size:5px;
-    }
-
-    .Add-form-container textarea {
-        height: 120px; /* 모바일에서 텍스트 영역 높이 설정 */
-    }
-
-    .Add-form-container button {
-        font-size: 1.1em; /* 버튼 크기 조정 */
-    }
-}
+  /* 에러 메시지 스타일 */
+  .error {
+    color: red;
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .form-actions{
+    text-align : center;
+  } 
+  .form-actions button{
+    margin : 10px;
+  }
