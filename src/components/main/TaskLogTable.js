@@ -184,7 +184,7 @@ const TaskLogTable = () => {
             >
             <ul>
                 <li>
-                <label>Task ID : </label>
+                <label>작업 번호 : </label>
                 <input
                     type="number"
                     name="taskId"
@@ -195,7 +195,7 @@ const TaskLogTable = () => {
                 />
                 </li>
                 <li>
-                <label>Task Name : </label>
+                <label>작업 대상 : </label>
                 <input
                     type="text"
                     name="taskName"
@@ -206,7 +206,7 @@ const TaskLogTable = () => {
                 />
                 </li>
                 <li>
-                <label>Title : </label>
+                <label>제목 : </label>
                 <input
                     type="text"
                     name="title"
@@ -217,7 +217,7 @@ const TaskLogTable = () => {
                 />
                 </li>
                 <li>
-                <label>Description : </label>
+                <label>설명명 : </label>
                 <textarea
                     name="description"
                     value={formData.description}
@@ -227,15 +227,16 @@ const TaskLogTable = () => {
                 />
                 </li>
                 <li>
-                <label>Task Date : </label>
-                <input
-                    type="date"
-                    name="taskDate"
-                    value={formData.taskDate}
-                    onChange={handleChange}
-                    required
-                    placeholder="작업 일시를 선택하세요."
-                />
+                    <label>작업 일시 : </label>
+                    <input
+                        type="date"
+                        name="taskDate"
+                        value={formData.taskDate}
+                        onChange={handleChange}
+                        required
+                        placeholder="작업 일시를 선택하세요."
+                        disabled={editing}  // 수정 불가능하도록 설정
+                    />
                 </li>
             </ul>
             <div className="form-actions">
