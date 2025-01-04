@@ -190,8 +190,8 @@ const TaskLogTable = () => {
           {paginatedTaskLogs.length > 0 ? paginatedTaskLogs.map((log) => (
             <tr key={log.logId} onClick={() => handleEdit(log)} style={{ cursor: 'pointer' }}>
               <td>{log.logId}</td>
-              <td>{log.taskName}</td>
-              <td style={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <td className="log-taskName">{log.taskName}</td>
+              <td className=" log-title">
                 {log.title}
               </td>
               <td>{new Date(log.taskDate).toLocaleDateString()}</td>

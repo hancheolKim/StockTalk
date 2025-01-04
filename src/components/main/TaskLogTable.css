@@ -138,6 +138,19 @@
   .form-actions{
     text-align : center;
   } 
+  .log-title{
+    max-width: 150px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+  }
+
+  .log-taskName{
+    max-width: 100px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+  }
 
   @media (max-width: 768px) {
     .Add-form-container input,
@@ -187,5 +200,11 @@
   }
   .Add-form-title{
     font-size: 24px;
+  }
+  .log-title{
+    max-width: 95px;
+  }
+  .log-taskName{
+    max-width: 75px;
   }
   }
