@@ -62,6 +62,7 @@ const TaskLogTable = () => {
           title: "",
           description: "",
           taskDate: "",
+          uptDate: ""
         });
         setShowForm(false); // 폼 숨기기
         setError(""); // 에러 초기화
@@ -171,7 +172,8 @@ const TaskLogTable = () => {
             <th>번호</th>
             <th>작업대상</th>
             <th>제목</th>
-            <th>작업일시</th>
+            <th>일시</th>
+            <th>수정</th>
           </tr>
         </thead>
         <tbody>
@@ -181,6 +183,7 @@ const TaskLogTable = () => {
               <td>{log.taskName}</td>
               <td>{log.title}</td>
               <td>{new Date(log.taskDate).toLocaleDateString()}</td>
+              <td>{new Date(log.uptDate).toLocaleDateString()}</td>
             </tr>
           )) : <tr><td colSpan="4">작업 기록이 없습니다.</td></tr>}
         </tbody>
@@ -247,9 +250,9 @@ const TaskLogTable = () => {
                 <li>
                     <label>작업 일시 : </label>
                     <input
-                        type="date"
+                        type="text"
                         name="taskDate"
-                        value={formData.taskDate}
+                        value={new Date(formData.taskDate).toLocaleDateString()}
                         onChange={handleChange}
                         required
                         placeholder="작업 일시를 선택하세요."
