@@ -92,6 +92,7 @@ const TaskLogTable = () => {
           title: "",
           description: "",
           taskDate: "",
+          uptDate: ""
         });
         setError(""); // 에러 초기화
       } catch (error) {

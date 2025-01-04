@@ -118,9 +118,9 @@
   }
   
   .close-button {
-    font-size: 24px;
+    font-size: 40px;
+    border:none;
     background-color: #f9f9f9;
-    border: 1px solid grey;
     cursor: pointer;
   }
   

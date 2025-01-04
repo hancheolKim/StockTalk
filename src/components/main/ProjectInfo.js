@@ -237,7 +237,9 @@ const calculateTotalProgress = () => {
         </tbody>
       </table>
       <div className="progress-container">
-      <span className="main-title">개발 진행도</span>
+      <span className="main-title">개발 진행도 &nbsp;
+        <small>(전체 진행도 : {calculateTotalProgress()}%)</small>
+      </span>
       <button className="add-button" onClick={handleAdd}>추가</button>
     </div>
       <table className="progress-table">
@@ -355,7 +357,6 @@ const calculateTotalProgress = () => {
             </tr>
           )}
         </tbody>
-        <div className="progress-Percentage">전체 진행도 : {calculateTotalProgress()}%</div>
       </table>
       </div>
         <div className="right-container">
