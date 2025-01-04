@@ -71,7 +71,8 @@
   }
   
   .Add-form-container input,
-  .Add-form-container textarea {
+  .Add-form-container textarea,
+  .Add-form-container select {
     width: 60%;
     padding: 8px;
     font-size: 1rem;
@@ -81,8 +82,8 @@
   }
   
   .Add-form-container textarea {
-    width: 60%;
-    height: 100px;
+    height: 160px;
+    resize: none;
   }
   
   .Add-form-container .input-description {
@@ -91,7 +92,7 @@
     margin-top: 5px;
   }
   
-  .Add-form-container button {
+  .Add-form-container .action-button {
     background-color: #007bff;
     color: white;
     padding: 10px 20px;
@@ -99,13 +100,35 @@
     cursor: pointer;
     border-radius: 4px;
     font-size: 1rem;
-    margin-top: 20px;
+    margin: 20px 10px 10px 10px;
   }
   
-  .Add-form-container button:hover {
+  .Add-form-container .action-button:hover {
     background-color: #0056b3;
   }
+  .form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 세로 중앙 정렬 */
+  }
   
+  .Add-form-title {
+    margin: 0; 
+    text-align: center; 
+    flex-grow: 1; 
+  }
+  
+  .close-button {
+    font-size: 24px;
+    background-color: #f9f9f9;
+    border: 1px solid grey;
+    cursor: pointer;
+  }
+  
+  .close-button:hover {
+    color: red; /* X 버튼에 마우스를 올렸을 때 색 변화 */
+  }
+
   /* 에러 메시지 스타일 */
   .error {
     color: red;
@@ -116,13 +139,11 @@
   .form-actions{
     text-align : center;
   } 
-  .form-actions button{
-    margin : 10px;
-  }
 
   @media (max-width: 768px) {
     .Add-form-container input,
-    .Add-form-container textarea {
+    .Add-form-container textarea,
+    .Add-form-container select {
       width: 95%;
       padding: 6px;
       font-size: 0.8rem;
@@ -144,7 +165,7 @@
   }
 
   .log-table th, .log-table td {
-    padding: 8px;
+    padding: 7px;
     font-size: 10px;
     border-bottom: 1px solid #ddd;
   }
@@ -158,11 +179,14 @@
     font-size: 0.8rem;
   }
 
-  .form-actions button{
+  .form-actions .action-button{
     margin : 5px;
   }
-  .Add-form-container button{
+  .Add-form-container .action-button{
     padding : 7px 14px;
     font-size: 0.9rem;
+  }
+  .Add-form-title{
+    font-size: 24px;
   }
   }

@@ -62,7 +62,6 @@ const TaskLogTable = () => {
           title: "",
           description: "",
           taskDate: "",
-          uptDate: ""
         });
         setShowForm(false); // 폼 숨기기
         setError(""); // 에러 초기화
@@ -74,6 +73,12 @@ const TaskLogTable = () => {
 
   // 로그 수정
   const handleUpdate = async () => {
+        // localStorage에서 userStatus가 'a'인 경우에만 수정
+        if (localStorage.getItem("userStatus") !== "a") {
+          alert("수정 권한이 없습니다.");
+          return;
+        }
+
     if (validateForm()) {
       try {
         await axios.put(`https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/tasklog/${formData.logId}`, formData);
@@ -97,7 +102,7 @@ const TaskLogTable = () => {
 
   // 폼 유효성 검사
   const validateForm = () => {
-    if (!formData.taskId || !formData.taskName || !formData.title || !formData.description || !formData.taskDate) {
+    if (!formData.taskName || !formData.title || !formData.description) {
       setError("모든 필드를 채워주세요.");
       return false;
     }
@@ -106,6 +111,11 @@ const TaskLogTable = () => {
 
   // 로그 삭제
   const handleDelete = async (logId) => {
+    // localStorage에서 userStatus가 'a'인 경우에만 수정
+    if (localStorage.getItem("userStatus") !== "a") {
+      alert("삭제 권한이 없습니다.");
+      return;
+    }
     try {
       await axios.delete(`https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/tasklog/${logId}`);
       fetchTaskLogs(); // 삭제 후 데이터를 다시 가져옵니다.
@@ -183,9 +193,9 @@ const TaskLogTable = () => {
               <td>{log.taskName}</td>
               <td>{log.title}</td>
               <td>{new Date(log.taskDate).toLocaleDateString()}</td>
-              <td>{new Date(log.uptDate).toLocaleDateString()}</td>
+              <td>{log.uptDate ? new Date(log.uptDate).toLocaleDateString() : ""}</td> {/* 여기 수정 */}
             </tr>
-          )) : <tr><td colSpan="4">작업 기록이 없습니다.</td></tr>}
+          )) : <tr><td colSpan="5">작업 기록이 없습니다.</td></tr>}
         </tbody>
       </table>
 
@@ -201,7 +211,15 @@ const TaskLogTable = () => {
       {/* 추가/수정 폼 */}
       {showForm && (
         <div className="Add-form-container">
-            <h2>작업 내역 추가/수정</h2>
+          <div className="form-header">
+                <h2 className="Add-form-title">작업 내역</h2>
+                <button
+                  className="close-button"
+                  onClick={() => setShowForm(false)} // X 버튼 클릭 시 폼을 닫음
+                >
+                  &times;
+                </button>
+              </div>
             {error && <p className="error">{error}</p>}
             <form
             onSubmit={(e) => {
@@ -211,7 +229,7 @@ const TaskLogTable = () => {
             >
             <ul>
             <li>
-              <label>작업 대상: </label>
+              <label>작업 대상 : </label>
               <select
                 name="taskName"
                 value={formData.taskName}
@@ -238,33 +256,51 @@ const TaskLogTable = () => {
                 />
                 </li>
                 <li>
-                <label>설명 : </label>
-                <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    required
-                    placeholder="로그의 자세한 설명을 작성하세요."
-                />
+                  <label>설명 : </label>
+                  <textarea
+                      name="description"
+                      value={formData.description}
+                      onChange={handleChange}
+                      required
+                      placeholder="로그의 자세한 설명을 작성하세요."
+                  />
                 </li>
                 <li>
-                    <label>작업 일시 : </label>
+                <label>작업 일시 : </label>
+                  {editing ? (
                     <input
-                        type="text"
-                        name="taskDate"
-                        value={new Date(formData.taskDate).toLocaleDateString()}
-                        onChange={handleChange}
-                        required
-                        placeholder="작업 일시를 선택하세요."
-                        disabled={editing}  // 수정 불가능하도록 설정
+                      type="text"
+                      name="taskDate"
+                      value={new Date(formData.taskDate).toLocaleDateString()}
+                      onChange={handleChange}
+                      required
+                      disabled={editing} // 수정 불가능하도록 설정
                     />
-                </li>
+                  ) : (
+                    <input
+                      type="text"
+                      name="taskDate"
+                      value={new Date().toLocaleDateString()} // 오늘 날짜를 기본값으로 표시
+                      readOnly // 읽기 전용으로 설정
+                    />
+                  )}
+                  </li>
+                  {formData.uptDate && 
+                    <li>
+                      <label>수정 일시 : </label>
+                      <input type="text"
+                      name="uptDate"
+                      value={new Date(formData.uptDate).toLocaleDateString()}
+                      disabled={editing} // 수정 불가능하도록 설정
+                      />
+                    </li>}
             </ul>
             <div className="form-actions">
-                <button type="submit">{editing ? "수정" : "추가"}</button>
+                <button className="action-button" type="submit">{editing ? "수정" : "추가"}</button>
                 {editing && (
                 <button
                     type="button"
+                    className="action-button"
                     onClick={() => {
                     if (window.confirm("정말로 삭제하시겠습니까?")) {
                         handleDelete(formData.logId);
