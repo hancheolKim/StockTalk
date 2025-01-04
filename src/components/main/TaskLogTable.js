@@ -172,7 +172,7 @@ const TaskLogTable = () => {
   return (
     <div className="task-log-container">
       <div className="same-line">
-        <span className="progress-title">작업 내역</span>
+        <span className="main-title">작업 내역</span>
         {/* 작업 내역 추가 버튼 */}
         <button className="add-button" onClick={handleAddButtonClick}>작업 내역 추가</button>
       </div>
@@ -191,7 +191,9 @@ const TaskLogTable = () => {
             <tr key={log.logId} onClick={() => handleEdit(log)} style={{ cursor: 'pointer' }}>
               <td>{log.logId}</td>
               <td>{log.taskName}</td>
-              <td>{log.title}</td>
+              <td style={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {log.title}
+              </td>
               <td>{new Date(log.taskDate).toLocaleDateString()}</td>
               <td>{log.uptDate ? new Date(log.uptDate).toLocaleDateString() : ""}</td> {/* 여기 수정 */}
             </tr>

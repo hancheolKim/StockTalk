@@ -190,6 +190,12 @@ const handleRemoveWithStatusCheck = (index) => {
   handleRemove(index);
 };
 
+const calculateTotalProgress = () => {
+  const totalProgress = progress.reduce((total, item) => total + item.completionPercentage, 0);
+  const averageProgress = totalProgress / progress.length;
+  return averageProgress.toFixed(2); // 소수점 둘째자리까지 반올림
+};
+
   return (
     <div className="main-page-container">
     <div className="left-container">
@@ -231,7 +237,7 @@ const handleRemoveWithStatusCheck = (index) => {
         </tbody>
       </table>
       <div className="progress-container">
-      <span className="progress-title">개발 진행도</span>
+      <span className="main-title">개발 진행도</span>
       <button className="add-button" onClick={handleAdd}>추가</button>
     </div>
       <table className="progress-table">
@@ -349,6 +355,7 @@ const handleRemoveWithStatusCheck = (index) => {
             </tr>
           )}
         </tbody>
+        <div className="progress-Percentage">전체 진행도 : {calculateTotalProgress()}%</div>
       </table>
       </div>
         <div className="right-container">

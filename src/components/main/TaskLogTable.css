@@ -3,10 +3,9 @@
     padding: 20px;
   }
   
-  span {
+  .progress-title {
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 20px;
     display: block;
   }
   /* 테이블 스타일 */

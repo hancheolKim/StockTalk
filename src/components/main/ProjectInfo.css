@@ -301,3 +301,7 @@ width: 20%;
 .gora{
   max-width: 100%;
 }
+
+.progress-Percentage{
+  white-space: nowrap;
+}
