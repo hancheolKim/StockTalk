@@ -6,6 +6,7 @@ const TaskLogTable = () => {
   const [taskLogs, setTaskLogs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
   const [pageSize, setPageSize] = useState(5); // 한 페이지에 표시할 데이터 수
+  const [progress, setProgress] = useState([]);
   const [formData, setFormData] = useState({
     logId: "",
     taskId: "",
@@ -31,11 +32,20 @@ const TaskLogTable = () => {
   useEffect(() => {
     fetchTaskLogs();
   }, []);
-
-  // 입력 데이터 변경 핸들러
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  
+    if (name === "taskName") {
+      // 선택한 taskName에 해당하는 taskId 찾기
+      const selectedTask = progress.find((item) => item.taskName === value);
+      setFormData({
+        ...formData,
+        taskName: value,
+        taskId: selectedTask ? selectedTask.taskId : "", // taskId 설정
+      });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
 
@@ -135,6 +145,19 @@ const TaskLogTable = () => {
     setCurrentPage(pageNumber);
   };
 
+  const fetchProgress = async () => {
+    try {
+      const response = await axios.get("https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/ProjectProgress/all");
+      setProgress(response.data);
+    } catch (error) {
+      console.error("Failed to fetch progress", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProgress();
+  }, []);
+
   return (
     <div className="task-log-container">
       <div className="same-line">
@@ -146,7 +169,7 @@ const TaskLogTable = () => {
         <thead>
           <tr>
             <th>번호</th>
-            <th>작업목표</th>
+            <th>작업대상</th>
             <th>제목</th>
             <th>작업일시</th>
           </tr>
@@ -184,28 +207,22 @@ const TaskLogTable = () => {
             }}
             >
             <ul>
-                <li>
-                <label>작업 번호 : </label>
-                <input
-                    type="number"
-                    name="taskId"
-                    value={formData.taskId}
-                    onChange={handleChange}
-                    required
-                    placeholder="작업의 고유 번호를 입력하세요."
-                />
-                </li>
-                <li>
-                <label>작업 대상 : </label>
-                <input
-                    type="text"
-                    name="taskName"
-                    value={formData.taskName}
-                    onChange={handleChange}
-                    required
-                    placeholder="작업의 이름을 입력하세요."
-                />
-                </li>
+            <li>
+              <label>작업 대상: </label>
+              <select
+                name="taskName"
+                value={formData.taskName}
+                onChange={(e) => handleChange(e)}
+              >
+                <option value="">작업 대상 선택</option>
+                {progress.map((item) => (
+                  <option key={item.taskId} value={item.taskName}>
+                    {item.taskName}
+                  </option>
+                ))}
+              </select>
+            </li>
+
                 <li>
                 <label>제목 : </label>
                 <input
