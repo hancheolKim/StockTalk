@@ -36,10 +36,7 @@ const LoginModal = ({ onClose }) => {
       const data = await response.json();
 
       if (data.success) {
-        localStorage.setItem("userNum", data.user_num);
-        localStorage.setItem("userId", data.user_id);
-        localStorage.setItem("userStatus", data.user_status);
-
+        localStorage.setItem("user", JSON.stringify(data));
         onClose();
         window.location.reload();
       } else {

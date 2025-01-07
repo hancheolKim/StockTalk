@@ -7,7 +7,7 @@ const ProjectInfo = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editedData, setEditedData] = useState({});
   const [newProgress, setNewProgress] = useState(null); // 새 행 상태
-  const [userStatus, setUserStatus] = useState(localStorage.getItem("userStatus")); // localStorage에서 userStatus 가져오기
+  const [userStatus, setUserStatus] = useState(localStorage.getItem("user").userStatus); // localStorage에서 userStatus 가져오기
 
   // 진행도 데이터 가져오기 함수
   const fetchProgress = async () => {
