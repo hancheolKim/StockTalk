@@ -7,15 +7,7 @@ const ProjectInfo = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editedData, setEditedData] = useState({});
   const [newProgress, setNewProgress] = useState(null); // 새 행 상태
-  const [userData, setUserData] = useState(null);
-
-  useEffect(() => {
-    // 로컬스토리지에서 유저 데이터 가져오기
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
-      setUserData(storedUser.user); // 사용자 정보 저장
-    }
-  }, []);
+  const user = JSON.parse(localStorage.getItem('user'));
 
   // 진행도 데이터 가져오기 함수
   const fetchProgress = async () => {
@@ -34,9 +26,17 @@ const ProjectInfo = () => {
   useEffect(() => {
     fetchProgress();
   }, []);
-
   // 수정 모드 활성화
   const handleEdit = (index) => {
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+    
+    if (user.status !== 'a') {
+      alert("수정 권한이 없습니다.");
+      return;
+    }
     setEditIndex(index);
     setEditedData({ ...progress[index] });
   };
@@ -107,9 +107,14 @@ const ProjectInfo = () => {
 
   // 추가 버튼 핸들러
   const handleAdd = () => {
-    if (userData?.status !== "a") {
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+    
+    if (user.status !== 'a') {
       alert("추가 권한이 없습니다.");
-      return; // 권한이 없는 경우 이벤트를 방지
+      return;
     }
     setNewProgress({
       taskName: "",
@@ -162,6 +167,15 @@ const ProjectInfo = () => {
 
   // 진행 상태 삭제 핸들러
   const handleRemove = async (index) => {
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+    
+    if (user.status !== 'a') {
+      alert("추가 권한이 없습니다.");
+      return;
+    }
     const isConfirmed = window.confirm("정말로 이 항목을 삭제하시겠습니까?");
     if (!isConfirmed) return;
 
@@ -363,7 +377,7 @@ const ProjectInfo = () => {
       </table>
       </div>
       <div className="right-container">
-        <TaskLogTable />
+        <TaskLogTable/>
         </div>
     </div>
   );

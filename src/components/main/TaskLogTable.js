@@ -7,6 +7,9 @@ const TaskLogTable = () => {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
   const [pageSize, setPageSize] = useState(5); // 한 페이지에 표시할 데이터 수
   const [progress, setProgress] = useState([]);
+  const user = JSON.parse(localStorage.getItem('user'));
+  
+  
   const [formData, setFormData] = useState({
     logId: "",
     taskId: "",
@@ -18,6 +21,7 @@ const TaskLogTable = () => {
   const [editing, setEditing] = useState(false);
   const [showForm, setShowForm] = useState(false); // 폼을 보이게 할지 말지 상태
   const [error, setError] = useState(""); // 에러 메시지 상태 추가
+  
 
   // 최근 TaskLog 데이터 가져오기
   const fetchTaskLogs = async () => {
@@ -50,7 +54,17 @@ const TaskLogTable = () => {
 
 
   // 로그 추가
-  const handleAdd = async () => {
+  const handleAdd = async (event) => {
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+    
+    if (user.status !== 'a') {
+      alert("추가 권한이 없습니다.");
+      return;
+    }
+
     if (validateForm()) {
       try {
         await axios.post("https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/tasklog", formData);
@@ -72,13 +86,16 @@ const TaskLogTable = () => {
   };
 
   // 로그 수정
-  const handleUpdate = async () => {
-        // localStorage에서 userStatus가 'a'인 경우에만 수정
-        if (localStorage.getItem("userStatus") !== "a") {
-          alert("수정 권한이 없습니다.");
-          return;
-        }
-
+  const handleUpdate = async (event) => {
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+    
+    if (user.status !== 'a') {
+      alert("추가 권한이 없습니다.");
+      return;
+    }
     if (validateForm()) {
       try {
         await axios.put(`https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/tasklog/${formData.logId}`, formData);
@@ -112,8 +129,12 @@ const TaskLogTable = () => {
 
   // 로그 삭제
   const handleDelete = async (logId) => {
-    // localStorage에서 userStatus가 'a'인 경우에만 수정
-    if (localStorage.getItem("userStatus") !== "a") {
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+    
+    if (user.status !== 'a') {
       alert("삭제 권한이 없습니다.");
       return;
     }

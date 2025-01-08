@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./LoginModal.css"; // 스타일 파일
 
-const LoginModal = ({ onClose }) => {
+const LoginModal = ({ onClose, setIsLoggedIn }) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [idError, setIdError] = useState("");
@@ -34,11 +34,10 @@ const LoginModal = ({ onClose }) => {
       });
 
       const data = await response.json();
-
       if (data.success) {
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("user", JSON.stringify(data.user));
         onClose();
-        window.location.reload();
+        setIsLoggedIn(true);
       } else {
         alert("아이디 또는 비밀번호를 확인하세요.");
       }

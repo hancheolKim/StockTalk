@@ -14,8 +14,15 @@ import ProjectInfo from "./components/main/ProjectInfo";
 const App = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(window.innerWidth >= 768);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  
+    // 컴포넌트 마운트 시 localStorage에서 로그인 정보 확인
+    useEffect(() => {
+      const storedUserData = localStorage.getItem("user");
+      if (storedUserData) {
+        setIsLoggedIn(true);
+      }
+    }, []); // 빈 배열을 넣어 컴포넌트 마운트 시 한 번만 실행
   const toggleNavbar = () => {
     setIsNavVisible((prev) => !prev);
   };
@@ -26,18 +33,20 @@ const App = () => {
         toggleNavbar={toggleNavbar}
         isNavVisible={isNavVisible}
         setShowLoginModal={setShowLoginModal}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
       />
       <div className="app-body">
         <Navbar isVisible={isNavVisible} setIsVisible={setIsNavVisible} />
         <div className="main-container">
-          {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
+          {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} setIsLoggedIn={setIsLoggedIn} />}
           <div className="main-content">
             <Routes>
-              <Route path="/" element={<ProjectInfo />} />
+              <Route path="/" element={<ProjectInfo/>} />
               <Route path="/emp" element={<EMP />} />
-              <Route path="/item" element={<Item />} />
+              <Route path="/item" element={<Item/>} />
               <Route path="/sales" element={<Sales />} />
-              <Route path="/Signup" element={<Signup />} />
+              <Route path="/Signup" element={<Signup/>} />
             </Routes>
           </div>
         </div>

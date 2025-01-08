@@ -1,34 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { Link, location } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Header.css";
 
-const Header = ({ toggleNavbar, isNavVisible, setShowLoginModal}) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(null);
-  const [userStatus, setUserStatus] = useState("");
+const Header = ({ toggleNavbar, isNavVisible, setShowLoginModal, isLoggedIn, setIsLoggedIn }) => {
 
-  useEffect(() => {
-    // 로컬스토리지에서 유저 데이터 가져오기
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
-      setUserData(storedUser.user); // 사용자 정보 저장
-      setIsLoggedIn(true);
-      if (storedUser.user.status === "a") {
-        setUserStatus("어드민");
-      } else if (storedUser.user.status === "m") {
-        setUserStatus("매니저");
-      } else {
-        setUserStatus("사용자");
-      }
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []);
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const handleLogout = () => {
     localStorage.clear();
     setIsLoggedIn(false);
-    setUserData(null); // 로그아웃 시 데이터 초기화
+  };
+
+  // 상태에 따라 사용자 역할 텍스트 변경
+  const getUserRole = (status) => {
+    switch (status) {
+      case 'a':
+        return '어드민';
+      case 'm':
+        return '매니저';
+      case 'u':
+        return '사용자';
+      default:
+        return '미정';
+    }
   };
 
   return (
@@ -41,7 +35,7 @@ const Header = ({ toggleNavbar, isNavVisible, setShowLoginModal}) => {
       <div className="login-section">
         {isLoggedIn ? (
           <div className="loginState">
-            <p>안녕하세요, {userData?.userName}님! ({userStatus})</p>
+            <p>안녕하세요, {user.userName}님! ({getUserRole(user.status)})</p>
             <button className="header-button" onClick={handleLogout}>로그아웃</button>
           </div>
         ) : (
