@@ -7,12 +7,22 @@ const ProjectInfo = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editedData, setEditedData] = useState({});
   const [newProgress, setNewProgress] = useState(null); // 새 행 상태
-  const [userStatus, setUserStatus] = useState(localStorage.getItem("user").userStatus); // localStorage에서 userStatus 가져오기
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    // 로컬스토리지에서 유저 데이터 가져오기
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUserData(storedUser.user); // 사용자 정보 저장
+    }
+  }, []);
 
   // 진행도 데이터 가져오기 함수
   const fetchProgress = async () => {
     try {
-      const response = await fetch("https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/ProjectProgress/all");
+      const response = await fetch(
+        "https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/ProjectProgress/all"
+      );
       const data = await response.json();
       setProgress(data);
     } catch (error) {
@@ -43,13 +53,16 @@ const ProjectInfo = () => {
         item.completionPercentage = 100;
       }
 
-      const response = await fetch(`https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/ProjectProgress/update`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(item),
-      });
+      const response = await fetch(
+        `https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/ProjectProgress/update`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(item),
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to update progress");
 
@@ -92,119 +105,108 @@ const ProjectInfo = () => {
     });
   };
 
-    // 추가 버튼 핸들러
-    const handleAdd = () => {
-      if (userStatus !== "a") {
-        alert("추가 권한이 없습니다.");
-        return; // 권한이 없는 경우 이벤트를 방지
-      }
-      setNewProgress({
-        taskName: "",
-        taskStatus: "대기",
-        completionPercentage: 0,
-      });
-    };
-  
-    const handleSaveNew = async () => {
-      try {
-        const response = await fetch("https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/ProjectProgress/add", {
+  // 추가 버튼 핸들러
+  const handleAdd = () => {
+    if (userData?.status !== "a") {
+      alert("추가 권한이 없습니다.");
+      return; // 권한이 없는 경우 이벤트를 방지
+    }
+    setNewProgress({
+      taskName: "",
+      taskStatus: "대기",
+      completionPercentage: 0,
+    });
+  };
+
+  const handleSaveNew = async () => {
+    try {
+      const response = await fetch(
+        "https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/ProjectProgress/add",
+        {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(newProgress),
-        });
-    
-        const result = await response.json(); // JSON 데이터 처리
-        if (result.status !== "success") throw new Error(result.message);
-    
-        console.log(result.message); // 성공 메시지 출력
-        setProgress((prev) => [...prev, newProgress]);
-        setNewProgress(null);
-      } catch (error) {
-        console.error("Error adding new progress:", error);
-      }
-    };
-
-    
-  
-    // 새 행 취소 핸들러
-    const handleCancelNew = () => {
-      setNewProgress(null);
-    };
-  
-    const handleNewChange = (e) => {
-      const { name, value } = e.target;
-      setNewProgress((prev) => {
-        let newValue = value;
-  
-        if (name === "completionPercentage") {
-          newValue = Math.min(Math.max(parseInt(value, 10), 0), 100) || ""; // 0 ~ 100 범위
         }
-  
-        return { ...prev, [name]: newValue };
-      });
-    };
+      );
 
-    // 진행 상태 삭제 핸들러
-  const handleRemove = async (index) => {
-  // 사용자에게 삭제 확인 요청
-  const isConfirmed = window.confirm("정말로 이 항목을 삭제하시겠습니까?");
-  if (!isConfirmed) return;
+      const result = await response.json();
+      if (result.status !== "success") throw new Error(result.message);
 
-  try {
-    const taskId = progress[index].taskId; // 삭제할 항목의 ID를 가져옴
+      console.log(result.message); // 성공 메시지 출력
+      setProgress((prev) => [...prev, newProgress]);
+      setNewProgress(null);
+    } catch (error) {
+      console.error("Error adding new progress:", error);
+    }
+  };
 
-    // 서버에 삭제 요청 보내기
-    const response = await fetch(`https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/ProjectProgress/delete/${taskId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
+  // 새 행 취소 핸들러
+  const handleCancelNew = () => {
+    setNewProgress(null);
+  };
+
+  const handleNewChange = (e) => {
+    const { name, value } = e.target;
+    setNewProgress((prev) => {
+      let newValue = value;
+
+      if (name === "completionPercentage") {
+        newValue = Math.min(Math.max(parseInt(value, 10), 0), 100) || ""; // 0 ~ 100 범위
+      }
+
+      return { ...prev, [name]: newValue };
     });
+  };
 
-    if (!response.ok) throw new Error("삭제에 실패했습니다.");
+  // 진행 상태 삭제 핸들러
+  const handleRemove = async (index) => {
+    const isConfirmed = window.confirm("정말로 이 항목을 삭제하시겠습니까?");
+    if (!isConfirmed) return;
 
-    // 삭제 성공 시 progress 상태에서 해당 항목 제거
-    const updatedProgress = progress.filter((_, i) => i !== index);
-    setProgress(updatedProgress);
+    try {
+      const taskId = progress[index].taskId;
 
-    console.log("진행 상태가 삭제되었습니다.");
-  } catch (error) {
-    console.error("진행 상태 삭제 중 오류가 발생했습니다:", error);
-  }
-};
-const handleEditWithStatusCheck = (index) => {
-  if (userStatus !== "a") {
-    alert("수정 권한이 없습니다.");
-    return; // 권한이 없는 경우 이벤트를 방지
-  }
-  handleEdit(index);
-};
+      const response = await fetch(
+        `https://n0b85a7897a3e9c3213c819af9d418042.apppaas.app/ProjectProgress/delete/${taskId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-const handleRemoveWithStatusCheck = (index) => {
-  if (userStatus !== "a") {
-    alert("삭제 권한이 없습니다.");
-    return; // 권한이 없는 경우 이벤트를 방지
-  }
-  handleRemove(index);
-};
+      if (!response.ok) throw new Error("삭제에 실패했습니다.");
 
-const calculateTotalProgress = () => {
-  const totalProgress = progress.reduce((total, item) => total + item.completionPercentage, 0);
-  const averageProgress = totalProgress / progress.length;
-  return averageProgress.toFixed(2); // 소수점 둘째자리까지 반올림
-};
+      const updatedProgress = progress.filter((_, i) => i !== index);
+      setProgress(updatedProgress);
+
+      console.log("진행 상태가 삭제되었습니다.");
+    } catch (error) {
+      console.error("진행 상태 삭제 중 오류가 발생했습니다:", error);
+    }
+  };
+
+  const calculateTotalProgress = () => {
+    const totalProgress = progress.reduce(
+      (total, item) => total + item.completionPercentage,
+      0
+    );
+    const averageProgress = totalProgress / progress.length;
+    return averageProgress.toFixed(2); // 소수점 둘째 자리
+  };
 
   return (
     <div className="main-page-container">
-    <div className="left-container">
-      <span className="main-title">김한철의 ERP 포트폴리오</span>
-      <p className="description">
-        이 프로젝트는 ERP 시스템을 구현하여 기업 관리 프로세스를 최적화하기 위한 목적으로 제작되었습니다.
-      </p>
-      
-      <table className="info-table">
+      <div className="left-container">
+        <span className="main-title">김한철의 ERP 포트폴리오</span>
+        <p className="description">
+          이 프로젝트는 ERP 시스템을 구현하여 기업 관리 프로세스를 최적화하기 위한
+          목적으로 제작되었습니다.
+        </p>
+        <table className="info-table">
         <tbody>
           <tr>
             <th>📘 개발 언어</th>
@@ -236,6 +238,7 @@ const calculateTotalProgress = () => {
           </tr>
         </tbody>
       </table>
+
       <div className="progress-container">
       <span className="main-title">개발 진행도 &nbsp;
         <small>(전체 진행도 : {calculateTotalProgress()}%)</small>
@@ -300,10 +303,10 @@ const calculateTotalProgress = () => {
                     </>
                   ) : (
                     <>
-                      <button className="edit-button" onClick={() => handleEditWithStatusCheck(index)}>
+                      <button className="edit-button" onClick={() => handleEdit(index)}>
                         수정
                       </button>
-                      <button className="remove-button" onClick={() => handleRemoveWithStatusCheck(index)}>
+                      <button className="remove-button" onClick={() => handleRemove(index)}>
                         삭제
                       </button>
                     </>
@@ -359,11 +362,11 @@ const calculateTotalProgress = () => {
         </tbody>
       </table>
       </div>
-        <div className="right-container">
+      <div className="right-container">
         <TaskLogTable />
         </div>
-      </div>
-        );
+    </div>
+  );
 };
 
 export default ProjectInfo;

@@ -22,7 +22,6 @@ const App = () => {
 
   return (
     <div className="app">
-
       <Header
         toggleNavbar={toggleNavbar}
         isNavVisible={isNavVisible}
