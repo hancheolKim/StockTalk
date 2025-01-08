@@ -54,14 +54,6 @@ const SignupPage = () => {
             required
           />
         </div>
-        <div className="form-group">
-          <label>상태</label>
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
-            <option value="u">사용자</option>
-            <option value="m">매니저</option>
-            <option value="a">어드민</option>
-          </select>
-        </div>
         <div className="form-actions">
           <button type="submit">회원가입</button>
         </div>

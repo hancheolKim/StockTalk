@@ -23,6 +23,21 @@ const App = () => {
         setIsLoggedIn(true);
       }
     }, []); // 빈 배열을 넣어 컴포넌트 마운트 시 한 번만 실행
+
+  // 화면 크기 변경 시 Navbar 표시/숨김 상태 업데이트
+  useEffect(() => {
+    const handleResize = () => {
+      setIsNavVisible(window.innerWidth >= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // 컴포넌트 언마운트 시 리스너 제거
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const toggleNavbar = () => {
     setIsNavVisible((prev) => !prev);
   };

@@ -93,6 +93,11 @@ header {
     gap: 10px; /* 버튼 사이 간격 좁히기 */
   }
 
+  .no-login button{
+    font-size : 0.7rem;
+    padding : 5px 10px;
+  }
+
   .loginState p {
     display: none; /* 유저 문구 숨기기 */
   }

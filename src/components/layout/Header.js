@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
@@ -39,7 +39,7 @@ const Header = ({ toggleNavbar, isNavVisible, setShowLoginModal, isLoggedIn, set
             <button className="header-button" onClick={handleLogout}>로그아웃</button>
           </div>
         ) : (
-          <div className="loginState">
+          <div className="no-login">
             <button className="header-button" onClick={() => setShowLoginModal(true)}>로그인</button>
             <Link to="/Signup" style={{ textDecoration: 'none' }}>
               <button className="header-button">
