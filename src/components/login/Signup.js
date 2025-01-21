@@ -32,6 +32,7 @@ const checkIdAvailability = async () => {
   return (
     <div className="signup-page">
     <h2>회원가입</h2>
+    미완성폼입니다.
       <div className="signup-form-container">
 
       <form onSubmit={handleSubmit} className="signup-form">
