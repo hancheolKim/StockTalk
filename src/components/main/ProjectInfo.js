@@ -173,7 +173,7 @@ const ProjectInfo = () => {
     }
     
     if (user.status !== 'a') {
-      alert("추가 권한이 없습니다.");
+      alert("삭제 권한이 없습니다.");
       return;
     }
     const isConfirmed = window.confirm("정말로 이 항목을 삭제하시겠습니까?");
@@ -215,10 +215,9 @@ const ProjectInfo = () => {
   return (
     <div className="main-page-container">
       <div className="left-container">
-        <span className="main-title">김한철의 ERP 포트폴리오</span>
+        <span className="main-title">StockTalk</span>
         <p className="description">
-          이 프로젝트는 ERP 시스템을 구현하여 기업 관리 프로세스를 최적화하기 위한
-          목적으로 제작되었습니다.
+        증권과 재무 지표를 쉽게 이해하고 분석할 수 있는 플랫폼을 목표로 개발중입니다!
         </p>
         <table className="info-table">
         <tbody>
