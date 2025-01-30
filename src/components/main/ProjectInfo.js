@@ -245,10 +245,6 @@ const ProjectInfo = () => {
             <th>🚀 배포 환경</th>
             <td>AppPass </td>
           </tr>
-          <tr>
-            <th>💳 결제 API</th>
-            <td>포트원 API (PG 연동 및 결제 트래킹 구현)</td>
-          </tr>
         </tbody>
       </table>
 
