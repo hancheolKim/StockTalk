@@ -245,6 +245,10 @@ const ProjectInfo = () => {
             <th>🚀 배포 환경</th>
             <td>AppPass </td>
           </tr>
+          <tr>
+            <th>📡 데이터 제공</th>
+            <td>키움증권 OpenAPI</td>
+          </tr>
         </tbody>
       </table>
 
