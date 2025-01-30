@@ -28,7 +28,7 @@ const Header = ({ toggleNavbar, isNavVisible, setShowLoginModal, isLoggedIn, set
   return (
     <header className="header">
       <h1 className="header-title">
-        <Link to="/" className="Header-button">HANCHEOL ERP</Link>
+        <Link to="/" className="Header-button">StockTalk</Link>
       </h1>
 
       {/* 로그인 상태에 따라 버튼 표시 */}
