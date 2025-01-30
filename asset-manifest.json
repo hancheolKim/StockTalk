@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/StockTalk/static/css/main.14882836.css",
-    "main.js": "/StockTalk/static/js/main.10d3eaf4.js",
+    "main.js": "/StockTalk/static/js/main.98207943.js",
     "static/js/453.46dab98c.chunk.js": "/StockTalk/static/js/453.46dab98c.chunk.js",
     "index.html": "/StockTalk/index.html",
     "main.14882836.css.map": "/StockTalk/static/css/main.14882836.css.map",
-    "main.10d3eaf4.js.map": "/StockTalk/static/js/main.10d3eaf4.js.map",
+    "main.98207943.js.map": "/StockTalk/static/js/main.98207943.js.map",
     "453.46dab98c.chunk.js.map": "/StockTalk/static/js/453.46dab98c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.14882836.css",
-    "static/js/main.10d3eaf4.js"
+    "static/js/main.98207943.js"
   ]
 }
