@@ -28,7 +28,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://hancheolKim.github.io/react_real",
+  "homepage": "https://hancheolkim.github.io/StockTalk",
   "eslintConfig": {
     "extends": [
       "react-app",
